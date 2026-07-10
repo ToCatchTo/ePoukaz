@@ -25,11 +25,11 @@ export default function ContactBlock() {
         {/* Pole zprávy */}
         <Grid size={6}>
           <Stack spacing={2}>
-            <InputBase placeholder="*Email" sx={{ bgcolor: '#F5F5F5', borderRadius: 3, px: 2, py: 1.2 }} />
+            <InputBase placeholder="*Email" sx={{ bgcolor: '#F5F5F5', borderRadius: 3, px: 2.5, py: 1.5, fontSize: 20 }} />
             <InputBase
               placeholder={`*${CONTACT.messageLabel}`}
               multiline minRows={3}
-              sx={{ bgcolor: '#F5F5F5', borderRadius: 3, px: 2, py: 1.2 }}
+              sx={{ bgcolor: '#F5F5F5', borderRadius: 3, px: 2.5, py: 1.5, fontSize: 20 }}
             />
           </Stack>
         </Grid>

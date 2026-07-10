@@ -43,7 +43,7 @@ export default function HomePage() {
                       <StarIcon key={i} sx={{ color: '#FFE346', fontSize: 16 }} />
                     ))}
                   </Stack>
-                  <Typography sx={{ color: 'primary.main', fontSize: 16, fontWeight: 700 }}>{t.name}</Typography>
+                  <Typography sx={{ color: 'primary.main', fontSize: 16, fontWeight: 500 }}>{t.name}</Typography>
                   <Typography sx={{ color: '#939393', fontSize: 13 }}>{t.role}</Typography>
                   <Typography sx={{ fontSize: 14, mt: 0.5 }}>„{t.quote}"</Typography>
                 </Box>
@@ -89,7 +89,7 @@ export default function HomePage() {
               <Grid size={4} key={p.title}>
                 <Box sx={{ bgcolor: p.color, borderRadius: CARD_R_SM, p: 4, minHeight: 360, textAlign: 'center' }}>
                   <Typography variant="h4" sx={{ mb: 2, textDecoration: 'underline' }}>{p.title}</Typography>
-                  <Typography sx={{ fontSize: 17, lineHeight: 1.6 }}>{p.text}</Typography>
+                  <Typography sx={{ fontSize: 18, lineHeight: 1.6 }}>{p.text}</Typography>
                 </Box>
               </Grid>
             ))}

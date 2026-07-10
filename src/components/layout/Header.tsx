@@ -18,7 +18,7 @@ export default function Header() {
       <Grid container spacing={2} sx={{ alignItems: 'center' }}>
         {/* Logo */}
         <Grid size="auto">
-          <MuiLink component={RouterLink} to="/" underline="none" sx={{ fontSize: 22, color: '#000' }}>
+          <MuiLink component={RouterLink} to="/" underline="none" sx={{ fontSize: 26, color: '#000' }}>
             <b>ePoukaz</b><Box component="span" sx={{ color: '#939393' }}>online</Box>
           </MuiLink>
         </Grid>
@@ -32,7 +32,7 @@ export default function Header() {
                 component={RouterLink}
                 to={l.to}
                 underline="none"
-                sx={{ fontWeight: 700, fontSize: 18, color: active ? 'primary.main' : '#000' }}
+                sx={{ fontWeight: 700, fontSize: 20, color: active ? 'primary.main' : '#000' }}
               >
                 {l.label}
               </MuiLink>

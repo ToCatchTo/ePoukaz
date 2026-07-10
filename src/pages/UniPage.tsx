@@ -19,7 +19,7 @@ export default function UniPage() {
           <Typography variant="h3" sx={{ mb: 4 }}>{UNI.title}</Typography>
           <Stack spacing={2.5}>
             {UNI.paragraphs.map((p, i) => (
-              <Typography key={i} sx={{ fontSize: 16, lineHeight: 1.7 }}>{p}</Typography>
+              <Typography key={i} sx={{ fontSize: 18, lineHeight: 1.7 }}>{p}</Typography>
             ))}
           </Stack>
         </SectionCard>

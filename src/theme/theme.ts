@@ -20,12 +20,14 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: 'Poppins, Arial, sans-serif',
-    h1: { fontWeight: 700, fontSize: 90, lineHeight: 1.05 },
-    h2: { fontWeight: 700, fontSize: 50, lineHeight: 1.1 },
-    h3: { fontWeight: 700, fontSize: 42, lineHeight: 1.15 },
-    h4: { fontWeight: 700, fontSize: 30 },
-    h5: { fontWeight: 700, fontSize: 26 },
-    button: { textTransform: 'none', fontWeight: 700 },
+    // Velikosti přesně z XD návrhu (px / řez)
+    h1: { fontWeight: 700, fontSize: 90, lineHeight: 1.05 }, // hero, „6 problémů", nadpis formuláře
+    h2: { fontWeight: 700, fontSize: 50, lineHeight: 1.1 }, // CTA „A to není vše!"
+    h3: { fontWeight: 700, fontSize: 42, lineHeight: 1.15 }, // nadpis ceníku, univerzální podstránky
+    h4: { fontWeight: 700, fontSize: 30, lineHeight: 1.2 }, // nadpisy karet, „Nástroje", e-mail/telefon
+    h5: { fontWeight: 700, fontSize: 26, lineHeight: 1.25 }, // kroky „Jak to funguje"
+    h6: { fontWeight: 700, fontSize: 20, lineHeight: 1.3 }, // navigace, nadpisy sloupců, název tarifu
+    button: { textTransform: 'none', fontWeight: 700, fontSize: 18 },
   },
   shape: { borderRadius: 24 },
   components: {

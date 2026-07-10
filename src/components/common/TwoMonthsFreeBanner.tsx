@@ -8,7 +8,7 @@ export default function TwoMonthsFreeBanner() {
       <Grid container sx={{ alignItems: 'center' }}>
         <Grid size={7} sx={{ px: 8, py: 6 }}>
           <Stack spacing={2}>
-            <Typography sx={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1 }}>{TWO_MONTHS.title}</Typography>
+            <Typography sx={{ fontSize: 74, fontWeight: 700, lineHeight: 1.1 }}>{TWO_MONTHS.title}</Typography>
             <Typography sx={{ fontSize: 18 }}>{TWO_MONTHS.text}</Typography>
           </Stack>
         </Grid>

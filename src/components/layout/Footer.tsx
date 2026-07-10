@@ -40,7 +40,7 @@ export default function Footer({ withCta = false }: { withCta?: boolean }) {
               <b>ePoukaz</b><Box component="span" sx={{ color: '#939393' }}>online</Box>
             </Typography>
             {FOOTER.company.map((line) => (
-              <Typography key={line} sx={{ fontSize: 14, color: '#000', lineHeight: 2 }}>{line}</Typography>
+              <Typography key={line} sx={{ fontSize: 16, color: '#000', lineHeight: 2 }}>{line}</Typography>
             ))}
           </Grid>
           {/* 3 sloupce odkazů oddělené svislou čarou */}
@@ -49,9 +49,9 @@ export default function Footer({ withCta = false }: { withCta?: boolean }) {
               <Grid container spacing={4}>
                 {FOOTER.columns.map((col) => (
                   <Grid size={4} key={col.title}>
-                    <Typography sx={{ fontWeight: 700, mb: 2 }}>{col.title}</Typography>
+                    <Typography sx={{ fontWeight: 700, fontSize: 20, mb: 2 }}>{col.title}</Typography>
                     {col.links.map((link) => (
-                      <Typography key={link} sx={{ fontSize: 14, color: '#000', lineHeight: 2.2 }}>{link}</Typography>
+                      <Typography key={link} sx={{ fontSize: 16, color: '#000', lineHeight: 2.2 }}>{link}</Typography>
                     ))}
                   </Grid>
                 ))}
@@ -61,14 +61,14 @@ export default function Footer({ withCta = false }: { withCta?: boolean }) {
         </Grid>
 
         {/* Copyright */}
-        <Typography sx={{ textAlign: 'center', fontSize: 14, color: '#000', mt: 8 }}>
+        <Typography sx={{ textAlign: 'center', fontSize: 16, color: '#000', mt: 8 }}>
           {FOOTER.copyright}
         </Typography>
       </Box>
       </Box>
 
       {/* Kredit agentury – pod kartou na fialové */}
-      <Typography sx={{ textAlign: 'center', color: '#fff', fontWeight: 700, mt: 5 }}>
+      <Typography sx={{ textAlign: 'center', color: '#fff', fontWeight: 700, fontSize: 16, mt: 5 }}>
         {FOOTER.credit}
       </Typography>
     </>

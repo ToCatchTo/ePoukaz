@@ -33,8 +33,8 @@ export default function CenikPage() {
                 <Box sx={{ bgcolor: '#fff', borderRadius: '40px', p: 4, height: '100%',
                            boxShadow: '0 8px 30px rgba(0,0,0,0.06)',
                            border: p.highlighted ? `2px solid ${ACCENT.purple}` : '1px solid #eee' }}>
-                  <Typography sx={{ fontWeight: 700, color: ACCENT[p.accent], mb: 1 }}>{p.name}</Typography>
-                  <Typography sx={{ fontSize: 56, fontWeight: 500, color: ACCENT[p.accent], lineHeight: 1.1 }}>{p.price}</Typography>
+                  <Typography sx={{ fontWeight: 700, fontSize: 20, color: ACCENT[p.accent], mb: 1 }}>{p.name}</Typography>
+                  <Typography sx={{ fontSize: 64, fontWeight: 500, color: ACCENT[p.accent], lineHeight: 1.1 }}>{p.price}</Typography>
                   <Typography sx={{ fontSize: 11, color: '#939393', mb: 3 }}>{p.note}</Typography>
                   <Stack spacing={1} sx={{ mb: 4 }}>
                     {p.features.map((f) => <Typography key={f} sx={{ fontSize: 16 }}>{f}</Typography>)}
@@ -53,13 +53,13 @@ export default function CenikPage() {
           <Box sx={{ mt: 8 }}>
             <Grid container sx={{ py: 1.5, borderBottom: '2px solid #000' }}>
               <Grid size={6}><Typography variant="h4">Nástroje</Typography></Grid>
-              <Grid size={2} sx={{ textAlign: 'center' }}><Typography sx={{ fontWeight: 700 }}>Start</Typography></Grid>
-              <Grid size={2} sx={{ textAlign: 'center' }}><Typography sx={{ fontWeight: 700, color: ACCENT.purple }}>Pro</Typography></Grid>
-              <Grid size={2} sx={{ textAlign: 'center' }}><Typography sx={{ fontWeight: 700, color: ACCENT.teal }}>Premium</Typography></Grid>
+              <Grid size={2} sx={{ textAlign: 'center' }}><Typography sx={{ fontWeight: 700, fontSize: 20 }}>Start</Typography></Grid>
+              <Grid size={2} sx={{ textAlign: 'center' }}><Typography sx={{ fontWeight: 700, fontSize: 20, color: ACCENT.purple }}>Pro</Typography></Grid>
+              <Grid size={2} sx={{ textAlign: 'center' }}><Typography sx={{ fontWeight: 700, fontSize: 20, color: ACCENT.teal }}>Premium</Typography></Grid>
             </Grid>
             {COMPARE_ROWS.map((r) => (
               <Grid container key={r.label} sx={{ py: 1.5, borderBottom: '1px solid #e6e6e6', alignItems: 'center' }}>
-                <Grid size={6}><Typography sx={{ color: '#5A5A5A' }}>{r.label}</Typography></Grid>
+                <Grid size={6}><Typography sx={{ color: '#5A5A5A', fontSize: 18 }}>{r.label}</Typography></Grid>
                 <Grid size={2} sx={{ textAlign: 'center' }}>{r.start && <CheckCircleIcon sx={{ color: '#000' }} />}</Grid>
                 <Grid size={2} sx={{ textAlign: 'center' }}>{r.pro && <CheckCircleIcon sx={{ color: ACCENT.purple }} />}</Grid>
                 <Grid size={2} sx={{ textAlign: 'center' }}>{r.premium && <CheckCircleIcon sx={{ color: ACCENT.teal }} />}</Grid>
@@ -70,7 +70,7 @@ export default function CenikPage() {
         </Box>
 
         {/* SMS poznámka – bílý text na fialové */}
-        <Typography sx={{ color: '#fff', fontSize: 15, my: 5, lineHeight: 1.7 }}>{SMS_NOTE}</Typography>
+        <Typography sx={{ color: '#fff', fontSize: 18, my: 5, lineHeight: 1.7 }}>{SMS_NOTE}</Typography>
 
         <TwoMonthsFreeBanner />
         <TryForFreeForm />
