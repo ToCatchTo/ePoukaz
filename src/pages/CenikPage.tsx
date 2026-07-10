@@ -3,6 +3,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import SectionCard from '../components/common/SectionCard'
 import TwoMonthsFreeBanner from '../components/common/TwoMonthsFreeBanner'
 import TryForFreeForm from '../components/common/TryForFreeForm'
+import DecorLines from '../components/common/DecorLines'
 import Footer from '../components/layout/Footer'
 import { CONTENT_W } from '../theme/layout'
 import { CENIK_HEAD, PRICING, COMPARE_ROWS, SMS_NOTE } from '../data/content'
@@ -15,8 +16,10 @@ export default function CenikPage() {
     <Box data-testid="page-cenik">
       {/* Obsahový sloupec 1364 px */}
       <Box sx={{ maxWidth: CONTENT_W, mx: 'auto' }}>
-        {/* Světlá karta s tarify a tabulkou (#F5F5F5 dle návrhu) */}
-        <SectionCard sx={{ my: 4, bgcolor: '#F5F5F5' }}>
+        {/* Světlá karta s tarify a tabulkou (#F5F5F5) + vlnité čáry za horní částí */}
+        <Box sx={{ position: 'relative', mt: 4 }}>
+        <DecorLines sx={{ top: 110 }} />
+        <SectionCard sx={{ bgcolor: '#F5F5F5', position: 'relative', zIndex: 1 }}>
           {/* Nadpis */}
           <Stack spacing={2} sx={{ textAlign: 'center', mb: 6, alignItems: 'center' }}>
             <Typography variant="h3">{CENIK_HEAD.title}</Typography>
@@ -64,6 +67,7 @@ export default function CenikPage() {
             ))}
           </Box>
         </SectionCard>
+        </Box>
 
         {/* SMS poznámka – bílý text na fialové */}
         <Typography sx={{ color: '#fff', fontSize: 15, my: 5, lineHeight: 1.7 }}>{SMS_NOTE}</Typography>

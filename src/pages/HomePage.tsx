@@ -3,7 +3,7 @@ import StarIcon from '@mui/icons-material/Star'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import SectionCard from '../components/common/SectionCard'
 import CircleArrowButton from '../components/common/CircleArrowButton'
-import WavePattern from '../components/common/WavePattern'
+import DecorLines from '../components/common/DecorLines'
 import TryForFreeForm from '../components/common/TryForFreeForm'
 import Footer from '../components/layout/Footer'
 import { CONTENT_W, CARD_R_SM } from '../theme/layout'
@@ -52,8 +52,10 @@ export default function HomePage() {
           </Grid>
         </Grid>
 
-        {/* Vodorovný pás vzoru mezi hero a sekcí */}
-        <WavePattern sx={{ height: 140, my: 4 }} />
+        {/* Viditelný pás vlnitých čar – přechod pod hero */}
+        <Box sx={{ position: 'relative', height: 240, my: 2 }}>
+          <DecorLines sx={{ top: '50%', transform: 'translate(-50%, -50%)' }} />
+        </Box>
 
         {/* JAK TO FUNGUJE – accordion 8 kroků + placeholder mockupu */}
         <SectionCard id="jak-to-funguje" sx={{ my: 8 }}>

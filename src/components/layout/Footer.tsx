@@ -1,5 +1,6 @@
 import { Box, Button, Divider, Grid, Stack, Typography } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import DecorLines from '../common/DecorLines'
 import { FOOTER, CTA_BANNER } from '../../data/content'
 import { WIDE_W, CARD_R } from '../../theme/layout'
 
@@ -9,7 +10,10 @@ import { WIDE_W, CARD_R } from '../../theme/layout'
 export default function Footer({ withCta = false }: { withCta?: boolean }) {
   return (
     <>
-      <Box sx={{ width: WIDE_W, maxWidth: '100%', mx: 'auto', bgcolor: '#fff', borderRadius: CARD_R, px: 12, py: 8 }}>
+      {/* Vlnité čáry za horní částí patiční karty – prosvítají v okrajích */}
+      <Box sx={{ position: 'relative' }}>
+      <DecorLines sx={{ top: 90 }} />
+      <Box sx={{ position: 'relative', zIndex: 1, width: WIDE_W, maxWidth: '100%', mx: 'auto', bgcolor: '#fff', borderRadius: CARD_R, px: 12, py: 8 }}>
         {/* CTA blok (jen homepage a ceník) */}
         {withCta && (
           <>
@@ -60,6 +64,7 @@ export default function Footer({ withCta = false }: { withCta?: boolean }) {
         <Typography sx={{ textAlign: 'center', fontSize: 14, color: '#000', mt: 8 }}>
           {FOOTER.copyright}
         </Typography>
+      </Box>
       </Box>
 
       {/* Kredit agentury – pod kartou na fialové */}
