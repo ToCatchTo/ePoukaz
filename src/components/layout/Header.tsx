@@ -17,7 +17,7 @@ export default function Header() {
         {/* Logo */}
         <Grid size="auto">
           <MuiLink component={RouterLink} to="/" underline="none" sx={{ fontSize: 22, color: '#000' }}>
-            <b>ePoukaz</b><span style={{ color: '#939393' }}>online</span>
+            <b>ePoukaz</b><Box component="span" sx={{ color: '#939393' }}>online</Box>
           </MuiLink>
         </Grid>
         <Grid size="grow" />

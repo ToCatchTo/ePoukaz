@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Firma */}
           <Grid size={4}>
             <Typography sx={{ fontSize: 22, mb: 2 }}>
-              <b>ePoukaz</b><span style={{ color: '#939393' }}>online</span>
+              <b>ePoukaz</b><Box component="span" sx={{ color: '#939393' }}>online</Box>
             </Typography>
             {FOOTER.company.map((line) => (
               <Typography key={line} sx={{ fontSize: 14, color: '#000' }}>{line}</Typography>

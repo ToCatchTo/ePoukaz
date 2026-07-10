@@ -5,7 +5,7 @@ import type { SxProps, Theme } from '@mui/material'
 // Vykresleno opakovaným SVG přes CSS background.
 const wave = encodeURIComponent(
   `<svg xmlns='http://www.w3.org/2000/svg' width='60' height='30'>
-     <path d='M0 30 A30 30 0 0 1 60 30' fill='none' stroke='%2300C7BF' stroke-width='2'/>
+     <path d='M0 30 A30 30 0 0 1 60 30' fill='none' stroke='#00C7BF' stroke-width='2'/>
    </svg>`,
 )
 export default function WavePattern({ sx }: { sx?: SxProps<Theme> }) {

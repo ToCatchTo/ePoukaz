@@ -149,6 +149,7 @@ export const FOOTER = {
     'Společnost zapsána pod značkou',
     'C 450020/MSPH Městským soudem v Praze',
   ],
+  // Pozn.: sloupce „Obecné" a „Doplňkové služby" mají dle XD návrhu shodné odkazy (záměr, ne překlep).
   columns: [
     { title: 'Jak na to?', links: ['Jak implementovat', 'Jak to funguje?', 'Video tutorial', 'FAQ'] },
     { title: 'Obecné', links: ['Rozšíření aplikace na míru', 'Tvorba webu se SLEVOU', 'Tvorba loga se SLEVOU'] },
