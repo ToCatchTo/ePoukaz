@@ -52,9 +52,10 @@ export default function HomePage() {
           </Grid>
         </Grid>
 
-        {/* Viditelný pás vlnitých čar – přechod pod hero */}
-        <Box sx={{ position: 'relative', height: 240, my: 2 }}>
-          <DecorLines sx={{ top: '50%', transform: 'translate(-50%, -50%)' }} />
+        {/* Viditelný pás vlnitých čar – přechod pod hero.
+            Full-bleed (100vw) s ořezem na výšku, aby nepřetékal do hero ani do karty. */}
+        <Box sx={{ position: 'relative', left: '50%', transform: 'translateX(-50%)', width: '100vw', height: 190, overflow: 'hidden', my: 6 }}>
+          <DecorLines sx={{ top: -100, left: 0, transform: 'none' }} />
         </Box>
 
         {/* JAK TO FUNGUJE – accordion 8 kroků + placeholder mockupu */}
