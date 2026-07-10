@@ -13,7 +13,7 @@ export default function Header() {
         boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
       }}
     >
-      <Grid container alignItems="center" spacing={2}>
+      <Grid container spacing={2} sx={{ alignItems: 'center' }}>
         {/* Logo */}
         <Grid size="auto">
           <MuiLink component={RouterLink} to="/" underline="none" sx={{ fontSize: 22, color: '#000' }}>

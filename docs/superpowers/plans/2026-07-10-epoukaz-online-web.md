@@ -11,7 +11,9 @@
 ## Global Constraints
 
 - **Jen desktop, žádná responzivita** — pevná šířka obsahu, žádné breakpointy pro mobil.
-- **Rozvržení přes MUI `Grid`** (nový Grid v6 se `size` prop) všude, kde to dává smysl.
+- **Rozvržení přes MUI `Grid`** (nainstalované MUI **v9**, nový Grid se `size` prop) všude, kde to dává smysl.
+- **POZOR MUI v9 `Grid`:** přijímá jen propy `container`, `size`, `spacing`, `columns`, `direction`, `offset`, `wrap`. **`alignItems`, `justifyContent` ani `textAlign` NEJSOU propy `Grid`** — patří do `sx` (např. `<Grid container sx={{ alignItems: 'center' }}>`). (`Stack` naopak `alignItems` jako prop podporuje — u Stacku je to OK.)
+- **Typová brána = `npm run build`** (spouští `tsc -b`, který reálně typuje `src/`). `npx tsc --noEmit` je s root tsconfig (`files: []`) **no-op** a chyby nezachytí — každý task musí projít `npm run build`.
 - **Komentáře v kódu česky.**
 - **Font Poppins** (náhrada za Google Sans): 400/500/700.
 - **Barvy přesně:** fialová `#4200D8`, tyrkysová `#00C7BF`, žlutá `#FFE346`, šedé `#5A5A5A`/`#939393`/`#F5F5F5`; pastely karet `#C4FFFD`/`#F6C9FF`/`#CFBAFF`/`#FFE59F`/`#FFB1B1`/`#B3FCB9`; banner `#FDD6DF`.
@@ -683,7 +685,7 @@ export default function Header() {
         boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
       }}
     >
-      <Grid container alignItems="center" spacing={2}>
+      <Grid container spacing={2} sx={{ alignItems: 'center' }}>
         {/* Logo */}
         <Grid size="auto">
           <MuiLink component={RouterLink} to="/" underline="none" sx={{ fontSize: 22, color: '#000' }}>
@@ -1110,7 +1112,7 @@ import { TWO_MONTHS } from '../../data/content'
 export default function TwoMonthsFreeBanner() {
   return (
     <Box sx={{ bgcolor: '#FDD6DF', borderRadius: 8, overflow: 'hidden', my: 6 }}>
-      <Grid container alignItems="center">
+      <Grid container sx={{ alignItems: 'center' }}>
         <Grid size={7} sx={{ p: 6 }}>
           <Stack spacing={2}>
             <Typography sx={{ fontSize: 74, fontWeight: 700 }}>{TWO_MONTHS.title}</Typography>
@@ -1234,7 +1236,7 @@ export default function HomePage() {
           <Grid size={6}>
             <Stack divider={<Box sx={{ borderBottom: '1px solid #eee' }} />} spacing={2}>
               {HOW_STEPS.map((s) => (
-                <Grid container key={s.title} alignItems="center" spacing={2}>
+                <Grid container key={s.title} spacing={2} sx={{ alignItems: 'center' }}>
                   <Grid size="grow">
                     <Typography variant="h5">{s.title}</Typography>
                   </Grid>
@@ -1358,7 +1360,7 @@ export default function CenikPage() {
         </Stack>
 
         {/* 3 tarify */}
-        <Grid container spacing={3} justifyContent="center">
+        <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
           {PRICING.map((p) => (
             <Grid size={4} key={p.name}>
               <Box sx={{ bgcolor: '#fff', borderRadius: 6, p: 4, boxShadow: '0 8px 30px rgba(0,0,0,0.08)',
@@ -1383,16 +1385,16 @@ export default function CenikPage() {
         <Box sx={{ mt: 6 }}>
           <Grid container sx={{ py: 1, borderBottom: '2px solid #000' }}>
             <Grid size={6}><Typography variant="h4">Nástroje</Typography></Grid>
-            <Grid size={2} textAlign="center"><Typography sx={{ fontWeight: 700 }}>Start</Typography></Grid>
-            <Grid size={2} textAlign="center"><Typography sx={{ fontWeight: 700, color: ACCENT.purple }}>Pro</Typography></Grid>
-            <Grid size={2} textAlign="center"><Typography sx={{ fontWeight: 700, color: ACCENT.teal }}>Premium</Typography></Grid>
+            <Grid size={2} sx={{ textAlign: 'center' }}><Typography sx={{ fontWeight: 700 }}>Start</Typography></Grid>
+            <Grid size={2} sx={{ textAlign: 'center' }}><Typography sx={{ fontWeight: 700, color: ACCENT.purple }}>Pro</Typography></Grid>
+            <Grid size={2} sx={{ textAlign: 'center' }}><Typography sx={{ fontWeight: 700, color: ACCENT.teal }}>Premium</Typography></Grid>
           </Grid>
           {COMPARE_ROWS.map((r) => (
-            <Grid container key={r.label} alignItems="center" sx={{ py: 1, borderBottom: '1px solid #eee' }}>
+            <Grid container key={r.label} sx={{ py: 1, borderBottom: '1px solid #eee', alignItems: 'center' }}>
               <Grid size={6}><Typography sx={{ color: '#5A5A5A' }}>{r.label}</Typography></Grid>
-              <Grid size={2} textAlign="center">{r.start && <CheckCircleIcon sx={{ color: '#000' }} />}</Grid>
-              <Grid size={2} textAlign="center">{r.pro && <CheckCircleIcon sx={{ color: ACCENT.purple }} />}</Grid>
-              <Grid size={2} textAlign="center">{r.premium && <CheckCircleIcon sx={{ color: ACCENT.teal }} />}</Grid>
+              <Grid size={2} sx={{ textAlign: 'center' }}>{r.start && <CheckCircleIcon sx={{ color: '#000' }} />}</Grid>
+              <Grid size={2} sx={{ textAlign: 'center' }}>{r.pro && <CheckCircleIcon sx={{ color: ACCENT.purple }} />}</Grid>
+              <Grid size={2} sx={{ textAlign: 'center' }}>{r.premium && <CheckCircleIcon sx={{ color: ACCENT.teal }} />}</Grid>
             </Grid>
           ))}
         </Box>
