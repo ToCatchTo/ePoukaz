@@ -1,6 +1,7 @@
 import { Box, Button, Grid, Link as MuiLink } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 import { NAV_LINKS } from '../../data/content'
+import { CONTENT_W } from '../../theme/layout'
 
 // Plovoucí bílá pill hlavička s logem, navigací a CTA tlačítkem
 export default function Header() {
@@ -9,7 +10,8 @@ export default function Header() {
     <Box
       component="header"
       sx={{
-        bgcolor: '#fff', borderRadius: 999, px: 4, py: 1.5, mt: 3, mb: 4,
+        maxWidth: CONTENT_W, mx: 'auto',
+        bgcolor: '#fff', borderRadius: 999, px: 5, py: 3, mt: 10, mb: 7,
         boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
       }}
     >

@@ -9,3 +9,9 @@ test('patička zobrazuje firmu a sloupce', () => {
   expect(screen.getByText('Jak na to?')).toBeInTheDocument()
   expect(screen.getByText('Doplňkové služby')).toBeInTheDocument()
 })
+
+test('s withCta zobrazuje patička i CTA blok', () => {
+  render(<ThemeProvider theme={theme}><Footer withCta /></ThemeProvider>)
+  expect(screen.getByText(/A to není vše/)).toBeInTheDocument()
+  expect(screen.getByText('Vyzkoušejte')).toBeInTheDocument()
+})

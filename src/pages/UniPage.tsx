@@ -2,22 +2,27 @@ import { Box, Stack, Typography } from '@mui/material'
 import SectionCard from '../components/common/SectionCard'
 import TwoMonthsFreeBanner from '../components/common/TwoMonthsFreeBanner'
 import ContactBlock from '../components/common/ContactBlock'
+import Footer from '../components/layout/Footer'
+import { CONTENT_W } from '../theme/layout'
 import { UNI } from '../data/content'
 
-// Univerzální šablona podstránky – nadpis + dlouhý text + banner + kontakt
+// Univerzální šablona podstránky – nadpis + dlouhý text + banner + kontakt + patička
 export default function UniPage() {
   return (
-    <Box data-testid="page-uni" sx={{ py: 4 }}>
-      <SectionCard>
-        <Typography variant="h3" sx={{ mb: 3 }}>{UNI.title}</Typography>
-        <Stack spacing={2}>
-          {UNI.paragraphs.map((p, i) => (
-            <Typography key={i} sx={{ fontSize: 16 }}>{p}</Typography>
-          ))}
-        </Stack>
-      </SectionCard>
-      <TwoMonthsFreeBanner />
-      <ContactBlock />
+    <Box data-testid="page-uni">
+      <Box sx={{ maxWidth: CONTENT_W, mx: 'auto', py: 4 }}>
+        <SectionCard sx={{ bgcolor: '#F5F5F5' }}>
+          <Typography variant="h3" sx={{ mb: 4 }}>{UNI.title}</Typography>
+          <Stack spacing={2.5}>
+            {UNI.paragraphs.map((p, i) => (
+              <Typography key={i} sx={{ fontSize: 16, lineHeight: 1.7 }}>{p}</Typography>
+            ))}
+          </Stack>
+        </SectionCard>
+        <TwoMonthsFreeBanner />
+        <ContactBlock />
+      </Box>
+      <Footer />
     </Box>
   )
 }

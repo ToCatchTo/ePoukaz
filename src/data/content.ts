@@ -53,7 +53,7 @@ export const PROBLEMS = [
     text: 'Poukazy vám chodí rovnou do administrace – nemusíte je přepisovat, skenovat ani telefonicky ověřovat. Co dřív trvalo minuty u každého pacienta, teď zvládnete jedním pohledem.' },
   { title: 'Zpřehledníte si správu', color: PASTELS.pink,
     text: 'Všechny poukazy na jednom místě, se stavy „nové", „rozpracováno", „vyřízeno". Váš tým vždy ví, co je potřeba udělat a co už je hotové.' },
-  { title: 'Zorganizujete si vaše klienty', color: PASTELS.purple,
+  { title: 'Zorganizujete si vaše klienty', color: '#FFD5D5',
     text: 'Ke každému pacientovi si uložíte historii objednávek, kategorie i poznámky. Příště ho poznáte na první pohled a nabídnete mu přesně to, co potřebuje.' },
   { title: 'Zbavíte se telefonátů', color: PASTELS.yellow,
     text: 'Pacient dostane e-mailem (nebo SMS) info o stavu svého poukazu automaticky – bez toho, aby vám kvůli tomu musel volat nebo psát.' },
