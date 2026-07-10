@@ -1,0 +1,5 @@
+# Fotky k dodání (nahradí placeholdery)
+- hero-telefon.png — telefon v ruce (hero, ~640×760)
+- chat-mockup.png — tmavý telefon s chatem (Jak to funguje, ~700×1000)
+- zena.png — fotka ženy (banner 2 měsíce ZDARMA, ~600×520)
+- matfix-logo.svg — logo agentury (kredit v patičce)
