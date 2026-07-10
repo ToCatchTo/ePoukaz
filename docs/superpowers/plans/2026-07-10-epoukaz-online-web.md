@@ -12,7 +12,7 @@
 
 - **Jen desktop, žádná responzivita** — pevná šířka obsahu, žádné breakpointy pro mobil.
 - **Rozvržení přes MUI `Grid`** (nainstalované MUI **v9**, nový Grid se `size` prop) všude, kde to dává smysl.
-- **POZOR MUI v9 `Grid`:** přijímá jen propy `container`, `size`, `spacing`, `columns`, `direction`, `offset`, `wrap`. **`alignItems`, `justifyContent` ani `textAlign` NEJSOU propy `Grid`** — patří do `sx` (např. `<Grid container sx={{ alignItems: 'center' }}>`). (`Stack` naopak `alignItems` jako prop podporuje — u Stacku je to OK.)
+- **POZOR MUI v9 `Grid` i `Stack`:** ani jeden nepřijímá `alignItems`, `justifyContent` nebo `textAlign` jako prop — vždy do `sx` (např. `<Grid container sx={{ alignItems: 'center' }}>`, `<Stack sx={{ alignItems: 'center' }}>`). `Grid` propy: `container`, `size`, `spacing`, `columns`, `direction`, `offset`, `wrap`. `Stack` propy: `direction`, `spacing`, `divider`, `useFlexGap`, `sx`.
 - **Typová brána = `npm run build`** (spouští `tsc -b`, který reálně typuje `src/`). `npx tsc --noEmit` je s root tsconfig (`files: []`) **no-op** a chyby nezachytí — každý task musí projít `npm run build`.
 - **Komentáře v kódu česky.**
 - **Font Poppins** (náhrada za Google Sans): 400/500/700.
@@ -1020,7 +1020,7 @@ import { CTA_BANNER } from '../../data/content'
 export default function CtaBanner() {
   return (
     <SectionCard sx={{ my: 6, textAlign: 'center' }}>
-      <Stack spacing={3} alignItems="center">
+      <Stack spacing={3} sx={{ alignItems: 'center' }}>
         <Typography variant="h2" sx={{ color: 'primary.main' }}>{CTA_BANNER.title}</Typography>
         <Button variant="contained" color="secondary" sx={{ color: '#fff', px: 5, py: 1.5 }}>
           {CTA_BANNER.button}
@@ -1039,7 +1039,7 @@ import { TRY_FORM } from '../../data/content'
 // Formulář „Vyzkoušejte to sami – 30 dní zdarma" – JEN VIZUÁL (6 pill polí)
 export default function TryForFreeForm() {
   return (
-    <Stack spacing={4} alignItems="center" sx={{ py: 8, textAlign: 'center' }}>
+    <Stack spacing={4} sx={{ py: 8, textAlign: 'center', alignItems: 'center' }}>
       <Typography variant="h2" sx={{ color: '#fff' }}>{TRY_FORM.title}</Typography>
       <Typography sx={{ color: '#fff', maxWidth: 720, fontSize: 20 }}>{TRY_FORM.subtitle}</Typography>
       <Grid container spacing={2} sx={{ maxWidth: 600 }}>
@@ -1076,11 +1076,11 @@ export default function ContactBlock() {
         {/* Kontaktní údaje */}
         <Grid size={6}>
           <Stack spacing={2}>
-            <Stack direction="row" spacing={1.5} alignItems="center">
+            <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
               <EmailIcon color="primary" />
               <Typography variant="h4">{CONTACT.email}</Typography>
             </Stack>
-            <Stack direction="row" spacing={1.5} alignItems="center">
+            <Stack direction="row" spacing={1.5} sx={{ alignItems: 'center' }}>
               <PhoneIcon color="primary" />
               <Typography variant="h4">{CONTACT.phone}</Typography>
             </Stack>
@@ -1252,7 +1252,7 @@ export default function HomePage() {
       </SectionCard>
 
       {/* 6 PROBLÉMŮ – mřížka 3×2 barevných karet */}
-      <Stack spacing={5} sx={{ py: 8 }} alignItems="center">
+      <Stack spacing={5} sx={{ py: 8, alignItems: 'center' }}>
         <Typography variant="h1" sx={{ color: '#fff', textAlign: 'center' }}>
           6 problémů, které s námi vyřešíte
         </Typography>
@@ -1354,7 +1354,7 @@ export default function CenikPage() {
     <Box data-testid="page-cenik">
       <SectionCard sx={{ my: 4 }}>
         {/* Nadpis */}
-        <Stack spacing={2} alignItems="center" sx={{ textAlign: 'center', mb: 5 }}>
+        <Stack spacing={2} sx={{ textAlign: 'center', mb: 5, alignItems: 'center' }}>
           <Typography variant="h3">{CENIK_HEAD.title}</Typography>
           <Typography sx={{ fontSize: 18, maxWidth: 720 }}>{CENIK_HEAD.subtitle}</Typography>
         </Stack>
