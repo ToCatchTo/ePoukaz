@@ -13,6 +13,7 @@ export function AppRoutes() {
         <Route path="/" element={<HomePage />} />
         <Route path="/cenik" element={<CenikPage />} />
         <Route path="/kontakt" element={<KontaktPage />} />
+        <Route path="/faq" element={<UniPage />} />
         <Route path="/obchodni-podminky" element={<UniPage />} />
       </Route>
     </Routes>

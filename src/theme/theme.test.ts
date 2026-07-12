@@ -10,6 +10,6 @@ test('pastely karet obsahují 6 barev', () => {
   expect(PASTELS.teal).toBe('#C4FFFD')
 })
 
-test('font je Poppins', () => {
-  expect(theme.typography.fontFamily).toContain('Poppins')
+test('hlavní font je Google Sans', () => {
+  expect(theme.typography.fontFamily).toContain('Google Sans')
 })

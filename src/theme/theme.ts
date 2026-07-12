@@ -19,7 +19,7 @@ export const theme = createTheme({
     background: { default: '#4200D8' },
   },
   typography: {
-    fontFamily: 'Poppins, Arial, sans-serif',
+    fontFamily: "'Google Sans', Poppins, Arial, sans-serif",
     // Velikosti přesně z XD návrhu (px / řez)
     h1: { fontWeight: 700, fontSize: 90, lineHeight: 1.05 }, // hero, „6 problémů", nadpis formuláře
     h2: { fontWeight: 700, fontSize: 50, lineHeight: 1.1 }, // CTA „A to není vše!"
@@ -31,10 +31,15 @@ export const theme = createTheme({
   },
   shape: { borderRadius: 24 },
   components: {
-    // Tlačítka jako „pill" – plně zaoblená
+    // Tlačítka jako „pill" – plně zaoblená, bez stínu (disableElevation globálně)
     MuiButton: {
+      defaultProps: { disableElevation: true },
       styleOverrides: {
-        root: { borderRadius: 999, paddingInline: 24, paddingBlock: 10 },
+        root: {
+          borderRadius: 999, paddingInline: 24, paddingBlock: 10,
+          boxShadow: 'none',
+          '&:hover': { boxShadow: 'none' },
+        },
       },
     },
   },

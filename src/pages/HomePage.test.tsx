@@ -8,7 +8,8 @@ test('homepage má hero, 8 kroků a 6 karet', () => {
   render(
     <ThemeProvider theme={theme}><MemoryRouter><HomePage /></MemoryRouter></ThemeProvider>,
   )
-  expect(screen.getByText('Šetřete čas sobě i pacientům')).toBeInTheDocument()
+  // Nadpis je záměrně zalomený po slově „sobě" (<br/>), proto match přes regex místo přesného stringu
+  expect(screen.getByText(/Šetřete čas sobě/)).toBeInTheDocument()
   expect(screen.getByText('Nastavení za pár minut')).toBeInTheDocument()
   expect(screen.getByText('Ušetříte čas')).toBeInTheDocument()
 })

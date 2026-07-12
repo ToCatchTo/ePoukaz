@@ -1,14 +1,10 @@
-import { IconButton } from '@mui/material'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { Box, IconButton } from '@mui/material'
 
-// Tyrkysové kulaté tlačítko se šipkou (accordion, CTA)
+// Kulaté tlačítko se šipkou pro kroky „Jak to funguje" (ikona z návrhu)
 export default function CircleArrowButton({ onClick }: { onClick?: () => void }) {
   return (
-    <IconButton
-      onClick={onClick}
-      sx={{ bgcolor: 'secondary.main', color: '#fff', '&:hover': { bgcolor: 'secondary.dark' } }}
-    >
-      <ArrowForwardIcon />
+    <IconButton onClick={onClick} sx={{ p: 0 }}>
+      <Box component="img" src="/icons/Arrow_how_R.svg" alt="" sx={{ width: 42, height: 42, display: 'block' }} />
     </IconButton>
   )
 }

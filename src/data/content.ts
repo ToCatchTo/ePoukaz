@@ -19,55 +19,89 @@ export const HERO = {
 
 // Recenzní bublinky v hero
 export const TESTIMONIALS = [
-  { name: 'Eliška', role: 'dcera seniora',
-    quote: 'Pomůcky tátovi objednám z práce, doručí mu je domů. Ušetřím čas, on má klid.' },
-  { name: 'Gábina', role: 'majitelka zdravotnických potřeb',
-    quote: 'Konečně systém, který šetří čas nám i pacientům – objednají si pohodlně z domova.' },
-  { name: 'Jarmila', role: 'seniorka 67 let',
-    quote: 'Poukaz odešlu z domova, do provozovny jdu až si pomůcky vyzvednout. Dřív jsem musela dvakrát.' },
+  {
+    name: 'Eliška', role: 'dcera seniora',
+    quote: 'Pomůcky tátovi objednám z práce, doručí mu je domů. Ušetřím čas, on má klid.'
+  },
+  {
+    name: 'Gábina', role: 'majitelka zdravotnických potřeb',
+    quote: 'Konečně systém, který šetří čas nám i pacientům – objednají si pohodlně z domova.'
+  },
+  {
+    name: 'Jarmila', role: 'seniorka 67 let',
+    quote: 'Poukaz odešlu z domova, do provozovny jdu až si pomůcky vyzvednout. Dřív jsem musela dvakrát.'
+  },
 ]
 
 // 8 kroků „Jak to funguje" (texty z PDF)
 export const HOW_STEPS = [
-  { title: 'Nastavení za pár minut',
-    text: 'Zaregistrujete se, nahrajete SÚKL a osobní certifikát a systém vám vygeneruje unikátní link. Ten jednoduše vložíte na svůj web a jste připraveni přijímat poukazy.' },
-  { title: 'Pacient nahraje poukaz sám',
-    text: 'Pacient nebo jeho blízký přes váš web jednoduše načte QR kód nebo zadá kód ručně. Bez front, bez telefonátů, kdykoliv z pohodlí domova nebo přímo z ordinace. Načíst můžete i vy přímo v systému.' },
-  { title: 'Poukaz máte hned v systému',
-    text: 'Jakmile pacient poukaz odešle, okamžitě se zobrazí ve vašem administračním rozhraní i s načtenými SÚKL daty. Nic nepřepisujete a nic neověřujete ručně.' },
-  { title: 'Přehledná správa stavů',
-    text: 'Každému poukazu můžete nastavit stav – od přijetí až po vyřízení. Váš tým má vždy jasno, co je potřeba udělat a co už je hotové.' },
-  { title: 'Automatické upozornění pacienta',
-    text: 'Jakmile je poukaz připraven k vyzvednutí, pacientovi automaticky přijde notifikace. Pokud nechcete, nemusíte mu volat ani psát – systém to udělá za vás.' },
-  { title: 'Klienti pod kontrolou',
-    text: 'Ke každému pacientovi vidíte historii objednávek a můžete ho snadno kontaktovat. Vše přehledně na jednom místě.' },
-  { title: 'Kategorie a upomínky na míru',
-    text: 'Stálým klientům přiřadíte kategorie podle toho, co objednávají, a nastavíte si upomínky na docházející pomůcky. Ozvete se jim přesně ve chvíli, kdy vás budou potřebovat.' },
-  { title: 'Bezproblémové propojení se SÚKL',
-    text: 'Data ze SÚKL se načtou automaticky a zůstávají provázaná po celou dobu vyřizování. Výdej nebo částečný výdej provedete klidně ve svém účetním programu – stav se sám promítne i do naší aplikace a poukaz se automaticky označí jako vydaný nebo částečně vydaný.' },
+  {
+    title: 'Nastavení za pár minut',
+    text: 'Zaregistrujete se, nahrajete SÚKL a osobní certifikát a systém vám vygeneruje unikátní link. Ten jednoduše vložíte na svůj web a jste připraveni přijímat poukazy.'
+  },
+  {
+    title: 'Pacient nahraje poukaz sám',
+    text: 'Pacient nebo jeho blízký přes váš web jednoduše načte QR kód nebo zadá kód ručně. Bez front, bez telefonátů, kdykoliv z pohodlí domova nebo přímo z ordinace. Načíst můžete i vy přímo v systému.'
+  },
+  {
+    title: 'Poukaz máte hned v systému',
+    text: 'Jakmile pacient poukaz odešle, okamžitě se zobrazí ve vašem administračním rozhraní i s načtenými SÚKL daty. Nic nepřepisujete a nic neověřujete ručně.'
+  },
+  {
+    title: 'Přehledná správa stavů',
+    text: 'Každému poukazu můžete nastavit stav – od přijetí až po vyřízení. Váš tým má vždy jasno, co je potřeba udělat a co už je hotové.'
+  },
+  {
+    title: 'Automatické upozornění pacienta',
+    text: 'Jakmile je poukaz připraven k vyzvednutí, pacientovi automaticky přijde notifikace. Pokud nechcete, nemusíte mu volat ani psát – systém to udělá za vás.'
+  },
+  {
+    title: 'Klienti pod kontrolou',
+    text: 'Ke každému pacientovi vidíte historii objednávek a můžete ho snadno kontaktovat. Vše přehledně na jednom místě.'
+  },
+  {
+    title: 'Kategorie a upomínky na míru',
+    text: 'Stálým klientům přiřadíte kategorie podle toho, co objednávají, a nastavíte si upomínky na docházející pomůcky. Ozvete se jim přesně ve chvíli, kdy vás budou potřebovat.'
+  },
+  {
+    title: 'Bezproblémové propojení se SÚKL',
+    text: 'Data ze SÚKL se načtou automaticky a zůstávají provázaná po celou dobu vyřizování. Výdej nebo částečný výdej provedete klidně ve svém účetním programu – stav se sám promítne i do naší aplikace a poukaz se automaticky označí jako vydaný nebo částečně vydaný.'
+  },
 ]
 
 // 6 karet „problémů" (pořadí a barvy dle mřížky 3×2 v XD)
 export const PROBLEMS = [
-  { title: 'Ušetříte čas', color: PASTELS.teal,
-    text: 'Poukazy vám chodí rovnou do administrace – nemusíte je přepisovat, skenovat ani telefonicky ověřovat. Co dřív trvalo minuty u každého pacienta, teď zvládnete jedním pohledem.' },
-  { title: 'Zpřehledníte si správu', color: PASTELS.pink,
-    text: 'Všechny poukazy na jednom místě, se stavy „nové", „rozpracováno", „vyřízeno". Váš tým vždy ví, co je potřeba udělat a co už je hotové.' },
-  { title: 'Zorganizujete si vaše klienty', color: '#FFD5D5',
-    text: 'Ke každému pacientovi si uložíte historii objednávek, kategorie i poznámky. Příště ho poznáte na první pohled a nabídnete mu přesně to, co potřebuje.' },
-  { title: 'Zbavíte se telefonátů', color: PASTELS.yellow,
-    text: 'Pacient dostane e-mailem (nebo SMS) info o stavu svého poukazu automaticky – bez toho, aby vám kvůli tomu musel volat nebo psát.' },
-  { title: 'Propojíme vás se SÚKL', color: PASTELS.red,
-    text: 'Data z SÚKL se načtou automaticky a zůstávají provázaná po celou dobu vyřizování. Výdej i částečný výdej klidně provedete ve svém účetním programu – stav se sám promítne i k nám.' },
-  { title: 'Nezapomenete na vaše klienty', color: PASTELS.green,
-    text: 'Nastavte si upomínky na vyzvednutí, opakované objednávky nebo termín kontroly. Nic vám a vašim pacientům neuteče.' },
+  {
+    title: 'Ušetříte čas', color: PASTELS.teal,
+    text: 'Poukazy vám chodí rovnou do administrace – nemusíte je přepisovat, skenovat ani telefonicky ověřovat. Co dřív trvalo minuty u každého pacienta, teď zvládnete jedním pohledem.'
+  },
+  {
+    title: 'Zpřehledníte si správu', color: PASTELS.pink,
+    text: 'Všechny poukazy na jednom místě, se stavy „nové", „rozpracováno", „vyřízeno". Váš tým vždy ví, co je potřeba udělat a co už je hotové.'
+  },
+  {
+    title: 'Zorganizujete si vaše klienty', color: '#FFD5D5',
+    text: 'Ke každému pacientovi si uložíte historii objednávek, kategorie i poznámky. Příště ho poznáte na první pohled a nabídnete mu přesně to, co potřebuje.'
+  },
+  {
+    title: 'Zbavíte se telefonátů', color: PASTELS.yellow,
+    text: 'Pacient dostane e-mailem (nebo SMS) info o stavu svého poukazu automaticky – bez toho, aby vám kvůli tomu musel volat nebo psát.'
+  },
+  {
+    title: 'Propojíme vás se SÚKL', color: PASTELS.red,
+    text: 'Data z SÚKL se načtou automaticky a zůstávají provázaná po celou dobu vyřizování. Výdej i částečný výdej klidně provedete ve svém účetním programu – stav se sám promítne i k nám.'
+  },
+  {
+    title: 'Nezapomenete na vaše klienty', color: PASTELS.green,
+    text: 'Nastavte si upomínky na vyzvednutí, opakované objednávky nebo termín kontroly. Nic vám a vašim pacientům neuteče.'
+  },
 ]
 
 // Formulář „30 dní zdarma" – jen vizuál, 6 polí
 export const TRY_FORM = {
   title: 'Vyzkoušejte to sami – 30 dní zdarma',
   subtitle:
-    'Zadejte pár údajů a my se vám ozveme s bezplatným přístupem na 30 dní. Žádný závazek, žádná platební ' +
+    '<span style="font-weight: 600;">Zadejte pár údajů a my se vám ozveme s bezplatným přístupem na 30 dní.</span> Žádný závazek, žádná platební ' +
     'karta – jen zjistíte, kolik času vám a vašemu týmu ePoukaz online ušetří.',
   fieldsCount: 6,
   submit: 'Odeslat',
@@ -94,15 +128,21 @@ export const CONTACT = {
 
 // Ceník – 3 tarify
 export const PRICING = [
-  { name: 'Start', price: '1 490 Kč', note: 'MĚSÍČNÍ BALÍČEK BEZ DPH',
+  {
+    name: 'Start', price: '1 490 Kč', note: 'MĚSÍČNÍ BALÍČEK BEZ DPH',
     features: ['ePoukaz online', 'Správa ePoukazů', 'Notifikace e-mailem', 'Security'],
-    cta: 'Začněte zdarma', accent: 'black' as const, highlighted: false },
-  { name: 'Pro', price: '2 490 Kč', note: 'MĚSÍČNÍ BALÍČEK BEZ DPH',
+    cta: 'Začněte zdarma', accent: 'black' as const, highlighted: false
+  },
+  {
+    name: 'Pro', price: '2 490 Kč', note: 'MĚSÍČNÍ BALÍČEK BEZ DPH',
     features: ['ePoukaz online', 'Správa ePoukazů', 'Notifikace e-mailem', 'Security'],
-    cta: 'Začněte zdarma', accent: 'purple' as const, highlighted: true },
-  { name: 'Premium', price: '3 990 Kč', note: 'MĚSÍČNÍ BALÍČEK BEZ DPH',
+    cta: 'Začněte zdarma', accent: 'purple' as const, highlighted: true
+  },
+  {
+    name: 'Premium', price: '3 990 Kč', note: 'MĚSÍČNÍ BALÍČEK BEZ DPH',
     features: ['ePoukaz online', 'Správa ePoukazů', 'Notifikace e-mailem', 'Security'],
-    cta: 'Kontaktovat', accent: 'teal' as const, highlighted: false },
+    cta: 'Kontaktovat', accent: 'teal' as const, highlighted: false
+  },
 ]
 
 // Srovnávací tabulka „Nástroje". POZOR: rozložení fajfek ověř proti _navrh/ (960px render).
@@ -160,19 +200,52 @@ export const FOOTER = {
 }
 
 // Univerzální podstránka (obchodní podmínky – varianta B, zkráceno na úvodní odstavce)
+// Univerzální podstránka (Desktop_UNI) – nadpis + obchodní podmínky (varianta B).
+// Řetězce psané VELKÝMI písmeny jsou mezinadpisy (UniPage je vysází tučně).
 export const UNI = {
   title: 'Nadpis univerzální podstránky, může být až dvouřádkový',
   paragraphs: [
     'OBCHODNÍ PODMÍNKY (VARIANTA B)',
-    'Tyto obchodní podmínky (dále jen „obchodní podmínky") obchodní společnosti … upravují v souladu ' +
-      's ustanovením § 1751 odst. 1 zákona č. 89/2012 Sb., občanský zákoník, vzájemná práva a povinnosti ' +
-      'smluvních stran vzniklé v souvislosti nebo na základě kupní smlouvy uzavírané mezi prodávajícím ' +
-      'a kupujícím prostřednictvím internetového obchodu prodávajícího.',
+    'obchodní společnosti\n' +
+    'se sídlem\n' +
+    'identifikační číslo:\n' +
+    'zapsané v obchodním rejstříku vedeném , oddíl , vložka\n' +
+    'pro prodej zboží prostřednictvím on-line obchodu umístěného na internetové adrese',
     'ÚVODNÍ USTANOVENÍ',
+    'Tyto obchodní podmínky (dále jen „obchodní podmínky“) obchodní společnosti , se sídlem , identifikační ' +
+    'číslo: , zapsané v obchodním rejstříku vedeném , oddíl , vložka (dále jen „prodávající“) upravují v souladu ' +
+    's ustanovením § 1751 odst. 1 zákona č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů ' +
+    '(dále jen „občanský zákoník“) vzájemná práva a povinnosti smluvních stran vzniklé v souvislosti nebo na ' +
+    'základě kupní smlouvy (dále jen „kupní smlouva“) uzavírané mezi prodávajícím a jinou fyzickou osobou ' +
+    '(dále jen „kupující“) prostřednictvím internetového obchodu prodávajícího. Internetový obchod je ' +
+    'prodávajícím provozován na webové stránce umístěné na internetové adrese (dále jen „webová stránka“), ' +
+    'a to prostřednictvím rozhraní webové stránky (dále jen „webové rozhraní obchodu“).',
     'Obchodní podmínky se nevztahují na případy, kdy osoba, která má v úmyslu nakoupit zboží od prodávajícího, ' +
-      'je právnickou osobou či osobou, jež jedná při objednávání zboží v rámci své podnikatelské činnosti.',
+    'je právnickou osobou či osobou, jež jedná při objednávání zboží v rámci své podnikatelské činnosti nebo ' +
+    'v rámci svého samostatného výkonu povolání.',
+    'Ustanovení odchylná od obchodních podmínek je možné sjednat v kupní smlouvě. Odchylná ujednání v kupní ' +
+    'smlouvě mají přednost před ustanoveními obchodních podmínek.',
+    'Ustanovení obchodních podmínek jsou nedílnou součástí kupní smlouvy. Kupní smlouva a obchodní podmínky ' +
+    'jsou vyhotoveny v českém jazyce. Kupní smlouvu lze uzavřít v českém jazyce.',
+    'Znění obchodních podmínek může prodávající měnit či doplňovat. Tímto ustanovením nejsou dotčena práva ' +
+    'a povinnosti vzniklá po dobu účinnosti předchozího znění obchodních podmínek.',
     'UŽIVATELSKÝ ÚČET',
     'Na základě registrace kupujícího provedené na webové stránce může kupující přistupovat do svého ' +
-      'uživatelského rozhraní. Přístup k uživatelskému účtu je zabezpečen uživatelským jménem a heslem.',
+    'uživatelského rozhraní. Ze svého uživatelského rozhraní může kupující provádět objednávání zboží ' +
+    '(dále jen „uživatelský účet“). V případě, že to webové rozhraní obchodu umožňuje, může kupující provádět ' +
+    'objednávání zboží též bez registrace přímo z webového rozhraní obchodu.',
+    'Při registraci na webové stránce a při objednávání zboží je kupující povinen uvádět správně a pravdivě ' +
+    'všechny údaje. Údaje uvedené v uživatelském účtu je kupující při jakékoliv jejich změně povinen ' +
+    'aktualizovat. Údaje uvedené kupujícím v uživatelském účtu a při objednávání zboží jsou prodávajícím ' +
+    'považovány za správné.',
+    'Přístup k uživatelskému účtu je zabezpečen uživatelským jménem a heslem. Kupující je povinen zachovávat ' +
+    'mlčenlivost ohledně informací nezbytných k přístupu do jeho uživatelského účtu.',
+    'Kupující není oprávněn umožnit využívání uživatelského účtu třetím osobám.',
+    'Prodávající může zrušit uživatelský účet, a to zejména v případě, kdy kupující svůj uživatelský účet ' +
+    'déle než nevyužívá, či v případě, kdy kupující poruší své povinnosti z kupní smlouvy (včetně obchodních ' +
+    'podmínek).',
+    'Kupující bere na vědomí, že uživatelský účet nemusí být dostupný nepřetržitě, a to zejména s ohledem na ' +
+    'nutnou údržbu hardwarového a softwarového vybavení prodávajícího, popř. nutnou údržbu hardwarového ' +
+    'a softwarového vybavení třetích osob.',
   ],
 }
