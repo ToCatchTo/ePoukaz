@@ -14,9 +14,9 @@ const ACCENT: Record<string, string> = { black: '#000000', purple: '#4200D8', te
 
 // Fajfky ve srovnávací tabulce – plné kolečko s bílou fajfkou (Start černá, Pro fialová, Premium tyrkysová)
 const TABLE_CHECK = {
-  start: '/icons/Check_start_vypus.svg',
-  pro: '/icons/Check_pro.svg',
-  premium: '/icons/Check_premium.svg',
+  start: '/icons/pricing-check-start-table.svg',
+  pro: '/icons/pricing-check-pro.svg',
+  premium: '/icons/pricing-check-premium.svg',
 } as const
 
 // Fajfka tabulky – zarovnaná vlevo pod hlavičkou sloupce
@@ -40,15 +40,15 @@ function rowLabel(label: string) {
 const SUB_BOLD = '30 dní ZDARMA'
 const [SUB_BEFORE, SUB_AFTER] = CENIK_HEAD.subtitle.split(SUB_BOLD)
 
-export default function CenikPage() {
+export default function PricingPage() {
   return (
     <Box data-testid="page-cenik">
       {/* Obsahový sloupec 1364 px */}
-      <Box sx={{ maxWidth: CONTENT_W, mx: 'auto' }}>
+      <Box sx={{ maxWidth: CONTENT_W, mx: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {/* Světlá karta s tarify a tabulkou (#F5F5F5) + vlnité čáry za horní částí */}
         <Box sx={{ position: 'relative', mt: 4 }}>
           <DecorLines sx={{ top: 110 }} />
-          <SectionCard sx={{ bgcolor: '#F5F5F5', position: 'relative', zIndex: 1 }}>
+          <SectionCard sx={{ bgcolor: '#F5F5F5', position: 'relative', zIndex: 1, p: '85px 100px 150px 100px' }}>
             {/* Nadpis + podtitul */}
             <Stack sx={{ textAlign: 'center', mb: '95px', alignItems: 'center', gap: '35px' }}>
               <Typography variant="h3" sx={{ maxWidth: 760 }}>{CENIK_HEAD.title}</Typography>
@@ -57,14 +57,14 @@ export default function CenikPage() {
               </Typography>
             </Stack>
 
-            {/* 3 tarify – prostřední (Pro) zvýrazněný a vyšší; alignItems center => přečuhuje nahoru i dolů */}
-            <Grid container spacing={3.75} sx={{ justifyContent: 'center', alignItems: 'center' }}>
+            {/* 3 tarify – flex layout dle XD: karty pevných 370 px, mezera přesně 30 px */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '30px' }}>
               {PRICING.map((p) => (
-                <Grid size={4} key={p.name}>
+                <Box key={p.name} sx={{ width: '370px', flexShrink: 0 }}>
                   <PricingCard item={p} tier={p.name.toLowerCase() as Tier} elevated={p.highlighted} />
-                </Grid>
+                </Box>
               ))}
-            </Grid>
+            </Box>
 
             {/* Srovnávací tabulka „Nástroje" – bez linek, sloupce zarovnané vlevo pod hlavičkami */}
             <Box sx={{ mt: '120px', maxWidth: 956, mx: 'auto' }}>
@@ -86,8 +86,9 @@ export default function CenikPage() {
           </SectionCard>
         </Box>
 
-        {/* SMS poznámka – bílý text na fialové */}
-        <Typography sx={{ color: '#fff', fontSize: 18, my: 5, lineHeight: 1.7 }}>{SMS_NOTE}</Typography>
+        {/* SMS poznámka – bílý text na fialové; lehčí řez 300 (Poppins) vyrovnává
+            optické „bobtnání" světlého textu na tmavém pozadí (halace) */}
+        <Typography sx={{ color: '#fff', fontFamily: 'Poppins', fontWeight: 300, fontSize: 20, mt: '125px', mb: '230px', lineHeight: '36px', maxWidth: 1040 }} dangerouslySetInnerHTML={{ __html: SMS_NOTE }} />
 
         <TwoMonthsFreeBanner />
         <TryForFreeForm />

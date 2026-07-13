@@ -4,7 +4,7 @@ import { Box, IconButton } from '@mui/material'
 export default function CircleArrowButton({ onClick }: { onClick?: () => void }) {
   return (
     <IconButton onClick={onClick} sx={{ p: 0 }}>
-      <Box component="img" src="/icons/Arrow_how_R.svg" alt="" sx={{ width: 42, height: 42, display: 'block' }} />
+      <Box component="img" src="/icons/arrow-step.svg" alt="" sx={{ width: 42, height: 42, display: 'block' }} />
     </IconButton>
   )
 }

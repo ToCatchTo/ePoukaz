@@ -20,7 +20,7 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
           {topContent && (
             <>
               {topContent}
-              <Divider sx={{ mt: '60px', mb: '90px' }} />
+              <Divider sx={{ mt: '75px', mb: '150px' }} />
             </>
           )}
 
@@ -32,8 +32,8 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
                 <Button
                   variant="contained"
                   color="secondary"
-                  endIcon={<Box component="img" src="/icons/Arrow_R.svg" alt="" sx={{ width: 28, height: 28 }} />}
-                  sx={{ color: '#fff', px: 4, py: 1.5, fontSize: 18, mt: '50px !important' }}
+                  endIcon={<Box component="img" src="/icons/arrow-right.svg" alt="" sx={{ width: 40, height: 40 }} />}
+                  sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: 24, mt: '50px !important', '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500 }}
                 >
                   {CTA_BANNER.button}
                 </Button>
@@ -49,7 +49,7 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
           <Grid container columns={10} sx={{ alignItems: 'flex-start' }}>
             {/* Firma – svislá čára na pravém okraji */}
             <Grid size={3} sx={{ borderRight: '1px solid', borderColor: 'divider' }}>
-              <Box component="img" src="/images/epoukaz_logo.svg" alt="ePoukaz online" sx={{ height: 26, mb: 3, display: 'block' }} />
+              <Box component="img" src="/images/logo-epoukaz.svg" alt="ePoukaz online" sx={{ height: 26, mb: 3, display: 'block' }} />
               {FOOTER.company.map((line) => (
                 <Typography key={line} sx={{ fontSize: 16, color: '#000', lineHeight: 2 }}>{line}</Typography>
               ))}
@@ -66,7 +66,7 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
                     component={RouterLink}
                     to="/faq"
                     underline="hover"
-                    sx={{ display: 'block', fontSize: 16, color: '#000', lineHeight: 2.2 }}
+                    sx={{ display: 'block', fontSize: 16, color: '#000', lineHeight: 2.2, '&:hover': { color: 'primary.main' } }}
                   >
                     {link}
                   </MuiLink>
@@ -82,13 +82,22 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
         </Box>
       </Box>
 
-      {/* Kredit agentury – pod kartou na fialové (text + logo MatFix) */}
+      {/* Kredit agentury – pod kartou na fialové (text + odkaz s logem MatFix) */}
       <Stack direction="row" spacing={1.5} sx={{ justifyContent: 'center', alignItems: 'center', mt: '220px' }}>
         <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: 16, lineHeight: 1 }}>
           {FOOTER.credit}
         </Typography>
-        <Box component="img" src="/images/matfix_test_black.svg" alt="MatFix" sx={{ height: 15, display: 'block', m: '0px 0px 3px 10px !important' }} />
-        <Box component="img" src="/images/tvorba_paticka.svg" alt="MatFix" sx={{ height: 15, display: 'block' }} />
+        {/* Odkaz na web agentury – jen logo MatFix + „tvorba" ikonka */}
+        <MuiLink
+          href="https://matfix.cz"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="MatFix"
+          sx={{ display: 'inline-flex', alignItems: 'center' }}
+        >
+          <Box component="img" src="/images/logo-matfix.svg" alt="MatFix" sx={{ height: 15, display: 'block', m: '0px 0px 3px 15px !important' }} />
+          <Box component="img" src="/images/footer-tvorba.svg" alt="" aria-hidden sx={{ height: 15, display: 'block' }} />
+        </MuiLink>
       </Stack>
     </>
   )

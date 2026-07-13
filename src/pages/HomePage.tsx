@@ -1,4 +1,4 @@
-import { Box, Grid, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import HeroSection from '../components/common/HeroSection'
 import HowItWorks from '../components/common/HowItWorks'
 import DecorLines from '../components/common/DecorLines'
@@ -18,12 +18,12 @@ export default function HomePage() {
 
         {/* Dekorační pás vlnitých čar – celý, bez ořezu (full-bleed 100vw).
             zIndex 1 = leží nad rukou z hero (ruka má zIndex 0), takže vlny prosvítají přes její spodek. */}
-        <Box sx={{ position: 'relative', zIndex: 1, height: { xs: 100, md: 160 }, mt: 4 }}>
+        <Box sx={{ position: 'relative', zIndex: 1, height: { xs: 100, md: 160 }, mt: '100px' }}>
           <DecorLines sx={{ top: 0 }} />
         </Box>
 
         {/* JAK TO FUNGUJE – vytažené nahoru přes pás (zIndex 2), takže pás prosvítá za jeho horní částí */}
-        <Box sx={{ position: 'relative', zIndex: 2, mt: { xs: -6, md: -12 }, mb: '200px' }}>
+        <Box sx={{ position: 'relative', zIndex: 2, mt: { xs: -6, md: '-36px' }, mb: '200px' }}>
           <HowItWorks />
         </Box>
 
@@ -32,16 +32,25 @@ export default function HomePage() {
           <Typography variant="h1" sx={{ color: '#fff', textAlign: 'center', maxWidth: 820 }}>
             6 problémů, které s námi vyřešíte
           </Typography>
-          <Grid container spacing={2.25} sx={{ maxWidth: 1240, justifyContent: 'center' }}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 400px)',
+              gridTemplateRows: 'repeat(2, 400px)',
+              gap: '18px',
+              justifyContent: 'center',
+            }}
+          >
             {PROBLEMS.map((p) => (
-              <Grid size={4} key={p.title}>
-                <Box sx={{ bgcolor: p.color, borderRadius: CARD_R_SM, p: 8, height: 400, textAlign: 'center' }}>
-                  <Typography variant="h4" sx={{ mb: 2, textDecoration: 'underline' }}>{p.title}</Typography>
-                  <Typography sx={{ fontSize: 18, lineHeight: '30px', maxWidth: '292px' }}>{p.text}</Typography>
-                </Box>
-              </Grid>
+              <Box
+                key={p.title}
+                sx={{ bgcolor: p.color, borderRadius: CARD_R_SM, p: '50px', width: 400, height: 400, textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+              >
+                <Typography variant="h4" sx={{ mb: '30px', textDecoration: 'underline' }}>{p.title}</Typography>
+                <Typography sx={{ fontSize: 18, lineHeight: '30px', maxWidth: '292px' }}>{p.text}</Typography>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         </Stack>
 
         {/* Formulář „30 dní zdarma" */}

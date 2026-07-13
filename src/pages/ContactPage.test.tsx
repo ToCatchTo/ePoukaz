@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { theme } from '../theme/theme'
-import KontaktPage from './KontaktPage'
+import ContactPage from './ContactPage'
 
 test('kontakt zobrazuje e-mail', () => {
-  render(<ThemeProvider theme={theme}><MemoryRouter><KontaktPage /></MemoryRouter></ThemeProvider>)
+  render(<ThemeProvider theme={theme}><MemoryRouter><ContactPage /></MemoryRouter></ThemeProvider>)
   expect(screen.getByText('info@epoukazonline.cz')).toBeInTheDocument()
 })

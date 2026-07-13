@@ -11,13 +11,13 @@ export default function Header() {
       component="header"
       sx={{
         maxWidth: CONTENT_W, mx: 'auto',
-        bgcolor: '#fff', borderRadius: 999, p: '30px 50px 30px 100px', mt: 10, mb: 7,
+        bgcolor: '#fff', borderRadius: 999, p: '40px 50px 40px 100px', mt: 10, mb: 7,
         display: 'flex', alignItems: 'center', gap: 9,
       }}
     >
       {/* Logo – zarovnané vlevo, mr:auto odtlačí navigaci a CTA doprava */}
       <MuiLink component={RouterLink} to="/" underline="none" sx={{ display: 'inline-flex', mr: 'auto' }}>
-        <Box component="img" src="/images/epoukaz_logo.svg" alt="ePoukaz online" sx={{ height: 26, display: 'block' }} />
+        <Box component="img" src="/images/logo-epoukaz.svg" alt="ePoukaz online" sx={{ height: 29, display: 'block' }} />
       </MuiLink>
 
       {/* Navigace */}
@@ -28,8 +28,8 @@ export default function Header() {
             key={l.label}
             component={RouterLink}
             to={l.to}
-            underline="none"
-            sx={{ fontWeight: 700, fontSize: 20, color: active ? 'primary.main' : '#000' }}
+            underline={active ? 'always' : 'none'}
+            sx={{ fontWeight: 700, fontSize: 20, color: active ? 'primary.main' : '#000', textDecorationColor: 'currentColor', textUnderlineOffset: '2px', '&:hover': { color: 'primary.main', textDecoration: 'underline' } }}
           >
             {l.label}
           </MuiLink>
@@ -37,7 +37,7 @@ export default function Header() {
       })}
 
       {/* CTA – stín řeší globálně theme (disableElevation), s větší mezerou před tlačítkem */}
-      <Button variant="contained" color="secondary" sx={{ color: '#fff', ml: 3 }}>
+      <Button variant="contained" color="secondary" sx={{ color: '#fff', p: '18px', fontSize: 20 }}>
         30 dní ZDARMA
       </Button>
     </Box>

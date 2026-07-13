@@ -121,9 +121,11 @@ export const TWO_MONTHS = {
 
 // Kontaktní blok
 export const CONTACT = {
+  formHeading: 'Zeptejte se na cokoliv',
   email: 'info@epoukazonline.cz',
   phone: '+420 800 000 000',
-  messageLabel: 'Zanechte nám zprávu a my se vám ozveme',
+  phoneNote: 'Volejte Po-Pá 9.00-15.00',
+  messageLabel: 'Zanechte nám zprávu a my se vám z pravidla do druhého pracovního dne ozveme',
 }
 
 // Ceník – 3 tarify
@@ -166,9 +168,9 @@ export const COMPARE_ROWS = [
 
 // Poznámka k SMS pod tabulkou
 export const SMS_NOTE =
-  '*Informace k SMS notifikacím: Služba umožňuje zasílání SMS notifikací zákazníkům (např. informace ' +
+  '*Informace k SMS notifikacím:</br> Služba umožňuje zasílání SMS notifikací zákazníkům (např. informace ' +
   'o ePoukazu nebo stavu objednávky). Tyto SMS jsou realizovány prostřednictvím externího poskytovatele ' +
-  'komunikačních služeb a nejsou zahrnuty v měsíčním poplatku za využívání služby. Cena za odeslané SMS ' +
+  'komunikačních služeb a nejsou zahrnuty v měsíčním poplatku za využívání služby.</br> Cena za odeslané SMS ' +
   'je účtována samostatně dle skutečného počtu odeslaných zpráv a aktuálního ceníku poskytovatele. ' +
   'Náklady na tyto SMS budou připočteny k pravidelnému měsíčnímu vyúčtování služby.'
 
@@ -201,12 +203,12 @@ export const FOOTER = {
 
 // Univerzální podstránka (obchodní podmínky – varianta B, zkráceno na úvodní odstavce)
 // Univerzální podstránka (Desktop_UNI) – nadpis + obchodní podmínky (varianta B).
-// Řetězce psané VELKÝMI písmeny jsou mezinadpisy (UniPage je vysází tučně).
+// Řetězce psané VELKÝMI písmeny jsou mezinadpisy (ContentPage je vysází tučně).
 export const UNI = {
   title: 'Nadpis univerzální podstránky, může být až dvouřádkový',
   paragraphs: [
     'OBCHODNÍ PODMÍNKY (VARIANTA B)',
-    'obchodní společnosti\n' +
+    '\nobchodní společnosti\n\n' +
     'se sídlem\n' +
     'identifikační číslo:\n' +
     'zapsané v obchodním rejstříku vedeném , oddíl , vložka\n' +
@@ -234,18 +236,5 @@ export const UNI = {
     'uživatelského rozhraní. Ze svého uživatelského rozhraní může kupující provádět objednávání zboží ' +
     '(dále jen „uživatelský účet“). V případě, že to webové rozhraní obchodu umožňuje, může kupující provádět ' +
     'objednávání zboží též bez registrace přímo z webového rozhraní obchodu.',
-    'Při registraci na webové stránce a při objednávání zboží je kupující povinen uvádět správně a pravdivě ' +
-    'všechny údaje. Údaje uvedené v uživatelském účtu je kupující při jakékoliv jejich změně povinen ' +
-    'aktualizovat. Údaje uvedené kupujícím v uživatelském účtu a při objednávání zboží jsou prodávajícím ' +
-    'považovány za správné.',
-    'Přístup k uživatelskému účtu je zabezpečen uživatelským jménem a heslem. Kupující je povinen zachovávat ' +
-    'mlčenlivost ohledně informací nezbytných k přístupu do jeho uživatelského účtu.',
-    'Kupující není oprávněn umožnit využívání uživatelského účtu třetím osobám.',
-    'Prodávající může zrušit uživatelský účet, a to zejména v případě, kdy kupující svůj uživatelský účet ' +
-    'déle než nevyužívá, či v případě, kdy kupující poruší své povinnosti z kupní smlouvy (včetně obchodních ' +
-    'podmínek).',
-    'Kupující bere na vědomí, že uživatelský účet nemusí být dostupný nepřetržitě, a to zejména s ohledem na ' +
-    'nutnou údržbu hardwarového a softwarového vybavení prodávajícího, popř. nutnou údržbu hardwarového ' +
-    'a softwarového vybavení třetích osob.',
   ],
 }

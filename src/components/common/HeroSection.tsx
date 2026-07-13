@@ -8,9 +8,9 @@ const byName = Object.fromEntries(TESTIMONIALS.map((t) => [t.name, t]))
 // Pozice recenzí kolem ruky + pořadí (delay) postupného fade-in po načtení stránky.
 // zIndex: -1 = karta je ZA rukou (vykukuje zpoza telefonu), zIndex 2 = PŘED rukou.
 const REVIEWS = [
-  { name: 'Gábina', delay: '0.15s', pos: { left: { md: '38%' }, top: { md: 296 }, zIndex: -1 } },
-  { name: 'Eliška', delay: '0.4s', pos: { right: { md: '7.5%' }, top: { md: 75 }, zIndex: -1 } },
-  { name: 'Jarmila', delay: '0.65s', pos: { right: { md: '4%' }, top: { md: 390 }, zIndex: 2 } },
+  { name: 'Gábina', delay: '0.15s', pos: { left: { md: '39%' }, top: { md: 336 }, zIndex: -1 } },
+  { name: 'Eliška', delay: '0.4s', pos: { right: { md: '6%' }, top: { md: 110 }, zIndex: -1 } },
+  { name: 'Jarmila', delay: '0.65s', pos: { right: { md: '3.5%' }, top: { md: 430 }, zIndex: 2 } },
 ] as const
 
 // Nadpis se zalomí až po slově „sobě" (dle XD): 1. řádek „Šetřete čas sobě", 2. řádek „i pacientům"
@@ -63,9 +63,9 @@ function ReviewCard({ name, delay, pos }: { name: string; delay: string; pos: ob
           <StarIcon key={i} sx={{ color: '#FFB400', fontSize: 18 }} />
         ))}
       </Box>
-      <Typography sx={{ color: 'primary.main', fontWeight: 700, fontSize: 16 }}>{t.name}</Typography>
+      <Typography sx={{ color: 'primary.main', fontWeight: 400, fontSize: 16 }}>{t.name}</Typography>
       <Typography sx={{ color: '#9A9A9A', fontSize: 12, mb: 1 }}>{t.role}</Typography>
-      <Typography sx={{ fontSize: 13, lineHeight: 1.5, maxWidth: 190 }}>„{t.quote}"</Typography>
+      <Typography sx={{ fontSize: 13, lineHeight: 1.5, maxWidth: 185 }}>„{t.quote}"</Typography>
     </Box>
   )
 }
@@ -75,7 +75,7 @@ function ReviewCard({ name, delay, pos }: { name: string; delay: string; pos: ob
 export default function HeroSection() {
   return (
     // zIndex 0 = vlastní stacking context, aby recenze se zIndex -1 zůstaly ZA rukou, ale nespadly za fialové pozadí stránky
-    <Box component="section" sx={{ position: 'relative', zIndex: 0, pt: { xs: 2, md: 4 }, minHeight: { md: 640 } }}>
+    <Box component="section" sx={{ position: 'relative', zIndex: 0, pt: { xs: 2, md: '125px' }, minHeight: { md: 640 } }}>
       {/* LEVÝ SLOUPEC – text (nad vším) */}
       <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%', md: 720 } }}>
         <Typography variant="h1" sx={{ color: '#fff', mb: 4 }}>
@@ -87,14 +87,14 @@ export default function HeroSection() {
             </>
           )}
         </Typography>
-        <Typography sx={{ color: '#fff', fontSize: 20, lineHeight: 1.6, maxWidth: 470, mb: 5 }}>
-          <b>{BOLD_LEAD}</b>{REST_PARAGRAPH}
+        <Typography sx={{ color: '#fff', fontSize: 20, lineHeight: 1.6, maxWidth: 470, mb: 6, fontWeight: 300, fontFamily: 'Poppins' }}>
+          <span style={{ fontWeight: 500 }}>{BOLD_LEAD}</span>{REST_PARAGRAPH}
         </Typography>
         <Button
           variant="contained"
           color="secondary"
-          endIcon={<Box component="img" src="/icons/Arrow_R.svg" alt="" sx={{ width: 28, height: 28 }} />}
-          sx={{ color: '#fff', px: 4, py: 1.5, fontSize: 18 }}
+          endIcon={<Box component="img" src="/icons/arrow-right.svg" alt="" sx={{ width: 40, height: 40 }} />}
+          sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: 24, '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500 }}
         >
           {HERO.cta}
         </Button>
@@ -105,8 +105,8 @@ export default function HeroSection() {
         sx={{
           display: { xs: 'none', md: 'block' },
           position: 'absolute',
-          right: { md: '6%' },
-          top: 0,
+          right: { md: '5%' },
+          top: 40,
           height: 860,
           zIndex: 0,
           pointerEvents: 'none',
@@ -115,27 +115,33 @@ export default function HeroSection() {
         {/* Fotka ruky – obsah displeje je zapečený ve fotce. Slot níže je připravený na dynamický obsah. */}
         <Box
           component="img"
-          src="/images/Mockup_screen@2x.png"
+          src="/images/hero-phone.png"
           alt="Aplikace ePoukaz online v telefonu"
           sx={{ height: '100%', width: 'auto', display: 'block' }}
         />
 
-        {/* SLOT NA DISPLEJ – v budoucnu sem přijde obrázek nebo video přehrávané v loopu.
-            Souřadnice jsou v % obrázku (jemně dolaď při vkládání videa). Teď průhledný.
-            Vložení videa: odkomentuj níže a dej soubor do /public/videos. */}
+        {/* SLOT NA DISPLEJ – mockup appky přehrávaný v loopu.
+            Zatím animovaný WebP (/public/videos/hero-screen.webp) – chová se jako ztlumené
+            smyčkované video, ale spolehlivě se přehraje všude. Souřadnice v % obrázku
+            (jemně dolaď při výměně obsahu). Pro skutečné video stačí místo <img>
+            vložit <Box component="video" src="/videos/hero-screen.mp4" autoPlay muted loop playsInline .../>. */}
         <Box
           sx={{
             position: 'absolute',
-            left: '15.5%',
-            top: '11.5%',
-            width: '38%',
-            height: '55%',
-            borderRadius: '7% / 2.4%',
+            left: '14.5%',
+            top: '8.6%',
+            width: '41%',
+            height: '62.8%',
+            borderRadius: '38px',
             overflow: 'hidden',
           }}
         >
-          {/* <Box component="video" src="/videos/app.mp4" autoPlay muted loop playsInline
-                 sx={{ width: '100%', height: '100%', objectFit: 'cover' }} /> */}
+          <Box
+            component="img"
+            src="/videos/hero-screen.webp"
+            alt=""
+            sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          />
         </Box>
       </Box>
 

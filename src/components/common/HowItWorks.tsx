@@ -6,7 +6,7 @@ import { HOW_STEPS } from '../../data/content'
 
 // TODO: až budou dodány, každý krok bude mít vlastní obrázek.
 // Zatím placeholder (ruka s telefonem) pro všechny kroky.
-const STEP_IMAGES = HOW_STEPS.map(() => '/images/Mockup_screen@2x.png')
+const STEP_IMAGES = HOW_STEPS.map(() => '/images/howitworks-phone.png')
 
 // Sekce „Jak to funguje" – vlevo accordion 8 kroků (vždy právě jeden otevřený),
 // vpravo obrázek přes celou výšku karty, který se mění podle otevřeného kroku.
@@ -39,10 +39,10 @@ export default function HowItWorks() {
               <Box
                 key={s.title}
                 onClick={() => setOpen(i)}
-                sx={{ cursor: 'pointer', py: 3, '&:hover .step-title': { textDecoration: 'underline' } }}
+                sx={{ cursor: 'pointer', py: 4, '&:hover .step-title': { textDecoration: 'underline' } }}
               >
                 <Stack direction="row" spacing={2} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                  <Typography className="step-title" variant="h5" sx={{ textDecoration: isOpen ? 'underline' : 'none' }}>
+                  <Typography className="step-title" variant="h5" sx={{ textDecoration: isOpen ? 'underline' : 'none', maxWidth: '374px' }}>
                     {s.title}
                   </Typography>
                   {/* šipka jen u zavřených kroků */}
@@ -55,6 +55,7 @@ export default function HowItWorks() {
                       fontSize: 16,
                       lineHeight: 1.7,
                       color: '#000',
+                      maxWidth: '392px',
                       // jemný fade-in textu při rozbalení, ať se neobjeví skokem
                       animation: 'howStepFadeIn 0.35s ease',
                       '@keyframes howStepFadeIn': { from: { opacity: 0 }, to: { opacity: 1 } },

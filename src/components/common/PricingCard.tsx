@@ -17,17 +17,17 @@ export type PricingItem = {
 const TIERS: Record<Tier, { color: string; button: string; check: string; ship: string; tab: string }> = {
   start: {
     color: '#000000', button: '#939393',
-    check: '/icons/Check_start.svg', ship: '/icons/Ship_start.svg',
+    check: '/icons/pricing-check-start.svg', ship: '/icons/pricing-ship-start.svg',
     tab: '#EAEAEF',
   },
   pro: {
     color: '#4200D8', button: '#4200D8',
-    check: '/icons/Check_pro.svg', ship: '/icons/Ship_pro.svg',
+    check: '/icons/pricing-check-pro.svg', ship: '/icons/pricing-ship-pro.svg',
     tab: '#E1D6F7',
   },
   premium: {
     color: '#00C7BF', button: '#00C7BF',
-    check: '/icons/Check_premium.svg', ship: '/icons/Ship_premium.svg',
+    check: '/icons/pricing-check-premium.svg', ship: '/icons/pricing-ship-premium.svg',
     tab: '#D2F3F0',
   },
 }
@@ -42,7 +42,7 @@ function BoatTab({ color, ship }: { color: string; ship: string }) {
       {/* Lodička – dekorativní ikona tarifu, vycentrovaná v horní části jazyku */}
       <Box
         component="img" src={ship} alt="" aria-hidden
-        sx={{ position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)', width: 26, height: 26 }}
+        sx={{ position: 'absolute', top: 35, left: '50%', transform: 'translateX(-50%)', width: 26, height: 26 }}
       />
     </Box>
   )
@@ -63,7 +63,6 @@ export default function PricingCard({
         height: '583px', // všechny karty stejně vysoké dle XD
         maxWidth: '370px', // max šířka karty dle XD
         width: '100%',
-        mx: 'auto',
         overflow: 'hidden', // ořízne obsah do zaoblených rohů
         display: 'flex',
         flexDirection: 'column',
@@ -71,7 +70,7 @@ export default function PricingCard({
         textAlign: 'left',
         px: 4,
         pt: elevated ? '128px' : '104px', // místo pro „jazýček“ s lodičkou nahoře (Pro vyšší)
-        pb: elevated ? 6 : 5,
+        pb: elevated ? '73px' : '65px',
         boxShadow: elevated ? '0 30px 60px rgba(0,0,0,0.12)' : '0 18px 44px rgba(0,0,0,0.06)',
         transition: 'transform .25s ease, box-shadow .25s ease',
         '&:hover': { transform: 'translateY(-4px)', boxShadow: '0 30px 60px rgba(0,0,0,0.12)' },
@@ -86,7 +85,7 @@ export default function PricingCard({
       {/* Název + cena + poznámka – vždy vycentrované přes celou šířku karty */}
       <Typography sx={{ alignSelf: 'stretch', textAlign: 'center', fontWeight: 700, fontSize: 20, color: t.color, mb: 1 }}>{item.name}</Typography>
       <Typography
-        sx={{ alignSelf: 'stretch', textAlign: 'center', fontWeight: 700, fontSize: 60, lineHeight: 1.05, color: t.color, letterSpacing: '-1.5px', wordSpacing: '-6px' }}
+        sx={{ alignSelf: 'stretch', textAlign: 'center', fontWeight: 500, fontSize: 60, lineHeight: 1.05, color: t.color, letterSpacing: '-5.12px' }}
       >
         {item.price}
       </Typography>
@@ -108,8 +107,8 @@ export default function PricingCard({
       <Button
         variant="contained"
         sx={{
-          mt: 'auto', alignSelf: 'center', px: 5, py: 1.5, fontSize: 18,
-          bgcolor: t.button, color: '#fff',
+          mt: 'auto', alignSelf: 'center', px: '17px', py: '20px', fontSize: 18, lineHeight: 1,
+          bgcolor: t.button, color: '#fff', width: '188px',
           '&:hover': { bgcolor: darken(t.button, 0.12) },
         }}
       >
