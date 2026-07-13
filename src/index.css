@@ -1,0 +1,17 @@
+/* Minimální reset – globální styly řídí MUI theme + CssBaseline */
+:root {
+  color-scheme: light;
+}
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+/* Vyhlazování písma – hlavně kvůli světlému textu na tmavém pozadí,
+   který se jinak (zejména na macOS) renderuje opticky tučněji. */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
