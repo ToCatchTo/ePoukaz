@@ -48,10 +48,10 @@ function BoatTab({ color, ship }: { color: string; ship: string }) {
   )
 }
 
-// Jedna tarifní karta. `elevated` = zvýrazněný prostřední tarif (Pro) – je vyšší a přečuhuje.
+// Jedna tarifní karta. Všechny karty mají stejný stín; na hover se jen nadzvednou.
 export default function PricingCard({
-  item, tier, elevated = false,
-}: { item: PricingItem; tier: Tier; elevated?: boolean }) {
+  item, tier,
+}: { item: PricingItem; tier: Tier }) {
   const t = TIERS[tier]
 
   return (
@@ -69,11 +69,11 @@ export default function PricingCard({
         alignItems: 'flex-start',
         textAlign: 'left',
         px: 4,
-        pt: elevated ? '128px' : '104px', // místo pro „jazýček“ s lodičkou nahoře (Pro vyšší)
-        pb: elevated ? '73px' : '65px',
-        boxShadow: elevated ? '0 30px 60px rgba(0,0,0,0.12)' : '0 18px 44px rgba(0,0,0,0.06)',
-        transition: 'transform .25s ease, box-shadow .25s ease',
-        '&:hover': { transform: 'translateY(-4px)', boxShadow: '0 30px 60px rgba(0,0,0,0.12)' },
+        pt: '104px', // místo pro „jazýček“ s lodičkou nahoře – stejné u všech karet (obsah zarovnaný dle XD)
+        pb: '65px',
+        boxShadow: '0 24px 50px rgba(0,0,0,0.10)', // stejný stín u všech karet
+        transition: 'transform .25s ease',
+        '&:hover': { transform: 'translateY(-12px)' }, // na hover jen nadzvednutí
         '@media (prefers-reduced-motion: reduce)': {
           transition: 'none',
           '&:hover': { transform: 'none' },

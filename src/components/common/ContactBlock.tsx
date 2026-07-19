@@ -1,9 +1,10 @@
 import { Box, Grid, IconButton, InputBase, Stack, Typography } from '@mui/material'
 import { CONTACT } from '../../data/content'
+import { fluid } from '../../theme/fluid'
 
 // Společný styl šedých polí formuláře – nápověda (placeholder) černě, plně krytá
 const FIELD = {
-  bgcolor: '#F2F2F2', px: 3, py: 2, fontSize: 18, color: '#000', width: '100%',
+  bgcolor: '#F5F5F5', px: 3, py: 2, fontSize: 18, color: '#000', width: '100%',
   '& input::placeholder, & textarea::placeholder': { color: '#000', opacity: 1 },
 } as const
 
@@ -12,28 +13,28 @@ const FIELD = {
 // Jen vizuál (bez odesílání).
 export default function ContactBlock() {
   return (
-    <Grid container spacing={2} columns={10} sx={{ alignItems: 'center' }}>
+    <Grid container spacing={{ xs: 5, lg: 2 }} columns={10} sx={{ alignItems: 'center' }}>
       {/* Kontaktní údaje */}
-      <Grid offset={1} size={{ xs: 12, md: 4 }}>
-        <Stack spacing={3}>
-          <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
-            <Box component="img" src="/icons/contact-mail.svg" alt="" aria-hidden sx={{ width: 50, height: 50, flexShrink: 0, display: 'block' }} />
-            <Typography variant="h4">{CONTACT.email}</Typography>
+      <Grid offset={{ xs: 0, lg: 1 }} size={{ xs: 10, lg: 4 }}>
+        <Stack spacing={3} sx={{ ml: { sm: '0px', xs: '32px' } }}>
+          <Stack direction="row" spacing={{ xs: 2, md: 3 }} sx={{ alignItems: 'center' }}>
+            <Box component="img" src="/icons/contact-mail.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
+            <Typography variant="h4" sx={{ minWidth: 0, fontSize: { xs: 18, sm: fluid(21, 30) }, overflowWrap: 'anywhere' }}>{CONTACT.email}</Typography>
           </Stack>
-          <Stack direction="row" spacing={3} sx={{ alignItems: 'center' }}>
-            <Box component="img" src="/icons/contact-phone.svg" alt="" aria-hidden sx={{ width: 50, height: 50, flexShrink: 0, display: 'block' }} />
-            <Box>
-              <Typography variant="h4">{CONTACT.phone}</Typography>
-              <Typography sx={{ fontSize: 20, color: '#000' }}>{CONTACT.phoneNote}</Typography>
+          <Stack direction="row" spacing={{ xs: 2, md: 3 }} sx={{ alignItems: 'center' }}>
+            <Box component="img" src="/icons/contact-phone.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
+            <Box sx={{ minWidth: 0 }}>
+              <Typography variant="h4" sx={{ fontSize: { xs: 18, sm: fluid(21, 30) } }}>{CONTACT.phone}</Typography>
+              <Typography sx={{ fontSize: { xs: 14, md: 20 }, color: '#000' }}>{CONTACT.phoneNote}</Typography>
             </Box>
           </Stack>
         </Stack>
       </Grid>
 
       {/* Formulář zprávy */}
-      <Grid size={{ xs: 12, md: 4 }}>
+      <Grid size={{ xs: 10, lg: 4 }}>
         <Stack spacing={2.5}>
-          <Typography sx={{ fontSize: 20, fontWeight: 700, color: '#000', ml: '24px !important' }}>{CONTACT.formHeading}</Typography>
+          <Typography sx={{ fontSize: fluid(18, 20), fontWeight: 700, color: '#000', ml: { sm: '24px !important', xs: '0px' }, textAlign: { sm: 'left', xs: 'center' } }}>{CONTACT.formHeading}</Typography>
           <InputBase placeholder="*Email" sx={{ ...FIELD, borderRadius: '999px' }} />
           <Box sx={{ position: 'relative' }}>
             <InputBase

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import PageLayout from './components/layout/PageLayout'
+import ScrollToTop from './components/common/ScrollToTop'
 import HomePage from './pages/HomePage'
 import PricingPage from './pages/PricingPage'
 import ContactPage from './pages/ContactPage'
@@ -23,6 +24,7 @@ export function AppRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AppRoutes />
     </BrowserRouter>
   )

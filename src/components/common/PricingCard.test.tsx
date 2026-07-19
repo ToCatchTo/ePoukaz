@@ -14,7 +14,7 @@ const ITEM = {
 }
 
 test('zobrazuje název, cenu, poznámku, CTA a všechny vlastnosti', () => {
-  render(wrap(<PricingCard item={ITEM} tier="pro" elevated />))
+  render(wrap(<PricingCard item={ITEM} tier="pro" />))
 
   expect(screen.getByText('Pro')).toBeInTheDocument()
   expect(screen.getByText('2 490 Kč')).toBeInTheDocument()

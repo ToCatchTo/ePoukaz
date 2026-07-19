@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles'
+import { fluid } from './fluid'
 
 // Pastelové barvy 6 karet „problémů" (přesně z XD)
 export const PASTELS = {
@@ -20,14 +21,15 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: "'Google Sans', Poppins, Arial, sans-serif",
-    // Velikosti přesně z XD návrhu (px / řez)
-    h1: { fontWeight: 700, fontSize: 90, lineHeight: 1.05 }, // hero, „6 problémů", nadpis formuláře
-    h2: { fontWeight: 700, fontSize: 50, lineHeight: 1.1 }, // CTA „A to není vše!"
-    h3: { fontWeight: 700, fontSize: 42, lineHeight: 1.15 }, // nadpis ceníku, univerzální podstránky
-    h4: { fontWeight: 700, fontSize: 30, lineHeight: 1.2 }, // nadpisy karet, „Nástroje", e-mail/telefon
-    h5: { fontWeight: 700, fontSize: 26, lineHeight: 1.25 }, // kroky „Jak to funguje"
-    h6: { fontWeight: 700, fontSize: 20, lineHeight: 1.3 }, // navigace, nadpisy sloupců, název tarifu
-    button: { textTransform: 'none', fontWeight: 700, fontSize: 18 },
+    // Velikosti plynule škálované mezi mobilem (390 px) a desktopem (1920 px).
+    // Desktopová (max) hodnota = přesně XD desktop; mobilní (min) = XD mobil.
+    h1: { fontWeight: 700, fontSize: fluid(40, 90), lineHeight: 1.05 }, // hero, „6 problémů", nadpis formuláře
+    h2: { fontWeight: 700, fontSize: fluid(30, 50), lineHeight: 1.1 }, // CTA „A to není vše!"
+    h3: { fontWeight: 700, fontSize: fluid(26, 42), lineHeight: 1.15 }, // nadpis ceníku, univerzální podstránky
+    h4: { fontWeight: 700, fontSize: fluid(21, 30), lineHeight: 1.2 }, // nadpisy karet, „Nástroje", e-mail/telefon
+    h5: { fontWeight: 700, fontSize: fluid(19, 26), lineHeight: 1.25 }, // kroky „Jak to funguje"
+    h6: { fontWeight: 700, fontSize: fluid(17, 20), lineHeight: 1.3 }, // navigace, nadpisy sloupců, název tarifu
+    button: { textTransform: 'none', fontWeight: 700, fontSize: fluid(16, 18) },
   },
   shape: { borderRadius: 24 },
   components: {

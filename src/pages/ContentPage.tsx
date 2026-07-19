@@ -5,7 +5,8 @@ import TwoMonthsFreeBanner from '../components/common/TwoMonthsFreeBanner'
 import ContactBlock from '../components/common/ContactBlock'
 import DecorLines from '../components/common/DecorLines'
 import Footer from '../components/layout/Footer'
-import { CONTENT_W } from '../theme/layout'
+import GridSection from '../components/layout/GridSection'
+import { fluid } from '../theme/fluid'
 import { UNI } from '../data/content'
 
 // Mezinadpis = řetězec psaný celý VELKÝMI písmeny (vysází se tučně a s odsazením)
@@ -28,25 +29,25 @@ export default function ContentPage() {
 
   return (
     <Box data-testid="page-uni">
-      <Box sx={{ maxWidth: CONTENT_W, mx: 'auto' }}>
-        {/* Karta s nadpisem a obchodními podmínkami – vlnité čáry prosvítají v okrajích */}
-        <Box sx={{ position: 'relative', mb: '200px' }}>
-          <DecorLines sx={{ top: 110 }} />
-          <SectionCard sx={{ bgcolor: '#F5F5F5', position: 'relative', zIndex: 1, pt: '85px', pb: '180px' }}>
-            {/* Obsah na 10sloupcovém gridu: 1 sloupec mezera vlevo, obsah 8 sloupců, 1 sloupec vpravo */}
+      {/* Karta s nadpisem a obchodními podmínkami – vlnité čáry prosvítají v okrajích, zarovnaná na grid */}
+      <Box sx={{ position: 'relative', mb: fluid(96, 200) }}>
+        <DecorLines sx={{ top: 110 }} />
+        <GridSection sx={{ position: 'relative', zIndex: 1 }}>
+          <SectionCard sx={{ bgcolor: '#F5F5F5', px: fluid(20, 64), pt: fluid(48, 85), pb: fluid(96, 180) }}>
+            {/* Obsah na 10sloupcovém gridu: na desktopu odsazený (obsah 8/10), na mobilu i tabletu plná šířka */}
             <Grid container columns={10}>
-              <Grid offset={1} size={8}>
-                <Typography variant="h3" sx={{ mb: 6, textAlign: 'center', maxWidth: 592, lineHeight: '57px', letterSpacing: '-0.84px', m: '0 auto' }}>{UNI.title}</Typography>
-                <Stack sx={{ mt: '65px' }}>
+              <Grid offset={{ xs: 0, lg: 1 }} size={{ xs: 10, lg: 8 }}>
+                <Typography variant="h3" sx={{ mb: 6, textAlign: 'center', maxWidth: 592, lineHeight: 1.2, letterSpacing: '-0.84px', m: '0 auto' }}>{UNI.title}</Typography>
+                <Stack sx={{ mt: fluid(40, 65) }}>
                   {UNI.paragraphs.map((p, i) => (
                     <Fragment key={i}>
                       {i === galleryBeforeIndex && (
                         <Box
                           sx={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(3, 1fr)',
+                            gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
                             gap: '24px',
-                            my: '48px',
+                            my: fluid(32, 48),
                           }}
                         >
                           {GALLERY_IMAGES.map((src, gi) => (
@@ -62,9 +63,9 @@ export default function ContentPage() {
                         </Box>
                       )}
                       {isHeading(p) && i !== lastHeadingIndex ? (
-                        <Typography sx={{ fontWeight: 700, fontSize: 18, mt: i === 0 ? 0 : '32px' }}>{p}</Typography>
+                        <Typography sx={{ fontWeight: 700, fontSize: fluid(15, 18), mt: i === 0 ? 0 : '32px' }}>{p}</Typography>
                       ) : (
-                        <Typography sx={{ fontSize: 18, lineHeight: 1.7, whiteSpace: 'pre-line' }}>{p}</Typography>
+                        <Typography sx={{ fontSize: fluid(15, 18), lineHeight: 1.7, whiteSpace: 'pre-line' }}>{p}</Typography>
                       )}
                     </Fragment>
                   ))}
@@ -72,10 +73,10 @@ export default function ContentPage() {
               </Grid>
             </Grid>
           </SectionCard>
-        </Box>
-
-        <TwoMonthsFreeBanner />
+        </GridSection>
       </Box>
+
+      <TwoMonthsFreeBanner />
 
       {/* Kontakt spojený s patičkou do jedné bílé karty (dle XD Desktop_UNI) */}
       <Footer topContent={<ContactBlock />} />

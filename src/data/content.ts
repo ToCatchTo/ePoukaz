@@ -110,6 +110,7 @@ export const TRY_FORM = {
 // Spodní CTA banner
 export const CTA_BANNER = {
   title: 'A to není vše! Přesvědčte se sami a vyzkoušejte na 30 dní ZDARMA',
+  titleMobile: 'Vyzkoušejte to sami – 30 dní zdarma',
   button: 'Vyzkoušejte',
 }
 
