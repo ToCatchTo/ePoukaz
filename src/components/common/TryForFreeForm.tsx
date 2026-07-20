@@ -10,9 +10,9 @@ export default function TryForFreeForm() {
     <Box sx={{ px: PAGE_PX }}>
       <Stack sx={{ alignItems: 'center', textAlign: 'center', mb: fluid(120, 230) }}>
         <Typography variant="h1" sx={{ color: '#fff', maxWidth: '905px' }}>{TRY_FORM.title}</Typography>
-        <Typography sx={{ color: '#fff', maxWidth: 796, fontSize: fluid(16, 26), lineHeight: 1.5, mt: fluid(24, 35) }} dangerouslySetInnerHTML={{ __html: TRY_FORM.subtitle }} />
+        <Typography sx={{ color: '#fff', maxWidth: 796, fontSize: fluid(16, 26), lineHeight: 1.5, mt: fluid(30, 35) }} dangerouslySetInnerHTML={{ __html: TRY_FORM.subtitle }} />
         {/* Přesně 2 sloupce (na mobilu 1) – CSS grid, bez přetékání */}
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, columnGap: 6, rowGap: { xs: 2.5, md: 4 }, width: '100%', maxWidth: 700, mt: fluid(40, 60) }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, columnGap: 6, rowGap: { xs: 2, md: 4 }, width: '100%', maxWidth: 700, mt: fluid(40, 60) }}>
           {Array.from({ length: TRY_FORM.fieldsCount }).map((_, i) => (
             <InputBase
               key={i}

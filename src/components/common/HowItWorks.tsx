@@ -34,7 +34,7 @@ export default function HowItWorks() {
       >
         {/* Levá polovina – accordion kroků (přesně 50 % šířky, nadpisy se zalamují) */}
         <Box sx={{ flexBasis: { xs: 'auto', lg: '50%' }, maxWidth: { xs: '100%', lg: '50%' }, minWidth: 0, flexGrow: 0, flexShrink: 1, p: { xs: '50px 24px', sm: '108px 76px', lg: '140px 90px 130px 90px', xl: '170px 90px 150px 140px' } }}>
-          <Stack divider={<Divider sx={{ borderColor: '#E8E8E8', height: 2 }} />} spacing={0}>
+          <Stack divider={<Divider sx={{ borderColor: '#E8E8E8', height: 2, borderWidth: 1 }} />} spacing={0}>
             {HOW_STEPS.map((s, i) => {
               const isOpen = i === open
               return (
@@ -43,12 +43,22 @@ export default function HowItWorks() {
                   onClick={() => setOpen(i)}
                   sx={{ cursor: 'pointer', py: 4, '&:hover .step-title': { textDecoration: 'underline' } }}
                 >
-                  <Stack direction="row" spacing={2} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Typography className="step-title" variant="h5" sx={{ textDecoration: isOpen ? 'underline' : 'none', maxWidth: '374px' }}>
+                  <Stack direction="row" spacing={3} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Typography className="step-title" variant="h5" sx={{ textDecoration: isOpen ? 'underline' : 'none', maxWidth: '374px', fontSize: fluid(18, 26) }}>
                       {s.title}
                     </Typography>
-                    {/* šipka jen u zavřených kroků */}
-                    {!isOpen && <CircleArrowButton onClick={() => setOpen(i)} />}
+                    {/* Desktop: šipka doprava, jen u zavřených kroků */}
+                    {!isOpen && (
+                      <CircleArrowButton onClick={() => setOpen(i)} sx={{ display: { xs: 'none', lg: 'inline-flex' } }} />
+                    )}
+                    {/* Mobil + tablet: vždy šipka – dolů u zavřených, nahoru u otevřených */}
+                    <CircleArrowButton
+                      onClick={() => setOpen(i)}
+                      src="/icons/arrow-down.svg"
+                      rotate={isOpen ? 180 : 0}
+                      size={{ xs: 28, sm: 36 }}
+                      sx={{ display: { xs: 'inline-flex', lg: 'none' } }}
+                    />
                   </Stack>
                   <Collapse in={isOpen} unmountOnExit timeout={350} easing="cubic-bezier(0.4, 0, 0.2, 1)">
                     <Typography
@@ -57,7 +67,7 @@ export default function HowItWorks() {
                         fontSize: 16,
                         lineHeight: 1.7,
                         color: '#000',
-                        maxWidth: '392px',
+                        maxWidth: fluid(270, 392),
                         // jemný fade-in textu při rozbalení, ať se neobjeví skokem
                         animation: 'howStepFadeIn 0.35s ease',
                         '@keyframes howStepFadeIn': { from: { opacity: 0 }, to: { opacity: 1 } },

@@ -4,6 +4,7 @@ import { Link as RouterLink, useLocation } from 'react-router-dom'
 import { NAV_LINKS } from '../../data/content'
 import MenuToggle from './MenuToggle'
 import { fluid } from '../../theme/fluid'
+import { PAGE_PX } from '../../theme/grid'
 
 // Mobilní menu (XD Mobile_menu) – panel, který se vysune SHORA přes horní část obrazovky
 // a při zavření se zase zasune nahoru. Panel zůstává v DOM (kvůli plynulé animaci oběma směry),
@@ -69,7 +70,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
           sx={{
             bgcolor: '#fff',
             borderRadius: '0 0 60px 60px',
-            px: '36px',
+            px: PAGE_PX,
             pt: fluid(90, 80),
             pb: '110px'
           }}

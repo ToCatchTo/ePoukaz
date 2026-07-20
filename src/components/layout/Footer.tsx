@@ -18,12 +18,12 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
       <Box sx={{ position: 'relative' }}>
         <DecorLines sx={{ top: topContent ? 120 : -200 }} />
         <GridSection variant="wide" sx={{ position: 'relative', zIndex: 1, px: { xs: '14px', sm: CARD_R } }}>
-          <Box sx={{ bgcolor: '#fff', borderRadius: CARD_R, px: fluid(24, 140), pt: topContent ? fluid(48, 110) : fluid(97, 140), pb: fluid(40, 60) }}>
+          <Box sx={{ bgcolor: '#fff', borderRadius: CARD_R, px: fluid(24, 140), pt: topContent ? fluid(70, 110) : fluid(97, 140), pb: fluid(40, 60) }}>
             {/* Horní obsah (např. kontaktní blok na stránce Kontakt) oddělený vodorovnou čarou */}
             {topContent && (
               <>
                 {topContent}
-                <Divider sx={{ mt: fluid(40, 75), mb: fluid(56, 150) }} />
+                <Divider sx={{ mt: fluid(40, 75), mb: fluid(56, 150), borderWidth: 1 }} />
               </>
             )}
 
@@ -40,12 +40,12 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
                     variant="contained"
                     color="secondary"
                     endIcon={<Box component="img" src="/icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 40), height: fluid(30, 40) }} />}
-                    sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), mt: `${fluid(28, 50)} !important`, '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500 }}
+                    sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), mt: `${fluid(28, 50)} !important`, '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500, height: fluid(60, 70) }}
                   >
                     {CTA_BANNER.button}
                   </Button>
                 </Stack>
-                <Divider sx={{ mt: fluid(100, 130), mb: fluid(90, 150) }} />
+                <Divider sx={{ mt: fluid(100, 130), mb: fluid(90, 150), borderWidth: 1 }} />
               </>
             )}
 
@@ -56,7 +56,7 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
               <Grid size={{ xs: 10, lg: 3 }} sx={{ borderRight: { lg: '1px solid' }, borderColor: { lg: 'divider' }, mb: { xs: '60px', lg: 0 } }}>
                 <Box component="img" src="/images/logo-epoukaz.svg" alt="ePoukaz online" sx={{ height: 26, mb: 3, display: 'block' }} />
                 {FOOTER.company.map((line) => (
-                  <Typography key={line} sx={{ fontSize: 16, color: '#000', lineHeight: 2 }}>{line}</Typography>
+                  <Typography key={line} sx={{ fontSize: fluid(14, 16), color: '#000', lineHeight: 2 }}>{line}</Typography>
                 ))}
               </Grid>
               {/* mezera mezi firmou a sloupci odkazů – jen desktop */}
@@ -64,14 +64,14 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
               {/* 3 sloupce odkazů */}
               {FOOTER.columns.map((col) => (
                 <Grid size={{ xs: 10, lg: 2 }} key={col.title}>
-                  <Typography sx={{ fontWeight: 700, fontSize: 20, mb: 2 }}>{col.title}</Typography>
+                  <Typography sx={{ fontWeight: 700, fontSize: fluid(18, 20), mb: 0.5 }}>{col.title}</Typography>
                   {col.links.map((link) => (
                     <MuiLink
                       key={link}
                       component={RouterLink}
                       to="/faq"
                       underline="hover"
-                      sx={{ display: 'block', fontSize: 16, color: '#000', lineHeight: 2.2, '&:hover': { color: 'primary.main' } }}
+                      sx={{ display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } }}
                     >
                       {link}
                     </MuiLink>

@@ -12,7 +12,7 @@ const PINK = '#FDD6DF'
 // Zarovnaný na grid (variant „content" = margin ≥ 1 sloupec).
 export default function TwoMonthsFreeBanner() {
   return (
-    <GridSection sx={{ mb: fluid(80, 180) }}>
+    <GridSection sx={{ mb: fluid(229, 180) }}>
       <Box
         sx={{
           position: 'relative', bgcolor: PINK, borderRadius: fluid(80, 150), overflow: 'hidden',
@@ -51,7 +51,7 @@ export default function TwoMonthsFreeBanner() {
             >
               {TWO_MONTHS.title}
             </Typography>
-            <Typography sx={{ fontSize: fluid(15, 18), lineHeight: 1.7, maxWidth: 380 }}>{TWO_MONTHS.text}</Typography>
+            <Typography sx={{ fontSize: '18px', lineHeight: '30px', maxWidth: 380 }}>{TWO_MONTHS.text}</Typography>
           </Stack>
         </Box>
 

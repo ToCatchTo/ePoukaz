@@ -132,14 +132,14 @@ export default function HeroSection() {
               </>
             )}
           </Typography>
-          <Typography sx={{ color: '#fff', fontSize: fluid(15, 20), lineHeight: 1.6, maxWidth: 470, mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
+          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), lineHeight: 1.6, maxWidth: 470, mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
             <span style={{ fontWeight: 500 }}>{BOLD_LEAD}</span>{REST_PARAGRAPH}
           </Typography>
           <Button
             variant="contained"
             color="secondary"
             endIcon={<Box component="img" src="/icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 40), height: fluid(30, 40) }} />}
-            sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500 }}
+            sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500, height: fluid(60, 70) }}
           >
             {HERO.cta}
           </Button>
@@ -159,7 +159,7 @@ export default function HeroSection() {
           </Box>
           {/* Recenze vytažené nahoru přes spodek ruky (zIndex 1 = nad rukou);
               záporné boční marginy ruší boční padding stránky, aby carousel dosáhl k oběma okrajům obrazovky */}
-          <Box sx={{ position: 'relative', zIndex: 1, mt: { xs: -12 }, mx: { xs: `calc(-1 * ${PAGE_PX.xs})` } }}>
+          <Box sx={{ position: 'relative', zIndex: 1, mt: { xs: -12 }, mx: { xs: `calc(-1 * ${PAGE_PX.xs})`, sm: `calc(-1 * ${PAGE_PX.sm})` } }}>
             <TestimonialsCarousel />
           </Box>
         </Box>
@@ -213,6 +213,7 @@ export default function HeroSection() {
             // protože scale() potřebuje bezrozměrné číslo, které z vw nejde získat dělením.
             transformOrigin: '100% 50%',
             transform: `scale(${fluidScale(0.8, 1, 1536, 1920)})`,
+            top: fluid(30, 0, 1536, 1920), // posun dolů při zmenšování
           }}
         >
           <HeroComposition />

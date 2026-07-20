@@ -27,7 +27,7 @@ export default function HomePage() {
       {/* JAK TO FUNGUJE – vytažené nahoru přes pás (zIndex 2), takže pás prosvítá jen za jeho horní/bočními okraji (grid „content").
           Na desktopu (xl) záporný margin = karta překryje horní část pásu, aby pás nevyčníval do hero sekce.
           Pod xl (naskládané hero) je pás skrytý (hero má vlastní dekor), proto tam jen kladná mezera. */}
-      <Box sx={{ position: 'relative', zIndex: 2, mt: { xs: '80px', xl: '170px' }, mb: fluid(120, 200) }}>
+      <Box sx={{ position: 'relative', zIndex: 2, mt: { xs: '80px', md: '0px', xl: '170px' }, mb: fluid(120, 200) }}>
         <HowItWorks />
       </Box>
 

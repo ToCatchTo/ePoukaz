@@ -40,7 +40,7 @@ export default function Header() {
           </MuiLink>
 
           {/* Odznak „30 dní ZDARMA" – na mobilu i tabletu vedle loga (výraznější pill dle XD) */}
-          <Box sx={{ display: { xs: 'block', lg: 'none' }, flexShrink: 0, bgcolor: 'secondary.main', color: '#fff', borderRadius: 999, px: 2.5, py: 1, fontWeight: 700, fontSize: 14, lineHeight: 1.2, textAlign: 'center' }}>
+          <Box sx={{ display: { xs: 'block', lg: 'none' }, flexShrink: 0, bgcolor: 'secondary.main', color: '#fff', borderRadius: 999, px: 2.5, py: '5px', fontWeight: 400, fontSize: 14, lineHeight: 1.2, textAlign: 'center' }}>
             30 dní<br />ZDARMA
           </Box>
 

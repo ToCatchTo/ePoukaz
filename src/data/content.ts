@@ -44,7 +44,7 @@ export const HOW_STEPS = [
     text: 'Pacient nebo jeho blízký přes váš web jednoduše načte QR kód nebo zadá kód ručně. Bez front, bez telefonátů, kdykoliv z pohodlí domova nebo přímo z ordinace. Načíst můžete i vy přímo v systému.'
   },
   {
-    title: 'Poukaz máte hned v systému',
+    title: 'ePoukaz máte hned v systému',
     text: 'Jakmile pacient poukaz odešle, okamžitě se zobrazí ve vašem administračním rozhraní i s načtenými SÚKL daty. Nic nepřepisujete a nic neověřujete ručně.'
   },
   {
@@ -101,7 +101,7 @@ export const PROBLEMS = [
 export const TRY_FORM = {
   title: 'Vyzkoušejte to sami – 30 dní zdarma',
   subtitle:
-    '<span style="font-weight: 600;">Zadejte pár údajů a my se vám ozveme s bezplatným přístupem na 30 dní.</span> Žádný závazek, žádná platební ' +
+    '<span style="font-weight: 600; font-family: Google Sans;">Zadejte pár údajů a my se vám ozveme s bezplatným přístupem na 30 dní.</span><span style="font-family: Poppins; font-weight: 300;"> Žádný závazek, žádná platební ' +
     'karta – jen zjistíte, kolik času vám a vašemu týmu ePoukaz online ušetří.',
   fieldsCount: 6,
   submit: 'Odeslat',
@@ -195,7 +195,7 @@ export const FOOTER = {
   // Pozn.: sloupce „Obecné" a „Doplňkové služby" mají dle XD návrhu shodné odkazy (záměr, ne překlep).
   columns: [
     { title: 'Jak na to?', links: ['Jak implementovat', 'Jak to funguje?', 'Video tutorial', 'FAQ'] },
-    { title: 'Obecné', links: ['Rozšíření aplikace na míru', 'Tvorba webu se SLEVOU', 'Tvorba loga se SLEVOU'] },
+    { title: 'Obecné', links: ['Obchodní podmínky', 'Ochrana osobních údajů', 'Zpracovatelská smlouva', 'Informace k nezákonnému obsahu', 'Newslettery'] },
     { title: 'Doplňkové služby', links: ['Rozšíření aplikace na míru', 'Tvorba webu se SLEVOU', 'Tvorba loga se SLEVOU'] },
   ],
   copyright: '2026, epoukazonline.cz',
