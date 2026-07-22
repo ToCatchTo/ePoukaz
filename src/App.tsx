@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import PricingPage from './pages/PricingPage'
 import ContactPage from './pages/ContactPage'
 import ContentPage from './pages/ContentPage'
+import DynamicPage from './pages/DynamicPage'
 
 // Definice cest – oddělené, aby šly testovat přes MemoryRouter
 export function AppRoutes() {
@@ -16,6 +17,7 @@ export function AppRoutes() {
         <Route path="/kontakt" element={<ContactPage />} />
         <Route path="/faq" element={<ContentPage />} />
         <Route path="/obchodni-podminky" element={<ContentPage />} />
+        <Route path="/stranka/:slug" element={<DynamicPage />} />
       </Route>
     </Routes>
   )
