@@ -10,6 +10,8 @@ import GridSection from '../components/layout/GridSection'
 import { PAGE_PX } from '../theme/grid'
 import { fluid } from '../theme/fluid'
 import { CENIK_HEAD, PRICING, COMPARE_ROWS, SMS_NOTE } from '../data/content'
+import { useTariffs } from '../hooks/useApi'
+import { tariffToItem, tierForCode } from '../api/tariffMapping'
 
 // Mapa akcentní barvy tarifu na hex (hlavička srovnávací tabulky)
 const ACCENT: Record<string, string> = { black: '#000000', purple: '#4200D8', teal: '#00C7BF' }
@@ -53,6 +55,12 @@ const SUB_BOLD = '30 dní ZDARMA'
 const [SUB_BEFORE, SUB_AFTER] = CENIK_HEAD.subtitle.split(SUB_BOLD)
 
 export default function PricingPage() {
+  const { data: tariffs } = useTariffs()
+  // Dynamicky z API; dokud data nejsou (načítání/chyba) → statická PRICING, ať stránka není prázdná.
+  const cards = tariffs
+    ? tariffs.map((t) => ({ key: t.code, item: tariffToItem(t), tier: tierForCode(t.code) }))
+    : PRICING.map((p) => ({ key: p.name, item: p, tier: p.name.toLowerCase() as Tier }))
+
   return (
     <Box data-testid="page-cenik">
       {/* Světlá karta s tarify a tabulkou (#F5F5F5) + vlnité čáry za horní částí – zarovnaná na grid */}
@@ -79,12 +87,12 @@ export default function PricingPage() {
                 '@media (min-width:1600px)': { flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch', gap: '30px' },
               }}
             >
-              {PRICING.map((p) => (
+              {cards.map((c) => (
                 <Box
-                  key={p.name}
+                  key={c.key}
                   sx={{ width: '100%', maxWidth: 370, minWidth: 0, '@media (min-width:1600px)': { flex: '1 1 0', width: 'auto' } }}
                 >
-                  <PricingCard item={p} tier={p.name.toLowerCase() as Tier} />
+                  <PricingCard item={c.item} tier={c.tier} />
                 </Box>
               ))}
             </Box>
