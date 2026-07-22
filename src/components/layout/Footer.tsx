@@ -6,12 +6,14 @@ import { FOOTER, CTA_BANNER } from '../../data/content'
 import { CARD_R } from '../../theme/layout'
 import { fluid } from '../../theme/fluid'
 import GridSection from './GridSection'
+import { useCompanies } from '../../hooks/useApi'
 
 // Patička – JEDNA bílá karta (1640 px) dle XD návrhu. Volitelně obsahuje nahoře
 // CTA blok („A to není vše…") NEBO libovolný horní obsah (`topContent`, např. kontaktní blok),
 // oddělený vodorovnou čarou; pod ním firmu + 3 sloupce odkazů oddělené svislou čarou a dole
 // centrovaný copyright. Pod kartou je kredit.
 export default function Footer({ withCta = false, topContent }: { withCta?: boolean; topContent?: ReactNode }) {
+  const { data: companies } = useCompanies()
   return (
     <>
       {/* Vlnité čáry za horní částí patiční karty – prosvítají v okrajích */}
@@ -65,17 +67,29 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
               {FOOTER.columns.map((col) => (
                 <Grid size={{ xs: 10, lg: 2 }} key={col.title}>
                   <Typography sx={{ fontWeight: 700, fontSize: fluid(18, 20), mb: 0.5 }}>{col.title}</Typography>
-                  {col.links.map((link) => (
-                    <MuiLink
-                      key={link}
-                      component={RouterLink}
-                      to="/faq"
-                      underline="hover"
-                      sx={{ display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } }}
-                    >
-                      {link}
-                    </MuiLink>
-                  ))}
+                  {col.title === 'Doplňkové služby' && companies && companies.length > 0
+                    ? companies.map((c) => (
+                        <MuiLink
+                          key={c.publicHash}
+                          component={RouterLink}
+                          to={`/provozovna/${c.publicHash}`}
+                          underline="hover"
+                          sx={{ display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } }}
+                        >
+                          {c.name}
+                        </MuiLink>
+                      ))
+                    : col.links.map((link) => (
+                        <MuiLink
+                          key={link}
+                          component={RouterLink}
+                          to="/faq"
+                          underline="hover"
+                          sx={{ display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } }}
+                        >
+                          {link}
+                        </MuiLink>
+                      ))}
                 </Grid>
               ))}
             </Grid>
