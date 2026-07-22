@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { theme } from '../theme/theme'
@@ -30,6 +30,7 @@ test('Na /provozovna/:hash doplní údaje provozovny do textu', () => {
       </MemoryRouter>
     </ThemeProvider>,
   )
-  expect(screen.getAllByText(/Lékárna Pod Věží/).length).toBeGreaterThan(0)
-  expect(screen.getAllByText(/Hlavní 42, Praha 11000/).length).toBeGreaterThan(0)
+  const uni = within(screen.getByTestId('page-uni'))
+  expect(uni.getAllByText(/Lékárna Pod Věží/).length).toBeGreaterThan(0)
+  expect(uni.getAllByText(/Hlavní 42, Praha 11000/).length).toBeGreaterThan(0)
 })
