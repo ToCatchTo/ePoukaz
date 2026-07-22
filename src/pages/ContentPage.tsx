@@ -36,7 +36,11 @@ export default function ContentPage() {
     ico: company?.billingIco ?? '',
     orderUrl: company ? orderUrl(company.publicHash) : '',
   }
-  const galleryImages = company ? companyImages(company) : GALLERY_IMAGES
+  // Galerie jako {src, kind}; u provozovny z API (logo → contain, fotky → cover),
+  // jinak statický fallback (vše jako fotky).
+  const galleryImages = company
+    ? companyImages(company)
+    : GALLERY_IMAGES.map((src) => ({ src, kind: 'photo' as const }))
 
   // Index posledního mezinadpisu – ten se vysází jako běžný text (bez tučného řezu a odsazení)
   const lastHeadingIndex = UNI.paragraphs.reduce((last, p, i) => (isHeading(p) ? i : last), -1)
@@ -67,14 +71,19 @@ export default function ContentPage() {
                             justifyItems: 'center',
                           }}
                         >
-                          {galleryImages.map((src, gi) => (
+                          {galleryImages.map((img, gi) => (
                             <Box
                               key={gi}
                               component="img"
-                              src={src}
+                              src={img.src}
                               alt=""
                               aria-hidden
-                              sx={{ width: '100%', maxWidth: 360, aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: '20px', display: 'block' }}
+                              sx={{
+                                width: '100%', maxWidth: 360, aspectRatio: '4 / 3', borderRadius: '20px', display: 'block',
+                                // logo celé (contain) na bílém s odsazením; fotky vyplní rám (cover)
+                                objectFit: img.kind === 'logo' ? 'contain' : 'cover',
+                                ...(img.kind === 'logo' && { bgcolor: '#fff', p: 3 }),
+                              }}
                             />
                           ))}
                         </Box>

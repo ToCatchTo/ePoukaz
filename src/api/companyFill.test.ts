@@ -24,6 +24,9 @@ test('fillPlaceholders nahradí tokeny', () => {
   expect(fillPlaceholders('a {{x}} b {{y}}', { x: '1', y: '2' })).toBe('a 1 b 2')
 })
 
-test('companyImages vrátí jen neprázdné obrázky (logo, exteriér, interiér)', () => {
-  expect(companyImages(company)).toEqual(['https://x/logo.webp', 'https://x/ext.jpg'])
+test('companyImages vrátí jen neprázdné obrázky s druhem (logo, exteriér, interiér)', () => {
+  expect(companyImages(company)).toEqual([
+    { src: 'https://x/logo.webp', kind: 'logo' },
+    { src: 'https://x/ext.jpg', kind: 'photo' },
+  ])
 })
