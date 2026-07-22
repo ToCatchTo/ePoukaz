@@ -8,6 +8,9 @@ import { fluid } from '../../theme/fluid'
 import GridSection from './GridSection'
 import { useCompanies } from '../../hooks/useApi'
 
+// Sdílený styl odkazů ve sloupcích patičky (dynamické firmy i statické odkazy)
+const footerLinkSx = { display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } } as const
+
 // Patička – JEDNA bílá karta (1640 px) dle XD návrhu. Volitelně obsahuje nahoře
 // CTA blok („A to není vše…") NEBO libovolný horní obsah (`topContent`, např. kontaktní blok),
 // oddělený vodorovnou čarou; pod ním firmu + 3 sloupce odkazů oddělené svislou čarou a dole
@@ -74,7 +77,7 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
                           component={RouterLink}
                           to={`/provozovna/${c.publicHash}`}
                           underline="hover"
-                          sx={{ display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } }}
+                          sx={footerLinkSx}
                         >
                           {c.name}
                         </MuiLink>
@@ -85,7 +88,7 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
                           component={RouterLink}
                           to="/faq"
                           underline="hover"
-                          sx={{ display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } }}
+                          sx={footerLinkSx}
                         >
                           {link}
                         </MuiLink>
