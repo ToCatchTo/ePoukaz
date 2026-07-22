@@ -28,6 +28,9 @@ export default function DynamicPage() {
                 <Typography variant="h3" sx={{ mb: 6, textAlign: 'center', lineHeight: fluid(22, 57), letterSpacing: '-0.84px', fontSize: fluid(18, 42) }}>
                   {data.title}
                 </Typography>
+                {/* content je hotové HTML z našeho interního CMS (důvěryhodný zdroj), proto se
+                    vykresluje přímo. Pokud by obsah někdy pocházel od uživatelů, je nutné ho
+                    nejdřív sanitizovat (např. DOMPurify). */}
                 <Box
                   sx={{ fontSize: fluid(14, 18), lineHeight: fluid(20, 30), '& img': { maxWidth: '100%', borderRadius: '20px' } }}
                   dangerouslySetInnerHTML={{ __html: data.content }}
