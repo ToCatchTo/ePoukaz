@@ -3,6 +3,7 @@ import { Box, Button, Link as MuiLink } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 import { NAV_LINKS } from '../../data/content'
 import { fluid } from '../../theme/fluid'
+import { usePages } from '../../hooks/useApi'
 import GridSection from './GridSection'
 import HamburgerButton from './HamburgerButton'
 import MobileMenu from './MobileMenu'
@@ -13,6 +14,9 @@ import MobileMenu from './MobileMenu'
 export default function Header() {
   const { pathname } = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
+  const { data: pages } = usePages()
+  const dynamicLinks = (pages ?? []).map((p) => ({ label: p.title, to: `/stranka/${p.slug}` }))
+  const links = [...NAV_LINKS, ...dynamicLinks]
 
   return (
     <GridSection
@@ -45,7 +49,7 @@ export default function Header() {
           </Box>
 
           {/* Navigace – jen desktop */}
-          {NAV_LINKS.map((l) => {
+          {links.map((l) => {
             const active = l.to === pathname
             return (
               <MuiLink
@@ -71,7 +75,7 @@ export default function Header() {
           <HamburgerButton open={menuOpen} onClick={() => setMenuOpen(true)} />
         </Box>
 
-        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} />
       </Box>
     </GridSection>
   )

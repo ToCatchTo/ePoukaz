@@ -9,7 +9,9 @@ import { PAGE_PX } from '../../theme/grid'
 // Mobilní menu (XD Mobile_menu) – panel, který se vysune SHORA přes horní část obrazovky
 // a při zavření se zase zasune nahoru. Panel zůstává v DOM (kvůli plynulé animaci oběma směry),
 // v zavřeném stavu je odsunutý mimo obrazovku a skrytý pro asistivní technologie (aria-hidden).
-export default function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+export default function MobileMenu({
+  open, onClose, links = NAV_LINKS,
+}: { open: boolean; onClose: () => void; links?: { label: string; to: string }[] }) {
   const { pathname } = useLocation()
 
   // Zamknout scroll pozadí, dokud je menu otevřené
@@ -90,7 +92,7 @@ export default function MobileMenu({ open, onClose }: { open: boolean; onClose: 
 
           {/* Navigace – černé odkazy přímo na bílém panelu */}
           <Stack spacing={5.5} sx={{ mt: '94px', pl: 4 }}>
-            {NAV_LINKS.map((l) => {
+            {links.map((l) => {
               const active = l.to === pathname
               return (
                 <MuiLink
