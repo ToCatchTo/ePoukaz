@@ -6,7 +6,7 @@ import { FOOTER, CTA_BANNER } from '../../data/content'
 import { CARD_R } from '../../theme/layout'
 import { fluid } from '../../theme/fluid'
 import GridSection from './GridSection'
-import { useCompanies } from '../../hooks/useApi'
+import { useCompanies, usePages } from '../../hooks/useApi'
 
 // Sdílený styl odkazů ve sloupcích patičky (dynamické firmy i statické odkazy)
 const footerLinkSx = { display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } } as const
@@ -17,6 +17,20 @@ const footerLinkSx = { display: 'block', fontSize: fluid(14, 16), color: '#000',
 // centrovaný copyright. Pod kartou je kredit.
 export default function Footer({ withCta = false, topContent }: { withCta?: boolean; topContent?: ReactNode }) {
   const { data: companies } = useCompanies()
+  const { data: pages } = usePages()
+
+  // Odkazy pro sloupec patičky: „Doplňkové služby" → provozovny z API (/provozovna/{hash}),
+  // „Jak na to?" → podstránky z API (/stranka/{slug}); jinak (a při chybějících datech) statické odkazy.
+  const columnLinks = (col: (typeof FOOTER.columns)[number]) => {
+    if (col.title === 'Doplňkové služby' && companies && companies.length > 0) {
+      return companies.map((c) => ({ key: c.publicHash, to: `/provozovna/${c.publicHash}`, label: c.name }))
+    }
+    if (col.title === 'Jak na to?' && pages && pages.length > 0) {
+      return pages.map((p) => ({ key: p.slug, to: `/stranka/${p.slug}`, label: p.title }))
+    }
+    return col.links.map((link) => ({ key: link, to: '/faq', label: link }))
+  }
+
   return (
     <>
       {/* Vlnité čáry za horní částí patiční karty – prosvítají v okrajích */}
@@ -70,29 +84,11 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
               {FOOTER.columns.map((col) => (
                 <Grid size={{ xs: 10, lg: 2 }} key={col.title}>
                   <Typography sx={{ fontWeight: 700, fontSize: fluid(18, 20), mb: 0.5 }}>{col.title}</Typography>
-                  {col.title === 'Doplňkové služby' && companies && companies.length > 0
-                    ? companies.map((c) => (
-                        <MuiLink
-                          key={c.publicHash}
-                          component={RouterLink}
-                          to={`/provozovna/${c.publicHash}`}
-                          underline="hover"
-                          sx={footerLinkSx}
-                        >
-                          {c.name}
-                        </MuiLink>
-                      ))
-                    : col.links.map((link) => (
-                        <MuiLink
-                          key={link}
-                          component={RouterLink}
-                          to="/faq"
-                          underline="hover"
-                          sx={footerLinkSx}
-                        >
-                          {link}
-                        </MuiLink>
-                      ))}
+                  {columnLinks(col).map((l) => (
+                    <MuiLink key={l.key} component={RouterLink} to={l.to} underline="hover" sx={footerLinkSx}>
+                      {l.label}
+                    </MuiLink>
+                  ))}
                 </Grid>
               ))}
             </Grid>

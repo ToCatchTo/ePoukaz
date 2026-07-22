@@ -19,6 +19,14 @@ const company = {
 
 beforeEach(() => {
   vi.spyOn(useApi, 'useCompanies').mockReturnValue({ data: null, loading: true, error: null })
+  vi.spyOn(useApi, 'usePages').mockReturnValue({ data: null, loading: true, error: null })
+})
+
+test('Footer v „Jak na to?" vypíše podstránky z API jako odkazy na /stranka/{slug}', () => {
+  vi.spyOn(useApi, 'usePages').mockReturnValue({ data: [{ title: 'O nás', slug: 'o-nas' }], loading: false, error: null })
+  renderFooter()
+  const link = screen.getByText('O nás')
+  expect(link.closest('a')).toHaveAttribute('href', '/stranka/o-nas')
 })
 
 test('Footer vypíše provozovny jako odkazy na /provozovna/{hash}', () => {
