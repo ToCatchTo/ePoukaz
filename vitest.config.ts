@@ -8,5 +8,8 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: './src/test/setup.ts',
+    // V testech používáme plnou URL (fetch je stejně mockovaný). V dev je VITE_API_BASE_URL
+    // z .env prázdná (same-origin → dev proxy), což by jinak měnilo URL sestavovanou klientem.
+    env: { VITE_API_BASE_URL: 'https://api.epoukazonline.cz' },
   },
 })
