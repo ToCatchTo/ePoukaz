@@ -209,14 +209,14 @@ export const UNI = {
   title: 'Nadpis univerzální podstránky, může být až dvouřádkový',
   paragraphs: [
     'OBCHODNÍ PODMÍNKY (VARIANTA B)',
-    '\nobchodní společnosti\n\n' +
-    'se sídlem\n' +
-    'identifikační číslo:\n' +
+    '\nobchodní společnosti {{companyName}}\n\n' +
+    'se sídlem {{address}}\n' +
+    'identifikační číslo: {{ico}}\n' +
     'zapsané v obchodním rejstříku vedeném , oddíl , vložka\n' +
-    'pro prodej zboží prostřednictvím on-line obchodu umístěného na internetové adrese',
+    'pro prodej zboží prostřednictvím on-line obchodu umístěného na internetové adrese {{orderUrl}}',
     'ÚVODNÍ USTANOVENÍ',
-    'Tyto obchodní podmínky (dále jen „obchodní podmínky“) obchodní společnosti , se sídlem , identifikační ' +
-    'číslo: , zapsané v obchodním rejstříku vedeném , oddíl , vložka (dále jen „prodávající“) upravují v souladu ' +
+    'Tyto obchodní podmínky (dále jen „obchodní podmínky“) obchodní společnosti {{companyName}}, se sídlem {{address}}, identifikační ' +
+    'číslo: {{ico}}, zapsané v obchodním rejstříku vedeném , oddíl , vložka (dále jen „prodávající“) upravují v souladu ' +
     's ustanovením § 1751 odst. 1 zákona č. 89/2012 Sb., občanský zákoník, ve znění pozdějších předpisů ' +
     '(dále jen „občanský zákoník“) vzájemná práva a povinnosti smluvních stran vzniklé v souvislosti nebo na ' +
     'základě kupní smlouvy (dále jen „kupní smlouva“) uzavírané mezi prodávajícím a jinou fyzickou osobou ' +

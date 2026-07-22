@@ -17,6 +17,7 @@ export function AppRoutes() {
         <Route path="/kontakt" element={<ContactPage />} />
         <Route path="/faq" element={<ContentPage />} />
         <Route path="/obchodni-podminky" element={<ContentPage />} />
+        <Route path="/provozovna/:publicHash" element={<ContentPage />} />
         <Route path="/stranka/:slug" element={<DynamicPage />} />
       </Route>
     </Routes>

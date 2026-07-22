@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { Box, Grid, Stack, Typography } from '@mui/material'
+import { useParams } from 'react-router-dom'
 import SectionCard from '../components/common/SectionCard'
 import TwoMonthsFreeBanner from '../components/common/TwoMonthsFreeBanner'
 import ContactBlock from '../components/common/ContactBlock'
@@ -8,6 +9,8 @@ import Footer from '../components/layout/Footer'
 import GridSection from '../components/layout/GridSection'
 import { fluid } from '../theme/fluid'
 import { UNI } from '../data/content'
+import { useCompanies } from '../hooks/useApi'
+import { formatAddress, orderUrl, fillPlaceholders, companyImages } from '../api/companyFill'
 
 // Mezinadpis = řetězec psaný celý VELKÝMI písmeny (vysází se tučně a s odsazením)
 const isHeading = (s: string) => s === s.toUpperCase()
@@ -22,6 +25,19 @@ const GALLERY_IMAGES = [
 ]
 
 export default function ContentPage() {
+  const { publicHash } = useParams()
+  const { data: companies } = useCompanies()
+  const company = publicHash ? companies?.find((c) => c.publicHash === publicHash) : undefined
+
+  // Hodnoty do šablony – prázdné, když provozovna není (holé /faq, /obchodni-podminky jako dnes).
+  const fill = {
+    companyName: company?.name ?? '',
+    address: company ? formatAddress(company.address) : '',
+    ico: company?.billingIco ?? '',
+    orderUrl: company ? orderUrl(company.publicHash) : '',
+  }
+  const galleryImages = company ? companyImages(company) : GALLERY_IMAGES
+
   // Index posledního mezinadpisu – ten se vysází jako běžný text (bez tučného řezu a odsazení)
   const lastHeadingIndex = UNI.paragraphs.reduce((last, p, i) => (isHeading(p) ? i : last), -1)
   // Galerie se vloží před druhý nadpis (za úvodní blok, před „ÚVODNÍ USTANOVENÍ")
@@ -41,31 +57,32 @@ export default function ContentPage() {
                 <Stack sx={{ mt: fluid(40, 65) }}>
                   {UNI.paragraphs.map((p, i) => (
                     <Fragment key={i}>
-                      {i === galleryBeforeIndex && (
+                      {i === galleryBeforeIndex && galleryImages.length > 0 && (
                         <Box
                           sx={{
                             display: 'grid',
-                            gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
+                            gridTemplateColumns: { xs: '1fr', sm: `repeat(${Math.min(galleryImages.length, 3)}, 1fr)` },
                             gap: '24px',
                             my: fluid(32, 48),
+                            justifyItems: 'center',
                           }}
                         >
-                          {GALLERY_IMAGES.map((src, gi) => (
+                          {galleryImages.map((src, gi) => (
                             <Box
                               key={gi}
                               component="img"
                               src={src}
                               alt=""
                               aria-hidden
-                              sx={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: '20px', display: 'block' }}
+                              sx={{ width: '100%', maxWidth: 360, aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: '20px', display: 'block' }}
                             />
                           ))}
                         </Box>
                       )}
                       {isHeading(p) && i !== lastHeadingIndex ? (
-                        <Typography sx={{ fontWeight: 700, fontSize: fluid(14, 18), mt: i === 0 ? 0 : '32px', lineHeight: fluid(20, 30) }}>{p}</Typography>
+                        <Typography sx={{ fontWeight: 700, fontSize: fluid(14, 18), mt: i === 0 ? 0 : '32px', lineHeight: fluid(20, 30) }}>{fillPlaceholders(p, fill)}</Typography>
                       ) : (
-                        <Typography sx={{ fontSize: fluid(14, 18), lineHeight: fluid(20, 30), whiteSpace: 'pre-line' }}>{p}</Typography>
+                        <Typography sx={{ fontSize: fluid(14, 18), lineHeight: fluid(20, 30), whiteSpace: 'pre-line' }}>{fillPlaceholders(p, fill)}</Typography>
                       )}
                     </Fragment>
                   ))}
