@@ -1,5 +1,5 @@
 import { cloneElement, useRef, useState } from 'react'
-import type { CSSProperties, ReactElement } from 'react'
+import type { CSSProperties, ReactElement, Ref } from 'react'
 import { Box, Button, InputBase, Snackbar, Stack, Typography } from '@mui/material'
 import type { TransitionProps } from '@mui/material/transitions'
 import { Transition } from 'react-transition-group'
@@ -18,7 +18,7 @@ const POPUP_STATE_STYLES: Record<string, CSSProperties> = {
 }
 
 // Vlastní přechod pro Snackbar: „plynule vylítne zprava" a při zavření „fade outne".
-function PopupTransition(props: TransitionProps & { children: ReactElement }) {
+function PopupTransition(props: TransitionProps & { children: ReactElement<{ ref?: Ref<HTMLElement>; style?: CSSProperties }> }) {
   const { in: inProp, children, onEnter, onEntering, onEntered, onExit, onExiting, onExited } = props
   const nodeRef = useRef<HTMLElement>(null)
   return (
