@@ -1,6 +1,6 @@
-import { Box, Grid, Stack, Typography } from '@mui/material'
+import { Box, CircularProgress, Grid, Stack, Typography } from '@mui/material'
 import SectionCard from '../components/common/SectionCard'
-import PricingCard from '../components/common/PricingCard'
+import PricingCard, { tierIcons } from '../components/common/PricingCard'
 import type { Tier } from '../components/common/PricingCard'
 import TwoMonthsFreeBanner from '../components/common/TwoMonthsFreeBanner'
 import TryForFreeForm from '../components/common/TryForFreeForm'
@@ -11,6 +11,7 @@ import { PAGE_PX } from '../theme/grid'
 import { fluid } from '../theme/fluid'
 import { CENIK_HEAD, PRICING, COMPARE_ROWS, SMS_NOTE } from '../data/content'
 import { useTariffs } from '../hooks/useApi'
+import { useImagesReady } from '../hooks/useImagesReady'
 import { tariffToItem, tierForCode } from '../api/tariffMapping'
 
 // Mapa akcentní barvy tarifu na hex (hlavička srovnávací tabulky)
@@ -55,11 +56,17 @@ const SUB_BOLD = '30 dní ZDARMA'
 const [SUB_BEFORE, SUB_AFTER] = CENIK_HEAD.subtitle.split(SUB_BOLD)
 
 export default function PricingPage() {
-  const { data: tariffs } = useTariffs()
-  // Dynamicky z API; dokud data nejsou (načítání/chyba) → statická PRICING, ať stránka není prázdná.
+  const { data: tariffs, loading } = useTariffs()
+  // Dynamicky z API; dokud data nejsou (chyba) → statická PRICING, ať stránka není prázdná.
   const cards = tariffs
     ? tariffs.map((t) => ({ key: t.code, item: tariffToItem(t), tier: tierForCode(t.code) }))
     : PRICING.map((p) => ({ key: p.name, item: p, tier: p.name.toLowerCase() as Tier }))
+
+  // Kolečko na místě karet: drží se, dokud nedorazí tarify z API a nenačtou se ikony karet
+  // (lodičky + fajfky). Stejný princip jako u univerzální podstránky (viz useImagesReady).
+  const iconSrcs = Array.from(new Set(cards.flatMap((c) => tierIcons(c.tier))))
+  const imagesReady = useImagesReady(iconSrcs, !loading)
+  const ready = !loading && imagesReady
 
   return (
     <Box data-testid="page-cenik">
@@ -76,25 +83,38 @@ export default function PricingPage() {
               </Typography>
             </Stack>
 
+            {/* Kolečko na místě karet, dokud nejsou tarify + ikony načtené */}
+            {!ready && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 360 }}>
+                <CircularProgress aria-label="Načítání" />
+              </Box>
+            )}
             {/* 3 tarify – vedle sebe jen když je dost místa na pohodlnou šířku karty (≥ ~1600 px),
-                jinak (i na užším desktopu) pod sebou vycentrované, ať nejsou přeplácané/úzké. */}
+                jinak (i na užším desktopu) pod sebou vycentrované, ať nejsou přeplácané/úzké.
+                Renderujeme vždy – dokud není „ready", je blok skrytý mimo obrazovku (jen se přednačtou
+                ikony); po načtení se odkryje, takže nic neposkakuje. */}
             <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 4,
-                '@media (min-width:1600px)': { flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch', gap: '30px' },
-              }}
+              aria-hidden={ready ? undefined : true}
+              sx={ready ? undefined : { position: 'absolute', left: -99999, top: 0, width: '100%', opacity: 0, pointerEvents: 'none' }}
             >
-              {cards.map((c) => (
-                <Box
-                  key={c.key}
-                  sx={{ width: '100%', maxWidth: 370, minWidth: 0, '@media (min-width:1600px)': { flex: '1 1 0', width: 'auto' } }}
-                >
-                  <PricingCard item={c.item} tier={c.tier} />
-                </Box>
-              ))}
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 4,
+                  '@media (min-width:1600px)': { flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch', gap: '30px' },
+                }}
+              >
+                {cards.map((c) => (
+                  <Box
+                    key={c.key}
+                    sx={{ width: '100%', maxWidth: 370, minWidth: 0, '@media (min-width:1600px)': { flex: '1 1 0', width: 'auto' } }}
+                  >
+                    <PricingCard item={c.item} tier={c.tier} />
+                  </Box>
+                ))}
+              </Box>
             </Box>
 
             {/* Srovnávací tabulka „Nástroje" – kompaktní i na mobilu (hlavičky zkrácené S/P/Pr, plynulé písmo) */}

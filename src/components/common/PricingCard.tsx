@@ -1,5 +1,6 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
 import { darken } from '@mui/material/styles'
+import { REGISTER_URL } from '../../data/content'
 
 // Tarif = vizuální varianta karty. Barvy a ikony přesně dle XD a dodaných SVG (Ship_*, Check_*).
 export type Tier = 'start' | 'pro' | 'premium'
@@ -31,6 +32,9 @@ const TIERS: Record<Tier, { color: string; button: string; check: string; ship: 
     tab: '#D2F3F0',
   },
 }
+
+// Ikony (SVG) jednoho tarifu – lodička + fajfka. Slouží k přednačtení obrázků karty.
+export const tierIcons = (tier: Tier): string[] => [TIERS[tier].ship, TIERS[tier].check]
 
 // „Jazyk“ u horní hrany karty, ve kterém sedí lodička. Tvar: plochý horní okraj
 // (nejširší část), z něj dva rovné boky sbíhající se dolů do zaobleného cípu.
@@ -106,6 +110,9 @@ export default function PricingCard({
       {/* CTA – pill tlačítko v barvě tarifu, přišpendlené dolů */}
       <Button
         variant="contained"
+        href={REGISTER_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         sx={{
           mt: 'auto', alignSelf: 'center', px: '17px', py: '20px', fontSize: 18, lineHeight: 1,
           bgcolor: t.button, color: '#fff', width: '188px',

@@ -4,7 +4,7 @@ import { fluid } from '../../theme/fluid'
 
 // Společný styl šedých polí formuláře – nápověda (placeholder) černě, plně krytá
 const FIELD = {
-  bgcolor: '#F5F5F5', px: 4.5, py: 4.5, fontSize: 14, color: '#000', width: '100%',
+  bgcolor: '#F5F5F5', px: 4.5, py: 4.5, fontSize: fluid(14, 20), color: '#000', width: '100%',
   '& input::placeholder, & textarea::placeholder': { color: '#000', opacity: 1 },
 } as const
 

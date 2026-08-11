@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Box, Link as MuiLink, Stack } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 import { NAV_LINKS } from '../../data/content'
+import { scrollToHashOnClick } from '../../utils/scrollToHash'
 import MenuToggle from './MenuToggle'
 import { fluid } from '../../theme/fluid'
 import { PAGE_PX } from '../../theme/grid'
@@ -99,7 +100,7 @@ export default function MobileMenu({
                   key={l.label}
                   component={RouterLink}
                   to={l.to}
-                  onClick={onClose}
+                  onClick={() => { onClose(); scrollToHashOnClick(l.to, pathname) }}
                   tabIndex={open ? 0 : -1}
                   underline="none"
                   sx={{ fontWeight: 700, fontSize: 24, color: active ? 'primary.main' : '#000', '&:hover': { color: 'primary.main' } }}

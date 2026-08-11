@@ -1,18 +1,27 @@
 import { Box, Button, Typography } from '@mui/material'
-import { HERO, TESTIMONIALS } from '../../data/content'
+import { HERO, TESTIMONIALS, REGISTER_URL } from '../../data/content'
 import { fluid, fluidScale, fluidPct } from '../../theme/fluid'
 import GridSection from '../layout/GridSection'
 import { PAGE_PX } from '../../theme/grid'
+import { HERO_SPLIT, SPLIT_UP } from '../../theme/layout'
 import DecorLines from './DecorLines'
 import TestimonialsCarousel from './TestimonialsCarousel'
 
 // Recenze dohledáme podle jména (data z TESTIMONIALS)
 const byName = Object.fromEntries(TESTIMONIALS.map((t) => [t.name, t]))
 
+// Hranice „vedle sebe" (HERO_SPLIT) a media query (SPLIT_UP) jsou sdílené v theme/layout,
+// protože stejný zlom používá i HomePage (dekorační pás + mezera před další sekcí).
+
 // Pozice recenzí kolem ruky + pořadí (delay) postupného fade-in po načtení stránky.
 // zIndex: -1 = karta je ZA rukou (vykukuje zpoza telefonu), zIndex 2 = PŘED rukou.
 const REVIEWS = [
-  { name: 'Gábina', delay: '0.15s', pos: { left: { md: fluidPct(29, 39, 1536, 1920) }, top: { md: 336 }, zIndex: -1 } },
+  // Všechny recenze i telefon kotvíme k PRAVÉMU okraji, aby zůstaly „přilepené" k telefonu
+  // a nedriftovaly vůči němu při změně šířky. Gábina: telefon má right:5% a šířku 607 px
+  // (výška 860 × poměr 1284/1818), takže jeho levý okraj je calc(5% + 607px). Karta ho překrývá
+  // o 103 px → right = calc(5% + 504px). Na 1920 sedí přesně jako dřív (odpovídalo left 39 %),
+  // ale už se nezasouvá pod telefon na užších obrazovkách. zIndex -1 = vykukuje zpoza telefonu.
+  { name: 'Gábina', delay: '0.15s', pos: { right: { md: 'calc(5% + 504px)' }, top: { md: 336 }, zIndex: -1 } },
   { name: 'Eliška', delay: '0.4s', pos: { right: { md: '6%' }, top: { md: 110 }, zIndex: -1 } },
   { name: 'Jarmila', delay: '0.65s', pos: { right: { md: '3.5%' }, top: { md: 430 }, zIndex: 2 } },
 ] as const
@@ -86,7 +95,9 @@ const COMP_H = 900
 // aby nezmizela za telefonem – desktop verze si drží svou výchozí pozici).
 function HeroComposition({ gabinaLeft }: { gabinaLeft?: string }) {
   const reviews = gabinaLeft
-    ? REVIEWS.map((r) => (r.name === 'Gábina' ? { ...r, pos: { ...r.pos, left: { md: gabinaLeft } } } : r))
+    ? REVIEWS.map((r) =>
+      r.name === 'Gábina' ? { ...r, pos: { ...r.pos, right: undefined, left: { md: gabinaLeft } } } : r,
+    )
     : REVIEWS
   return (
     <>
@@ -119,11 +130,14 @@ export default function HeroSection() {
   return (
     <GridSection>
       {/* zIndex 0 = vlastní stacking context, aby recenze se zIndex -1 zůstaly ZA rukou, ale nespadly za fialové pozadí stránky */}
-      <Box component="section" sx={{ position: 'relative', zIndex: 0, pt: { xs: 2, xl: '125px' }, minHeight: { xl: 640 } }}>
-        {/* LEVÝ SLOUPEC – text (nad vším). Na desktopu (xl) se pruh mírně zúží (720→560),
-            aby měla zmenšující se kompozice telefonu vpravo dost místa a nepřekrývala text. */}
-        <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%', xl: fluid(560, 720, 1200, 1920) } }}>
-          <Typography variant="h1" sx={{ color: '#fff', mb: fluid(24, 32), ml: '-1px' }}>
+      <Box component="section" sx={{ position: 'relative', zIndex: 0, pt: { xs: 2 }, [SPLIT_UP]: { pt: '125px', minHeight: 640 } }}>
+        {/* LEVÝ SLOUPEC – text (nad vším). V režimu „vedle sebe" (≥ HERO_SPLIT) se pruh plynule
+            zúží (720→540), aby měla zmenšující se kompozice telefonu vpravo dost místa a
+            nepřekrývala text. Užší pruh posouvá hranici skládání níž na laptopy. */}
+        <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%' }, [SPLIT_UP]: { maxWidth: fluid(540, 720, HERO_SPLIT, 1920) } }}>
+          {/* V režimu vedle sebe nadpis o kousek zmenšíme (90→58), aby se 1. řádek
+              „Šetřete čas sobě" vešel do zúženého pruhu a nezlomil se na osamocené „sobě". */}
+          <Typography variant="h1" sx={{ color: '#fff', mb: fluid(24, 32), ml: '-1px', [SPLIT_UP]: { fontSize: fluid(58, 90, HERO_SPLIT, 1920) } }}>
             {TITLE_LINE_1}
             {TITLE_LINE_2 && (
               <>
@@ -132,12 +146,15 @@ export default function HeroSection() {
               </>
             )}
           </Typography>
-          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), lineHeight: 1.6, maxWidth: 470, mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
+          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), lineHeight: 1.6, maxWidth: fluid(340, 470, HERO_SPLIT, 1920), mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
             <span style={{ fontWeight: 500 }}>{BOLD_LEAD}</span>{REST_PARAGRAPH}
           </Typography>
           <Button
             variant="contained"
             color="secondary"
+            href={REGISTER_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             endIcon={<Box component="img" src="/icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 40), height: fluid(30, 40) }} />}
             sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500, height: fluid(60, 70) }}
           >
@@ -164,18 +181,19 @@ export default function HeroSection() {
           </Box>
         </Box>
 
-        {/* 900–1535 (md–lg): stejná kompozice (ruka + plovoucí recenze + animace), ale POD nadpisem.
+        {/* 900 – HERO_SPLIT (md–lg): stejná kompozice (ruka + plovoucí recenze + animace), ale POD nadpisem.
             Vnitřní box má pevný „design" rozměr (COMP_W×COMP_H), aby se karty vykreslily jako na
             desktopu; vnější wrapper má výšku = design × scale (aby tok pod ním seděl) a vnitřek se
             přes fluidScale zmenší, aby se vešel do dostupné šířky (a text zůstal čitelný). */}
         <Box
           sx={{
-            display: { xs: 'none', md: 'block', xl: 'none' },
+            display: { xs: 'none', md: 'block' },
+            [SPLIT_UP]: { display: 'none' },
             position: 'relative',
             width: '100%',
             mt: { md: '-48px' },
             pointerEvents: 'none',
-            '--comp-scale': fluidScale(0.72, 0.95, 900, 1535),
+            '--comp-scale': fluidScale(0.72, 0.9, 900, HERO_SPLIT),
             height: `calc(${COMP_H}px * var(--comp-scale))`,
           }}
         >
@@ -184,8 +202,8 @@ export default function HeroSection() {
               position: 'absolute',
               top: 0,
               // posun doleva – responzivně: na 900 px skoro na střed (48 %, aby nepřetekl vlevo),
-              // na 1535 px víc doleva (42 %), kde je vpravo víc volného místa
-              left: fluidPct(48, 42, 900, 1535),
+              // na HERO_SPLIT víc doleva (42 %), kde je vpravo víc volného místa
+              left: fluidPct(48, 42, 900, HERO_SPLIT),
               width: COMP_W,
               height: COMP_H,
               transformOrigin: 'top center',
@@ -198,22 +216,23 @@ export default function HeroSection() {
 
         {/* DESKTOPOVÁ KOMPOZICE (ruka + plovoucí recenze) jako jedna „stage" vrstva.
             inset:0 → stejný box jako sekce, takže si prvky uvnitř zachovají přesné pozice.
-            Celá vrstva se plynule zmenšuje mezi 1920 a 1536 px (origin vpravo uprostřed =
+            Celá vrstva se plynule zmenšuje mezi 1920 a HERO_SPLIT px (origin vpravo uprostřed =
             smršťuje se pryč od textu vlevo), takže telefon nikdy nezasáhne do nadpisu.
             transform vytvoří vlastní stacking context – zIndex karet (−1 za rukou, 2 před) platí uvnitř. */}
         <Box
           sx={{
-            display: { xs: 'none', xl: 'block' },
+            display: { xs: 'none' },
+            [SPLIT_UP]: { display: 'block' },
             position: 'absolute',
             inset: 0,
             zIndex: 0,
             pointerEvents: 'none',
-            // Plynulé zmenšování celé kompozice: scale 1.0 na 1920 px → 0.8 na 1536 px
-            // (kompozice je vidět až od xl 1536). fluidScale používá trik tan(atan2()),
+            // Plynulé zmenšování celé kompozice: scale 1.0 na 1920 px → 0.7 na HERO_SPLIT
+            // (kompozice je vidět až od HERO_SPLIT). fluidScale používá trik tan(atan2()),
             // protože scale() potřebuje bezrozměrné číslo, které z vw nejde získat dělením.
             transformOrigin: '100% 50%',
-            transform: `scale(${fluidScale(0.8, 1, 1536, 1920)})`,
-            top: fluid(30, 0, 1536, 1920), // posun dolů při zmenšování
+            transform: `scale(${fluidScale(0.7, 1, HERO_SPLIT, 1920)})`,
+            top: fluid(20, 0, HERO_SPLIT, 1920), // posun dolů při zmenšování
           }}
         >
           <HeroComposition />

@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Box, Button, Link as MuiLink } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
-import { NAV_LINKS } from '../../data/content'
+import { NAV_LINKS, REGISTER_URL } from '../../data/content'
+import { scrollToHashOnClick } from '../../utils/scrollToHash'
 import { fluid } from '../../theme/fluid'
 import { usePages } from '../../hooks/useApi'
 import GridSection from './GridSection'
@@ -56,6 +57,7 @@ export default function Header() {
                 key={l.label}
                 component={RouterLink}
                 to={l.to}
+                onClick={() => scrollToHashOnClick(l.to, pathname)}
                 underline={active ? 'always' : 'none'}
                 sx={{ display: { xs: 'none', lg: 'block' }, fontWeight: 700, fontSize: fluid(16, 20), whiteSpace: 'nowrap', color: active ? 'primary.main' : '#000', textDecorationColor: 'currentColor', textUnderlineOffset: '2px', '&:hover': { color: 'primary.main', textDecoration: 'underline' } }}
               >
@@ -65,7 +67,7 @@ export default function Header() {
           })}
 
           {/* CTA – jen desktop */}
-          <Button variant="contained" color="secondary" sx={{ display: { xs: 'none', lg: 'inline-flex' }, color: '#fff', p: fluid(12, 18), fontSize: fluid(16, 20), whiteSpace: 'nowrap' }}>
+          <Button variant="contained" color="secondary" href={REGISTER_URL} target="_blank" rel="noopener noreferrer" sx={{ display: { xs: 'none', lg: 'inline-flex' }, color: '#fff', p: fluid(12, 18), fontSize: fluid(16, 20), whiteSpace: 'nowrap' }}>
             30 dní ZDARMA
           </Button>
         </Box>

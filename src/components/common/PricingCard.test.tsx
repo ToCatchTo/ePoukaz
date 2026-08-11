@@ -19,7 +19,9 @@ test('zobrazuje název, cenu, poznámku, CTA a všechny vlastnosti', () => {
   expect(screen.getByText('Pro')).toBeInTheDocument()
   expect(screen.getByText('2 490 Kč')).toBeInTheDocument()
   expect(screen.getByText('MĚSÍČNÍ BALÍČEK BEZ DPH')).toBeInTheDocument()
-  expect(screen.getByRole('button', { name: 'Začněte zdarma' })).toBeInTheDocument()
+  // CTA je odkaz na registraci (MUI Button s href → <a role="link">)
+  const cta = screen.getByRole('link', { name: 'Začněte zdarma' })
+  expect(cta).toHaveAttribute('href', 'https://admin.epoukazonline.cz/register')
   for (const f of ITEM.features) {
     expect(screen.getByText(f)).toBeInTheDocument()
   }

@@ -4,7 +4,7 @@ import HowItWorks from '../components/common/HowItWorks'
 import DecorLines from '../components/common/DecorLines'
 import TryForFreeForm from '../components/common/TryForFreeForm'
 import Footer from '../components/layout/Footer'
-import { CARD_R_SM } from '../theme/layout'
+import { CARD_R_SM, HERO_SPLIT, SPLIT_UP } from '../theme/layout'
 import { fluid } from '../theme/fluid'
 import { PAGE_PX } from '../theme/grid'
 import { PROBLEMS } from '../data/content'
@@ -19,20 +19,23 @@ export default function HomePage() {
       <HeroSection />
 
       {/* Dekorační pás vlnitých čar – celý, bez ořezu (full-bleed 100vw).
-          zIndex 1 = leží nad rukou z hero (ruka má zIndex 0), takže vlny prosvítají přes její spodek. */}
-      <Box sx={{ position: 'relative', zIndex: 1, height: { xs: 100, xl: 160 }, mt: fluid(48, 100), display: { xl: 'unset', xs: 'none' } }}>
+          zIndex 1 = leží nad rukou z hero (ruka má zIndex 0), takže vlny prosvítají přes její spodek.
+          Zapíná se na HERO_SPLIT (SPLIT_UP = 1280) – tam už je hero „vedle sebe" s přetékající rukou,
+          takže pás musí být vidět a udělat mezeru (dřív byl vázaný na xl=1536 a v pásmu 1280–1536 chyběl). */}
+      {/* <Box sx={{ position: 'relative', zIndex: 1, height: 170, mt: fluid(48, 100), display: 'none', '@media (min-width:900px)': { height: 160, display: 'unset' } }}>
         <DecorLines sx={{ top: 50 }} />
-      </Box>
+      </Box> */}
 
       {/* JAK TO FUNGUJE – vytažené nahoru přes pás (zIndex 2), takže pás prosvítá jen za jeho horní/bočními okraji (grid „content").
-          Na desktopu (xl) záporný margin = karta překryje horní část pásu, aby pás nevyčníval do hero sekce.
-          Pod xl (naskládané hero) je pás skrytý (hero má vlastní dekor), proto tam jen kladná mezera. */}
-      <Box sx={{ position: 'relative', zIndex: 2, mt: { xs: '80px', md: '0px', xl: '170px' }, mb: fluid(120, 200) }}>
+          Na desktopu (≥ HERO_SPLIT) záporný margin = karta překryje horní část pásu, aby pás nevyčníval do hero sekce.
+          Pod HERO_SPLIT (naskládané hero) je pás skrytý (hero má vlastní dekor), proto tam jen kladná mezera. */}
+      <Box sx={{ position: 'relative', zIndex: 2, mt: { xs: '80px', md: '-5px' }, [SPLIT_UP]: { mt: fluid(100, 220, HERO_SPLIT, 1920) }, mb: fluid(120, 200) }}>
+        <DecorLines sx={{ top: fluid(-100, -120, HERO_SPLIT, 1920), zIndex: -1, display: 'none', '@media (min-width:900px)': { display: 'unset' } }} />
         <HowItWorks />
       </Box>
 
       {/* 6 PROBLÉMŮ – centrované (ne grid), boční margin ≥ 1 sloupec přes PAGE_PX */}
-      <Box sx={{ px: { sm: PAGE_PX, xs: '25px' } }}>
+      <Box sx={{ px: { ...PAGE_PX, xs: '25px' } }}>
         {/* na desktopu mřížka 3×2 (karty do 400 px), na mobilu 1 sloupec plné šířky */}
         <Stack spacing={{ xs: 5, lg: 8 }} sx={{ alignItems: 'center', mb: fluid(120, 350) }}>
           <Typography variant="h1" sx={{ color: '#fff', textAlign: 'center', maxWidth: 820, mb: fluid(30, 0) + ' !important' }}>

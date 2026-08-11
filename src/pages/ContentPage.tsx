@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { Box, Grid, Stack, Typography } from '@mui/material'
+import { Box, CircularProgress, Grid, Stack, Typography } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import SectionCard from '../components/common/SectionCard'
 import TwoMonthsFreeBanner from '../components/common/TwoMonthsFreeBanner'
@@ -10,6 +10,7 @@ import GridSection from '../components/layout/GridSection'
 import { fluid } from '../theme/fluid'
 import { UNI } from '../data/content'
 import { useCompanies } from '../hooks/useApi'
+import { useImagesReady } from '../hooks/useImagesReady'
 import { formatAddress, orderUrl, fillPlaceholders, companyImages } from '../api/companyFill'
 
 // Mezinadpis = řetězec psaný celý VELKÝMI písmeny (vysází se tučně a s odsazením)
@@ -26,7 +27,7 @@ const GALLERY_IMAGES = [
 
 export default function ContentPage() {
   const { publicHash } = useParams()
-  const { data: companies } = useCompanies()
+  const { data: companies, loading } = useCompanies()
   const company = publicHash ? companies?.find((c) => c.publicHash === publicHash) : undefined
 
   // Hodnoty do šablony – prázdné, když provozovna není (holé /faq, /obchodni-podminky jako dnes).
@@ -47,6 +48,14 @@ export default function ContentPage() {
   // Galerie se vloží před druhý nadpis (za úvodní blok, před „ÚVODNÍ USTANOVENÍ")
   const galleryBeforeIndex = UNI.paragraphs.findIndex((p, i) => i > 0 && isHeading(p))
 
+  // Načítací kolečko: drží se, dokud (1) nedorazí data z API a (2) se nenačtou VŠECHNY obrázky
+  // (logo + fotky galerie). Obsah renderujeme i během načítání (skrytý mimo obrazovku), aby se
+  // obrázky stihly přednačíst – po odkrytí už nic neposkakuje.
+  // Kolečko se drží, dokud nedorazí data z API a nenačtou se všechny obrázky galerie (logo + fotky).
+  const uniqueSrcs = Array.from(new Set(galleryImages.map((img) => img.src)))
+  const imagesReady = useImagesReady(uniqueSrcs, !loading)
+  const ready = !loading && imagesReady
+
   return (
     <Box data-testid="page-uni">
       {/* Karta s nadpisem a obchodními podmínkami – vlnité čáry prosvítají v okrajích, zarovnaná na grid */}
@@ -54,6 +63,17 @@ export default function ContentPage() {
         <DecorLines sx={{ top: 110 }} />
         <GridSection sx={{ position: 'relative', zIndex: 1 }}>
           <SectionCard sx={{ bgcolor: '#F5F5F5', px: fluid(20, 64), pt: fluid(80, 85), pb: fluid(96, 180) }}>
+            {!ready && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 240 }}>
+                <CircularProgress aria-label="Načítání" />
+              </Box>
+            )}
+            {/* Obsah renderujeme vždy – dokud není „ready", je skrytý mimo obrazovku (jen aby se
+                přednačetly obrázky). Po načtení se odkryje. */}
+            <Box
+              aria-hidden={ready ? undefined : true}
+              sx={ready ? undefined : { position: 'absolute', left: -99999, top: 0, width: '100%', opacity: 0, pointerEvents: 'none' }}
+            >
             {/* Obsah na 10sloupcovém gridu: na desktopu odsazený (obsah 8/10), na mobilu i tabletu plná šířka */}
             <Grid container columns={10}>
               <Grid offset={{ xs: 0, lg: 1 }} size={{ xs: 10, lg: 8 }}>
@@ -98,6 +118,7 @@ export default function ContentPage() {
                 </Stack>
               </Grid>
             </Grid>
+            </Box>
           </SectionCard>
         </GridSection>
       </Box>

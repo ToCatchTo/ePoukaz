@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Box, Button, Divider, Grid, Link as MuiLink, Stack, Typography } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import DecorLines from '../common/DecorLines'
-import { FOOTER, CTA_BANNER } from '../../data/content'
+import { FOOTER, CTA_BANNER, REGISTER_URL } from '../../data/content'
 import { CARD_R } from '../../theme/layout'
 import { fluid } from '../../theme/fluid'
 import GridSection from './GridSection'
@@ -58,6 +58,9 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
                   <Button
                     variant="contained"
                     color="secondary"
+                    href={REGISTER_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     endIcon={<Box component="img" src="/icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 40), height: fluid(30, 40) }} />}
                     sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), mt: `${fluid(28, 50)} !important`, '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500, height: fluid(60, 70) }}
                   >
