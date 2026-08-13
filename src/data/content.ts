@@ -3,6 +3,10 @@ import { PASTELS } from '../theme/theme'
 // Cílový odkaz pro všechny CTA tlačítka „vyzkoušet / 30 dní zdarma / registrace"
 export const REGISTER_URL = 'https://admin.epoukazonline.cz/register'
 
+// Odkaz na stažení mobilní aplikace (CTA v zákaznické/pacientské navigaci).
+// TODO: doplnit reálný odkaz (App Store / Google Play / landing).
+export const APP_DOWNLOAD_URL = 'https://epoukazonline.cz/aplikace'
+
 // Kontextové navigační sady (Header vybírá podle aktuální cesty)
 export const NAV_MAIN = [
   { label: 'Jak to funguje?', to: '/jak-to-funguje' },
@@ -10,10 +14,22 @@ export const NAV_MAIN = [
   { label: 'Pro výdejny', to: '/pro-vydejny' },
 ]
 export const NAV_VYDEJNY = [
-  { label: 'Pro výdejny', to: '/pro-vydejny' },
+  // Label „Jak to funguje?" (dle přání), ale slug zůstává /pro-vydejny (prodejní stránka).
+  { label: 'Jak to funguje?', to: '/pro-vydejny' },
   { label: 'Ceník', to: '/cenik' },
   { label: 'Kontakt', to: '/kontakt' },
 ]
+
+// Patička na zákaznických stránkách (/, /jak-to-funguje, /vse-o-epoukazu) – CTA „Jste výdejna ePoukazů?" (XD §1.2)
+export const VYDEJNA_CTA = {
+  title: 'Jste výdejna ePoukazů?',
+  perexBold: 'Nabídněte svým klientům moderní způsob uplatnění ePoukazu online',
+  perexRest:
+    ' — bez papírů, bez front, bez zbytečných telefonátů. Připojte se a ' +
+    'zjednodušte provoz své prodejny i život svým klientům.',
+  button: 'Zóna pro výdejny',
+  provider: 'Provozovatel: epoukazonline s.r.o., IČ: 29645387',
+}
 
 // Nová úvodní stránka – vyhledávání provozoven
 export const SEARCH = {
@@ -23,6 +39,7 @@ export const SEARCH = {
     'nahrajte ePoukaz online a vyčkejte — výdejna se vám sama ozve s dalšími kroky. ' +
     'Jednoduché, rychlé a dostupné kdykoliv, 24 hodin denně, 7 dní v týdnu.',
   placeholder: 'Hledejte svou výdejnu dle názvu nebo města…',
+  placeholderShort: 'Název nebo město…', // mobil (dlouhý text se do úzkého pole nevejde)
   selectLabel: 'Vybrat',
   emptyTitle: 'Nic jsme nenašli',
   notFoundTitle: 'Vaši výdejnu jsme nenašli?',
