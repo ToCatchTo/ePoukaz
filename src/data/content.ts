@@ -3,12 +3,67 @@ import { PASTELS } from '../theme/theme'
 // Cílový odkaz pro všechny CTA tlačítka „vyzkoušet / 30 dní zdarma / registrace"
 export const REGISTER_URL = 'https://admin.epoukazonline.cz/register'
 
-// Navigace v hlavičce
-export const NAV_LINKS = [
-  { label: 'Jak to funguje?', to: '/#jak-to-funguje' },
+// Kontextové navigační sady (Header vybírá podle aktuální cesty)
+export const NAV_MAIN = [
+  { label: 'Jak to funguje?', to: '/jak-to-funguje' },
+  { label: 'Vše o ePoukazu', to: '/vse-o-epoukazu' },
+  { label: 'Pro výdejny', to: '/pro-vydejny' },
+]
+export const NAV_VYDEJNY = [
+  { label: 'Pro výdejny', to: '/pro-vydejny' },
   { label: 'Ceník', to: '/cenik' },
   { label: 'Kontakt', to: '/kontakt' },
 ]
+
+// Nová úvodní stránka – vyhledávání provozoven
+export const SEARCH = {
+  h1: 'Najděte svou výdejnu a uplatněte ePoukaz online',
+  perex:
+    'Vyhledejte svou oblíbenou prodejnu, lékárnu nebo optiku podle názvu či města, ' +
+    'nahrajte ePoukaz online a vyčkejte — výdejna se vám sama ozve s dalšími kroky. ' +
+    'Jednoduché, rychlé a dostupné kdykoliv, 24 hodin denně, 7 dní v týdnu.',
+  placeholder: 'Hledejte svou výdejnu dle názvu nebo města…',
+  selectLabel: 'Vybrat',
+  emptyTitle: 'Nic jsme nenašli',
+  notFoundTitle: 'Vaši výdejnu jsme nenašli?',
+  notFoundText:
+    'Nevadí. Kontaktujte svou prodejnu přímo a řekněte jim o možnosti uplatnění ePoukazu ' +
+    'online přes ePoukazOnline.cz. Čím více výdejen se připojí, tím snazší a pohodlnější ' +
+    'to bude příště pro vás i ostatní pacienty.',
+}
+
+// Podstránka „Jak to funguje?" (6 kroků pacienta). Těla jsou DRAFT – dodá klient.
+export const JAK_TO_FUNGUJE = {
+  title: 'Jak to funguje?',
+  items: [
+    { title: '1. Vyberete svou výdejnu', body: 'Najděte svou oblíbenou prodejnu, lékárnu nebo optiku podle názvu nebo města přímo na úvodní stránce.' /* draft */ },
+    { title: '2. Načtete kód ePoukazu', body: 'Naskenujte QR kód z ePoukazu nebo zadejte jeho identifikátor ručně — stačí pár vteřin.' /* draft */ },
+    { title: '3. Vyplníte kontaktní údaje', body: 'Zadejte jméno a kontakt, aby vás výdejna mohla informovat, jakmile budou pomůcky připravené.' /* draft */ },
+    { title: '4. Odešlete', body: 'Poukaz jedním kliknutím odešlete přímo výdejně. Bez front, telefonátů a papírování.' /* draft */ },
+    { title: '5. Výdejna se vám ozve', body: 'Výdejna vás sama kontaktuje s dalšími kroky a termínem vyzvednutí.' /* draft */ },
+    { title: 'TIP – stáhněte si aplikaci', body: 'V aplikaci máte všechny své poukazy a jejich stav přehledně na jednom místě.' /* draft */ },
+  ],
+}
+
+// Podstránka „Vše o ePoukazu". Položka 1 = reálný text ze specu; zbytek DRAFT.
+export const VSE_O_EPOUKAZU = {
+  title: 'Vše o ePoukazu',
+  items: [
+    {
+      title: 'Co je ePoukaz?',
+      body:
+        'ePoukaz je elektronický poukaz na zdravotnický prostředek. Na ePoukaz je možné předepsat všechny typy zdravotnických prostředků (např. brýle, kontaktní čočky, berle, invalidní vozík, inkontinenční pomůcky). Každému eReceptu je přidělen unikátní identifikátor.\n\n' +
+        'Elektronický poukaz je vytvářen, měněn nebo rušen v systému eRecept na základě požadavku předepisujícího, který obsahuje údaje potřebné pro vytvoření, změnu nebo zrušení elektronického poukazu. Součástí požadavku na vytvoření elektronického poukazu je dále vždy informace o pacientem zvoleném způsobu předání identifikačního znaku, kterým je elektronický poukaz označen.\n\n' +
+        'Doba platnosti ePoukazu je 30 dnů, tedy stejná jako v případě listinné podoby. Ve výjimečných případech ji lékař může prodloužit až na 1 rok.\n\n' +
+        'Od 1. 1. 2026 je pro zdravotnické pracovníky i výdejny ePoukaz povinný.',
+    },
+    { title: 'Co je identifikátor ePoukazu?', body: 'Identifikátor je unikátní kód, kterým je každý ePoukaz označen. Podle něj výdejna poukaz jednoznačně dohledá.' /* draft */ },
+    { title: 'Kde ePoukaz získám?', body: 'ePoukaz vám vystaví lékař. Podle zvoleného způsobu ho dostanete SMS, e-mailem nebo vytištěný.' /* draft */ },
+    { title: 'Jak dlouho ePoukaz platí?', body: 'Standardní platnost je 30 dnů. Ve výjimečných případech ji lékař může prodloužit až na jeden rok.' /* draft */ },
+    { title: 'Musím ePoukaz používat povinně?', body: 'Od 1. 1. 2026 je ePoukaz povinný pro zdravotnické pracovníky i výdejny.' /* draft */ },
+    { title: 'Jak ePoukaz uplatním online?', body: 'Vyhledejte svou výdejnu, nahrajte ePoukaz online a vyčkejte, až se vám ozve s dalšími kroky.' /* draft */ },
+  ],
+}
 
 // HERO sekce homepage
 export const HERO = {

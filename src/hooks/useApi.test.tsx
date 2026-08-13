@@ -29,3 +29,22 @@ test('useApi: refetch při změně deps', async () => {
   rerender({ dep: 2 })
   await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(2))
 })
+
+import { useCompaniesSearch } from './useApi'
+
+test('useCompaniesSearch: prázdný dotaz nevolá fetch', async () => {
+  const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => [] })
+  vi.stubGlobal('fetch', fetchMock)
+  const { result } = renderHook(() => useCompaniesSearch('   '))
+  await waitFor(() => expect(result.current.loading).toBe(false))
+  expect(fetchMock).not.toHaveBeenCalled()
+  expect(result.current.data).toEqual([])
+})
+
+test('useCompaniesSearch: neprázdný dotaz volá /companies?search=', async () => {
+  const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => [{ name: 'X' }] })
+  vi.stubGlobal('fetch', fetchMock)
+  const { result } = renderHook(() => useCompaniesSearch('Brno'))
+  await waitFor(() => expect(result.current.loading).toBe(false))
+  expect(fetchMock.mock.calls[0][0]).toContain('?search=Brno')
+})

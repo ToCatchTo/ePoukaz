@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { getCompanies, getTariffs, getPages, getPage } from '../api/endpoints'
+import type { Company } from '../api/types'
 
 export type ApiState<T> = { data: T | null; loading: boolean; error: Error | null }
 
@@ -29,7 +30,15 @@ export function useApi<T>(
   return state
 }
 
-export const useCompanies = () => useApi((signal) => getCompanies(signal), [])
+export const useCompanies = () => useApi((signal) => getCompanies(undefined, signal), [])
 export const useTariffs = () => useApi((signal) => getTariffs(signal), [])
 export const usePages = () => useApi((signal) => getPages(signal), [])
 export const usePage = (slug: string) => useApi((signal) => getPage(slug, signal), [slug])
+
+export function useCompaniesSearch(query: string): ApiState<Company[]> {
+  const q = query.trim()
+  return useApi<Company[]>(
+    (signal) => (q ? getCompanies(q, signal) : Promise.resolve<Company[]>([])),
+    [q],
+  )
+}
