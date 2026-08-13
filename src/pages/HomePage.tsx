@@ -23,7 +23,7 @@ export default function HomePage() {
           <Typography variant="h1" sx={{ color: '#fff', maxWidth: 720, fontSize: { xs: 30, sm: 36, md: 42 }, lineHeight: 1.2 }}>{SEARCH.h1}</Typography>
           <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), maxWidth: 812 }}>{SEARCH.perex}</Typography>
           <Box sx={{ width: '100%', maxWidth: 1088 }}>
-            <SearchField value={query} onChange={setQuery} placeholder={SEARCH.placeholder} />
+            <SearchField value={query} onChange={setQuery} placeholder={SEARCH.placeholder} placeholderShort={SEARCH.placeholderShort} />
           </Box>
           {showPanel && (
             <Box sx={{ width: '100%', mt: fluid(20, 20) }}>

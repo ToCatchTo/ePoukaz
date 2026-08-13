@@ -39,6 +39,7 @@ export const SEARCH = {
     'nahrajte ePoukaz online a vyčkejte — výdejna se vám sama ozve s dalšími kroky. ' +
     'Jednoduché, rychlé a dostupné kdykoliv, 24 hodin denně, 7 dní v týdnu.',
   placeholder: 'Hledejte svou výdejnu dle názvu nebo města…',
+  placeholderShort: 'Název nebo město…', // mobil (dlouhý text se do úzkého pole nevejde)
   selectLabel: 'Vybrat',
   emptyTitle: 'Nic jsme nenašli',
   notFoundTitle: 'Vaši výdejnu jsme nenašli?',

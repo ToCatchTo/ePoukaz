@@ -1,10 +1,19 @@
-import { Box, InputBase } from '@mui/material'
+import { Box, InputBase, useMediaQuery, useTheme } from '@mui/material'
 import { fluid } from '../../theme/fluid'
 
-type Props = { value: string; onChange: (v: string) => void; placeholder: string }
+type Props = {
+  value: string
+  onChange: (v: string) => void
+  placeholder: string
+  // Kratší varianta pro mobil (pod sm) – dlouhý placeholder se do úzkého pole nevejde.
+  placeholderShort?: string
+}
 
 // Bílý zaoblený vyhledávací input (pill) s lupou vlevo a mazacím křížkem vpravo (jen když je text).
-export default function SearchField({ value, onChange, placeholder }: Props) {
+export default function SearchField({ value, onChange, placeholder, placeholderShort }: Props) {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const ph = isMobile && placeholderShort ? placeholderShort : placeholder
   return (
     <Box
       sx={{
@@ -18,7 +27,7 @@ export default function SearchField({ value, onChange, placeholder }: Props) {
       <InputBase
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
+        placeholder={ph}
         fullWidth
         inputProps={{ 'aria-label': 'Hledat výdejnu' }}
         sx={{ fontSize: fluid(16, 26), letterSpacing: '0.52px', color: '#000', '& input::placeholder': { color: '#939393', opacity: 1 } }}
