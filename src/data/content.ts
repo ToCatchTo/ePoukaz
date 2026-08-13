@@ -3,13 +3,6 @@ import { PASTELS } from '../theme/theme'
 // Cílový odkaz pro všechny CTA tlačítka „vyzkoušet / 30 dní zdarma / registrace"
 export const REGISTER_URL = 'https://admin.epoukazonline.cz/register'
 
-// Navigace v hlavičce
-export const NAV_LINKS = [
-  { label: 'Jak to funguje?', to: '/#jak-to-funguje' },
-  { label: 'Ceník', to: '/cenik' },
-  { label: 'Kontakt', to: '/kontakt' },
-]
-
 // Kontextové navigační sady (Header vybírá podle aktuální cesty)
 export const NAV_MAIN = [
   { label: 'Jak to funguje?', to: '/jak-to-funguje' },

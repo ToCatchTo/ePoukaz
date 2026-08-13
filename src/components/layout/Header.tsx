@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box, Button, Link as MuiLink } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
-import { NAV_LINKS, REGISTER_URL } from '../../data/content'
+import { NAV_MAIN, NAV_VYDEJNY, REGISTER_URL } from '../../data/content'
 import { scrollToHashOnClick } from '../../utils/scrollToHash'
 import { fluid } from '../../theme/fluid'
 import { usePages } from '../../hooks/useApi'
@@ -12,12 +12,16 @@ import MobileMenu from './MobileMenu'
 // Hlavička – zarovnaná na grid (GridSection „content" = margin 1 sloupec, na desktopu 2 sloupce).
 // Na desktopu (lg+) plovoucí bílá pill s logem, navigací a CTA; na mobilu i tabletu kompaktní pill
 // (logo + odznak) a kruhový hamburger otevírající celoobrazovkové menu.
+// Cesty patřící „výdejny" clusteru – tam se ukáže NAV_VYDEJNY, jinak NAV_MAIN.
+const VYDEJNY_PATHS = new Set(['/pro-vydejny', '/cenik', '/kontakt'])
+
 export default function Header() {
   const { pathname } = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
   const { data: pages } = usePages()
-  const dynamicLinks = (pages ?? []).map((p) => ({ label: p.title, to: `/stranka/${p.slug}` }))
-  const links = [...NAV_LINKS, ...dynamicLinks]
+  const baseNav = VYDEJNY_PATHS.has(pathname) ? NAV_VYDEJNY : NAV_MAIN
+  const dynamicLinks = VYDEJNY_PATHS.has(pathname) ? [] : (pages ?? []).map((p) => ({ label: p.title, to: `/stranka/${p.slug}` }))
+  const links = [...baseNav, ...dynamicLinks]
 
   return (
     <GridSection

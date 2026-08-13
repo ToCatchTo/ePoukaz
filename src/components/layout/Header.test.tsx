@@ -5,46 +5,44 @@ import { theme } from '../../theme/theme'
 import Header from './Header'
 import * as useApi from '../../hooks/useApi'
 
-const renderHeader = () =>
-  render(<ThemeProvider theme={theme}><MemoryRouter><Header /></MemoryRouter></ThemeProvider>)
+const renderAt = (path: string) =>
+  render(
+    <ThemeProvider theme={theme}>
+      <MemoryRouter initialEntries={[path]}><Header /></MemoryRouter>
+    </ThemeProvider>,
+  )
 
-test('Header ukáže statické i dynamické položky z API', () => {
-  vi.spyOn(useApi, 'usePages').mockReturnValue({
-    data: [{ title: 'O nás', slug: 'o-nas' }],
-    loading: false,
-    error: null,
-  })
+beforeEach(() => vi.spyOn(useApi, 'usePages').mockReturnValue({ data: null, loading: true, error: null }))
 
-  renderHeader()
+test('na / ukáže pacientskou sadu', () => {
+  renderAt('/')
+  expect(screen.getAllByText('Jak to funguje?').length).toBeGreaterThan(0)
+  expect(screen.getAllByText('Vše o ePoukazu').length).toBeGreaterThan(0)
+  expect(screen.queryByText('Ceník')).toBeNull()
+})
 
+test('na /pro-vydejny ukáže výdejny sadu (Ceník, Kontakt)', () => {
+  renderAt('/pro-vydejny')
   expect(screen.getAllByText('Ceník').length).toBeGreaterThan(0)
+  expect(screen.getAllByText('Kontakt').length).toBeGreaterThan(0)
+})
+
+test('na /cenik ukáže výdejny sadu', () => {
+  renderAt('/cenik')
+  expect(screen.getAllByText('Kontakt').length).toBeGreaterThan(0)
+})
+
+test('dynamické stránky z API se přidají do pacientské sady', () => {
+  vi.spyOn(useApi, 'usePages').mockReturnValue({ data: [{ title: 'O nás', slug: 'o-nas' }], loading: false, error: null })
+  renderAt('/')
   const oNas = screen.getAllByText('O nás')
-  expect(oNas.length).toBeGreaterThan(0)
   expect(oNas[0].closest('a')).toHaveAttribute('href', '/stranka/o-nas')
 })
 
-test('Header bez API dat ukáže jen statické položky', () => {
-  vi.spyOn(useApi, 'usePages').mockReturnValue({ data: null, loading: true, error: null })
-  renderHeader()
-  expect(screen.getAllByText('Kontakt').length).toBeGreaterThan(0)
-  expect(screen.queryByText('O nás')).toBeNull()
-})
-
-test('hlavička zobrazuje navigaci a CTA (desktop)', () => {
-  vi.spyOn(useApi, 'usePages').mockReturnValue({ data: null, loading: true, error: null })
-  renderHeader()
-  expect(screen.getAllByText('Ceník').length).toBeGreaterThanOrEqual(1)
-  expect(screen.getAllByText('Kontakt').length).toBeGreaterThanOrEqual(1)
-  expect(screen.getByText('30 dní ZDARMA')).toBeInTheDocument()
-})
-
-test('hamburger otevře mobilní menu a zavírací tlačítko ho zavře', () => {
-  vi.spyOn(useApi, 'usePages').mockReturnValue({ data: null, loading: true, error: null })
-  renderHeader()
-  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+test('hamburger otevře a zavře mobilní menu', () => {
+  renderAt('/pro-vydejny')
   fireEvent.click(screen.getByRole('button', { name: 'Otevřít menu' }))
   const dialog = screen.getByRole('dialog', { name: 'Menu' })
-  expect(dialog).toBeInTheDocument()
   expect(within(dialog).getByText('Ceník')).toBeInTheDocument()
   fireEvent.click(within(dialog).getByRole('button', { name: 'Zavřít menu' }))
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()

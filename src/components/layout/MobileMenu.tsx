@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { Box, Link as MuiLink, Stack } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
-import { NAV_LINKS } from '../../data/content'
 import { scrollToHashOnClick } from '../../utils/scrollToHash'
 import MenuToggle from './MenuToggle'
 import { fluid } from '../../theme/fluid'
@@ -11,8 +10,8 @@ import { PAGE_PX } from '../../theme/grid'
 // a při zavření se zase zasune nahoru. Panel zůstává v DOM (kvůli plynulé animaci oběma směry),
 // v zavřeném stavu je odsunutý mimo obrazovku a skrytý pro asistivní technologie (aria-hidden).
 export default function MobileMenu({
-  open, onClose, links = NAV_LINKS,
-}: { open: boolean; onClose: () => void; links?: { label: string; to: string }[] }) {
+  open, onClose, links,
+}: { open: boolean; onClose: () => void; links: { label: string; to: string }[] }) {
   const { pathname } = useLocation()
 
   // Zamknout scroll pozadí, dokud je menu otevřené
