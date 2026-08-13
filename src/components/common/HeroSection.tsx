@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
 import { HERO, TESTIMONIALS, REGISTER_URL } from '../../data/content'
-import { fluid, fluidScale, fluidPct } from '../../theme/fluid'
+import { fluid, fluidScale } from '../../theme/fluid'
 import GridSection from '../layout/GridSection'
 import { PAGE_PX } from '../../theme/grid'
 import { HERO_SPLIT, SPLIT_UP } from '../../theme/layout'
@@ -84,11 +84,6 @@ function ReviewCard({ name, delay, pos }: { name: string; delay: string; pos: ob
   )
 }
 
-// Rozměry návrhu kompozice pro variantu POD nadpisem (md–lg). Šířka odpovídá kompaktnějšímu
-// desktopu, aby se karty daly zmenšit jen mírně (čitelný text) a přitom se vešly.
-const COMP_W = 980
-const COMP_H = 900
-
 // Sdílený obsah kompozice: ruka s telefonem + tři plovoucí recenze (fade-in animace).
 // Prvky jsou position:absolute vůči nejbližšímu pozicovanému rodiči (stage / wrapper níže).
 // `gabinaLeft` přepíše pozici karty Gábina (varianta pod nadpisem ji potřebuje víc vlevo,
@@ -134,10 +129,10 @@ export default function HeroSection() {
         {/* LEVÝ SLOUPEC – text (nad vším). V režimu „vedle sebe" (≥ HERO_SPLIT) se pruh plynule
             zúží (720→540), aby měla zmenšující se kompozice telefonu vpravo dost místa a
             nepřekrývala text. Užší pruh posouvá hranici skládání níž na laptopy. */}
-        <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%' }, [SPLIT_UP]: { maxWidth: fluid(540, 720, HERO_SPLIT, 1920) } }}>
-          {/* V režimu vedle sebe nadpis o kousek zmenšíme (90→58), aby se 1. řádek
+        <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%' }, [SPLIT_UP]: { maxWidth: fluid(310, 720, HERO_SPLIT, 1920) } }}>
+          {/* V režimu vedle sebe nadpis zmenšíme (90→44), aby se 1. řádek
               „Šetřete čas sobě" vešel do zúženého pruhu a nezlomil se na osamocené „sobě". */}
-          <Typography variant="h1" sx={{ color: '#fff', mb: fluid(24, 32), ml: '-1px', [SPLIT_UP]: { fontSize: fluid(58, 90, HERO_SPLIT, 1920) } }}>
+          <Typography variant="h1" sx={{ color: '#fff', mb: fluid(24, 32), ml: '-1px', [SPLIT_UP]: { fontSize: fluid(33, 90, HERO_SPLIT, 1920) } }}>
             {TITLE_LINE_1}
             {TITLE_LINE_2 && (
               <>
@@ -146,7 +141,7 @@ export default function HeroSection() {
               </>
             )}
           </Typography>
-          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), lineHeight: 1.6, maxWidth: fluid(340, 470, HERO_SPLIT, 1920), mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
+          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), lineHeight: 1.6, maxWidth: fluid(300, 470, HERO_SPLIT, 1920), mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
             <span style={{ fontWeight: 500 }}>{BOLD_LEAD}</span>{REST_PARAGRAPH}
           </Typography>
           <Button
@@ -181,39 +176,6 @@ export default function HeroSection() {
           </Box>
         </Box>
 
-        {/* 900 – HERO_SPLIT (md–lg): stejná kompozice (ruka + plovoucí recenze + animace), ale POD nadpisem.
-            Vnitřní box má pevný „design" rozměr (COMP_W×COMP_H), aby se karty vykreslily jako na
-            desktopu; vnější wrapper má výšku = design × scale (aby tok pod ním seděl) a vnitřek se
-            přes fluidScale zmenší, aby se vešel do dostupné šířky (a text zůstal čitelný). */}
-        <Box
-          sx={{
-            display: { xs: 'none', md: 'block' },
-            [SPLIT_UP]: { display: 'none' },
-            position: 'relative',
-            width: '100%',
-            mt: { md: '-48px' },
-            pointerEvents: 'none',
-            '--comp-scale': fluidScale(0.72, 0.9, 900, HERO_SPLIT),
-            height: `calc(${COMP_H}px * var(--comp-scale))`,
-          }}
-        >
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 0,
-              // posun doleva – responzivně: na 900 px skoro na střed (48 %, aby nepřetekl vlevo),
-              // na HERO_SPLIT víc doleva (42 %), kde je vpravo víc volného místa
-              left: fluidPct(48, 42, 900, HERO_SPLIT),
-              width: COMP_W,
-              height: COMP_H,
-              transformOrigin: 'top center',
-              transform: 'translateX(-50%) scale(var(--comp-scale))',
-            }}
-          >
-            <HeroComposition gabinaLeft="14%" />
-          </Box>
-        </Box>
-
         {/* DESKTOPOVÁ KOMPOZICE (ruka + plovoucí recenze) jako jedna „stage" vrstva.
             inset:0 → stejný box jako sekce, takže si prvky uvnitř zachovají přesné pozice.
             Celá vrstva se plynule zmenšuje mezi 1920 a HERO_SPLIT px (origin vpravo uprostřed =
@@ -231,7 +193,9 @@ export default function HeroSection() {
             // (kompozice je vidět až od HERO_SPLIT). fluidScale používá trik tan(atan2()),
             // protože scale() potřebuje bezrozměrné číslo, které z vw nejde získat dělením.
             transformOrigin: '100% 50%',
-            transform: `scale(${fluidScale(0.7, 1, HERO_SPLIT, 1920)})`,
+            // Na užších oknech kompozici navíc posuneme doprava (telefon klidně přeteče za okraj),
+            // aby nejlevější recenze (Gábina) nezasahovala do textu; na 1920 posun 0.
+            transform: `translateX(${fluid(140, 0, HERO_SPLIT, 1920)}) scale(${fluidScale(0.72, 1, HERO_SPLIT, 1920)})`,
             top: fluid(20, 0, HERO_SPLIT, 1920), // posun dolů při zmenšování
           }}
         >
