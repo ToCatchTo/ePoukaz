@@ -29,7 +29,7 @@ export function useApi<T>(
   return state
 }
 
-export const useCompanies = () => useApi((signal) => getCompanies(signal), [])
+export const useCompanies = () => useApi((signal) => getCompanies(undefined, signal), [])
 export const useTariffs = () => useApi((signal) => getTariffs(signal), [])
 export const usePages = () => useApi((signal) => getPages(signal), [])
 export const usePage = (slug: string) => useApi((signal) => getPage(slug, signal), [slug])
