@@ -49,7 +49,7 @@ export default function VydejnaCtaFooter() {
       </Box>
 
       {/* Kredit agentury pod kartou na fialové (shodné s hlavní patičkou) */}
-      <Stack direction="row" spacing={1.5} sx={{ justifyContent: 'center', alignItems: 'center', mt: fluid(150, 220) }}>
+      <Stack direction="row" spacing={1.5} sx={{ justifyContent: 'center', alignItems: 'center', mt: fluid(150, 119) }}>
         <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: 16, lineHeight: 1 }}>{FOOTER.credit}</Typography>
         <MuiLink href="https://matfix.cz" target="_blank" rel="noopener noreferrer" aria-label="MatFix" sx={{ display: 'inline-flex', alignItems: 'center' }}>
           <Box component="img" src="/images/logo-matfix.svg" alt="MatFix" sx={{ height: 15, display: 'block', m: '0px 0px 3px 15px !important' }} />
