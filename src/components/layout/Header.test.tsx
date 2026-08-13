@@ -39,6 +39,19 @@ test('dynamické stránky z API se přidají do pacientské sady', () => {
   expect(oNas[0].closest('a')).toHaveAttribute('href', '/stranka/o-nas')
 })
 
+test('CTA v zákaznické sadě je „Stáhnout aplikaci"', () => {
+  renderAt('/')
+  expect(screen.getByText('Stáhnout aplikaci')).toBeInTheDocument()
+  // tlačítko „30 dní ZDARMA" (jeden řetězec) se v pacientské sadě nezobrazuje
+  expect(screen.queryByText('30 dní ZDARMA')).toBeNull()
+})
+
+test('CTA ve výdejny sadě je „30 dní ZDARMA"', () => {
+  renderAt('/pro-vydejny')
+  expect(screen.getByText('30 dní ZDARMA')).toBeInTheDocument()
+  expect(screen.queryByText('Stáhnout aplikaci')).toBeNull()
+})
+
 test('hamburger otevře a zavře mobilní menu', () => {
   renderAt('/pro-vydejny')
   fireEvent.click(screen.getByRole('button', { name: 'Otevřít menu' }))

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box, Button, Link as MuiLink } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
-import { NAV_MAIN, NAV_VYDEJNY, REGISTER_URL } from '../../data/content'
+import { NAV_MAIN, NAV_VYDEJNY, REGISTER_URL, APP_DOWNLOAD_URL } from '../../data/content'
 import { scrollToHashOnClick } from '../../utils/scrollToHash'
 import { fluid } from '../../theme/fluid'
 import { usePages } from '../../hooks/useApi'
@@ -19,9 +19,14 @@ export default function Header() {
   const { pathname } = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
   const { data: pages } = usePages()
-  const baseNav = VYDEJNY_PATHS.has(pathname) ? NAV_VYDEJNY : NAV_MAIN
-  const dynamicLinks = VYDEJNY_PATHS.has(pathname) ? [] : (pages ?? []).map((p) => ({ label: p.title, to: `/stranka/${p.slug}` }))
+  const isVydejny = VYDEJNY_PATHS.has(pathname)
+  const baseNav = isVydejny ? NAV_VYDEJNY : NAV_MAIN
+  const dynamicLinks = isVydejny ? [] : (pages ?? []).map((p) => ({ label: p.title, to: `/stranka/${p.slug}` }))
   const links = [...baseNav, ...dynamicLinks]
+  // CTA v pill: ve výdejny sekci „30 dní ZDARMA" (registrace), v zákaznické „Stáhnout aplikaci".
+  const cta = isVydejny
+    ? { label: '30 dní ZDARMA', href: REGISTER_URL }
+    : { label: 'Stáhnout aplikaci', href: APP_DOWNLOAD_URL }
 
   return (
     <GridSection
@@ -71,8 +76,8 @@ export default function Header() {
           })}
 
           {/* CTA – jen desktop */}
-          <Button variant="contained" color="secondary" href={REGISTER_URL} target="_blank" rel="noopener noreferrer" sx={{ display: { xs: 'none', lg: 'inline-flex' }, color: '#fff', p: fluid(12, 18), fontSize: fluid(16, 20), whiteSpace: 'nowrap' }}>
-            30 dní ZDARMA
+          <Button variant="contained" color="secondary" href={cta.href} target="_blank" rel="noopener noreferrer" sx={{ display: { xs: 'none', lg: 'inline-flex' }, color: '#fff', p: fluid(12, 18), fontSize: fluid(16, 20), whiteSpace: 'nowrap' }}>
+            {cta.label}
           </Button>
         </Box>
 

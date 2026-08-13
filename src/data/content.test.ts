@@ -1,4 +1,4 @@
-import { HOW_STEPS, PROBLEMS, PRICING, COMPARE_ROWS, TESTIMONIALS, FOOTER, NAV_MAIN, NAV_VYDEJNY, SEARCH, JAK_TO_FUNGUJE, VSE_O_EPOUKAZU } from './content'
+import { HOW_STEPS, PROBLEMS, PRICING, COMPARE_ROWS, TESTIMONIALS, FOOTER, NAV_MAIN, NAV_VYDEJNY, SEARCH, JAK_TO_FUNGUJE, VSE_O_EPOUKAZU, VYDEJNA_CTA } from './content'
 
 test('8 kroků jak to funguje', () => {
   expect(HOW_STEPS).toHaveLength(8)
@@ -24,6 +24,14 @@ test('3 recenze a 3 sloupce patičky', () => {
 test('nav sady', () => {
   expect(NAV_MAIN.map((l) => l.to)).toEqual(['/jak-to-funguje', '/vse-o-epoukazu', '/pro-vydejny'])
   expect(NAV_VYDEJNY.map((l) => l.to)).toEqual(['/pro-vydejny', '/cenik', '/kontakt'])
+  // Výdejny sada: první položka má label „Jak to funguje?", ale slug zůstává /pro-vydejny
+  expect(NAV_VYDEJNY[0]).toEqual({ label: 'Jak to funguje?', to: '/pro-vydejny' })
+})
+
+test('CTA patičky pro zákaznické stránky', () => {
+  expect(VYDEJNA_CTA.title).toBe('Jste výdejna ePoukazů?')
+  expect(VYDEJNA_CTA.button).toBe('Zóna pro výdejny')
+  expect(VYDEJNA_CTA.provider).toContain('29645387')
 })
 
 test('search a infobox data', () => {
