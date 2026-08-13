@@ -35,7 +35,7 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
     <>
       {/* Vlnité čáry za horní částí patiční karty – prosvítají v okrajích */}
       <Box sx={{ position: 'relative' }}>
-        <DecorLines sx={{ top: topContent ? 120 : -200 }} />
+        <DecorLines sx={{ top: topContent ? 120 : fluid(-200, 173) }} />
         <GridSection variant="wide" sx={{ position: 'relative', zIndex: 1, px: { xs: '14px', sm: CARD_R } }}>
           <Box sx={{ bgcolor: '#fff', borderRadius: CARD_R, px: fluid(24, 140), pt: topContent ? fluid(70, 110) : fluid(97, 140), pb: fluid(40, 60) }}>
             {/* Horní obsah (např. kontaktní blok na stránce Kontakt) oddělený vodorovnou čarou */}

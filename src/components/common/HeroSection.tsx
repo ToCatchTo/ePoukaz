@@ -10,6 +10,10 @@ import TestimonialsCarousel from './TestimonialsCarousel'
 // Recenze dohledáme podle jména (data z TESTIMONIALS)
 const byName = Object.fromEntries(TESTIMONIALS.map((t) => [t.name, t]))
 
+// Pásmo „laptop" (900–1279 px): tady text obtéká kartu Gábina (varianta C). Nad 1280 už je
+// místa dost a platí původní široký layout (žádný „zub", nadpis se vejde na 2 řádky).
+const HERO_BAND = '@media (min-width:900px) and (max-width:1279.98px)'
+
 // Hranice „vedle sebe" (HERO_SPLIT) a media query (SPLIT_UP) jsou sdílené v theme/layout,
 // protože stejný zlom používá i HomePage (dekorační pás + mezera před další sekcí).
 
@@ -129,10 +133,10 @@ export default function HeroSection() {
         {/* LEVÝ SLOUPEC – text (nad vším). V režimu „vedle sebe" (≥ HERO_SPLIT) se pruh plynule
             zúží (720→540), aby měla zmenšující se kompozice telefonu vpravo dost místa a
             nepřekrývala text. Užší pruh posouvá hranici skládání níž na laptopy. */}
-        <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%' }, [SPLIT_UP]: { maxWidth: fluid(310, 720, HERO_SPLIT, 1920) } }}>
-          {/* V režimu vedle sebe nadpis zmenšíme (90→44), aby se 1. řádek
+        <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%' }, [SPLIT_UP]: { maxWidth: fluid(310, 720, HERO_SPLIT, 1920) }, [HERO_BAND]: { maxWidth: fluid(355, 415, 900, 1280) } }}>
+          {/* V režimu vedle sebe nadpis zmenšíme (90→33), aby se 1. řádek
               „Šetřete čas sobě" vešel do zúženého pruhu a nezlomil se na osamocené „sobě". */}
-          <Typography variant="h1" sx={{ color: '#fff', mb: fluid(24, 32), ml: '-1px', [SPLIT_UP]: { fontSize: fluid(33, 90, HERO_SPLIT, 1920) } }}>
+          <Typography variant="h1" sx={{ color: '#fff', mb: fluid(24, 32), ml: '-1px', [SPLIT_UP]: { fontSize: fluid(33, 90, HERO_SPLIT, 1920) }, [HERO_BAND]: { fontSize: fluid(33, 44, 900, 1280) } }}>
             {TITLE_LINE_1}
             {TITLE_LINE_2 && (
               <>
@@ -141,7 +145,25 @@ export default function HeroSection() {
               </>
             )}
           </Typography>
-          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), lineHeight: 1.6, maxWidth: fluid(300, 470, HERO_SPLIT, 1920), mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
+          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), lineHeight: 1.6, maxWidth: fluid(270, 470, HERO_SPLIT, 1920), [HERO_BAND]: { maxWidth: fluid(355, 415, 900, 1280) }, mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
+            {/* VARIANTA C – obtékání: neviditelný plovoucí „zub" (jen 900–1280) rezervuje pás,
+                kde zpoza telefonu vyčnívá karta Gábina. Horní řádky (nad Gábinou) jdou širší,
+                řádky v jejím pásu jsou kratší. shape-outside inset(top …) nechá horní pás volný. */}
+            <Box
+              aria-hidden
+              component="span"
+              sx={{
+                display: { xs: 'none' },
+                [HERO_BAND]: {
+                  display: 'block',
+                  float: 'right',
+                  // Zub sahá od inset(top) až k patě odstavce → krátí všechny řádky pod Gábinou.
+                  width: fluid(167, 135, 900, 1280),
+                  height: fluid(260, 235, 900, 1280),
+                  shapeOutside: `inset(${fluid(112, 100, 900, 1280)} 0px 0px 0px)`,
+                },
+              }}
+            />
             <span style={{ fontWeight: 500 }}>{BOLD_LEAD}</span>{REST_PARAGRAPH}
           </Typography>
           <Button
@@ -193,10 +215,13 @@ export default function HeroSection() {
             // (kompozice je vidět až od HERO_SPLIT). fluidScale používá trik tan(atan2()),
             // protože scale() potřebuje bezrozměrné číslo, které z vw nejde získat dělením.
             transformOrigin: '100% 50%',
-            // Na užších oknech kompozici navíc posuneme doprava (telefon klidně přeteče za okraj),
-            // aby nejlevější recenze (Gábina) nezasahovala do textu; na 1920 posun 0.
             transform: `translateX(${fluid(140, 0, HERO_SPLIT, 1920)}) scale(${fluidScale(0.72, 1, HERO_SPLIT, 1920)})`,
             top: fluid(20, 0, HERO_SPLIT, 1920), // posun dolů při zmenšování
+            // V pásmu 900–1280 kompozici držíme víc vlevo (jen malý posun), aby Gábina zasahovala
+            // do textu a text ji mohl obtékat (varianta C); nad 1280 platí širší posun výše.
+            [HERO_BAND]: {
+              transform: `translateX(${fluid(35, 35, 900, 1280)}) scale(${fluidScale(0.72, 1, HERO_SPLIT, 1920)})`,
+            },
           }}
         >
           <HeroComposition />

@@ -19,7 +19,7 @@ export default function HomePage() {
   return (
     <Box data-testid="page-home">
       <GridSection>
-        <Stack spacing={fluid(32, 50)} sx={{ alignItems: 'center', textAlign: 'center', mt: fluid(60, 139) }}>
+        <Stack spacing={fluid(32, 20)} sx={{ alignItems: 'center', textAlign: 'center', mt: fluid(60, 139) }}>
           <Typography variant="h1" sx={{ color: '#fff', maxWidth: 720, fontSize: { xs: 30, sm: 36, md: 42 }, lineHeight: 1.2 }}>{SEARCH.h1}</Typography>
           <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), maxWidth: 812 }}>{SEARCH.perex}</Typography>
           <Box sx={{ width: '100%', maxWidth: 1088 }}>
@@ -33,7 +33,7 @@ export default function HomePage() {
         </Stack>
       </GridSection>
 
-      <Box sx={{ mt: fluid(200, 400) }}>
+      <Box sx={{ mt: fluid(200, 936) }}>
         <VydejnaCtaFooter />
       </Box>
     </Box>
