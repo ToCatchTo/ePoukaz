@@ -12,8 +12,8 @@ export default function VydejnaCtaFooter() {
   return (
     <>
       <Box sx={{ position: 'relative' }}>
-        {/* Vlnité čáry prosvítají v okrajích karty */}
-        <DecorLines sx={{ top: -200 }} />
+        {/* Vlnité čáry za kartou – vždy vycentrované (vodorovně i svisle vůči kartě), prosvítají v okrajích */}
+        <DecorLines sx={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
         <GridSection variant="wide" sx={{ position: 'relative', zIndex: 1, px: { xs: '14px', sm: CARD_R } }}>
           <Box sx={{ bgcolor: '#fff', borderRadius: CARD_R, px: fluid(24, 140), pt: fluid(80, 115), pb: fluid(40, 60) }}>
             <Stack spacing={fluid(24, 44)} sx={{ alignItems: 'center', textAlign: 'center' }}>
