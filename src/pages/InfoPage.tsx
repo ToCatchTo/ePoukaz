@@ -4,11 +4,13 @@ import DecorLines from '../components/common/DecorLines'
 import VydejnaCtaFooter from '../components/common/VydejnaCtaFooter'
 import GridSection from '../components/layout/GridSection'
 import { fluid } from '../theme/fluid'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 type InfoData = { title: string; items: { title: string; body: string }[] }
 
 // Informační podstránka (Jak to funguje? / Vše o ePoukazu) – nadpis + accordion + patička.
 export default function InfoPage({ data }: { data: InfoData }) {
+  useDocumentTitle(data.title)
   return (
     <Box data-testid="page-info">
       <GridSection>

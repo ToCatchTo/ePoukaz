@@ -11,6 +11,7 @@ import { fluid } from '../theme/fluid'
 import { UNI } from '../data/content'
 import { useCompanies } from '../hooks/useApi'
 import { useImagesReady } from '../hooks/useImagesReady'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { formatAddress, orderUrl, fillPlaceholders, companyImages } from '../api/companyFill'
 
 // Mezinadpis = řetězec psaný celý VELKÝMI písmeny (vysází se tučně a s odsazením)
@@ -25,10 +26,12 @@ const GALLERY_IMAGES = [
   '/images/uni-gallery.png',
 ]
 
-export default function ContentPage() {
+// title = pevný název podstránky (např. „Obchodní podmínky"); u provozovny se přebije jejím názvem.
+export default function ContentPage({ title }: { title?: string }) {
   const { publicHash } = useParams()
   const { data: companies, loading } = useCompanies()
   const company = publicHash ? companies?.find((c) => c.publicHash === publicHash) : undefined
+  useDocumentTitle(company?.name ?? title)
 
   // Hodnoty do šablony – prázdné, když provozovna není (holé /faq, /obchodni-podminky jako dnes).
   const fill = {

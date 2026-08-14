@@ -19,8 +19,8 @@ export function AppRoutes() {
         <Route path="/pro-vydejny" element={<ProVydejnyPage />} />
         <Route path="/cenik" element={<PricingPage />} />
         <Route path="/kontakt" element={<ContactPage />} />
-        <Route path="/faq" element={<ContentPage />} />
-        <Route path="/obchodni-podminky" element={<ContentPage />} />
+        <Route path="/faq" element={<ContentPage title="Časté dotazy" />} />
+        <Route path="/obchodni-podminky" element={<ContentPage title="Obchodní podmínky" />} />
         <Route path="/provozovna/:publicHash" element={<ContentPage />} />
         <Route path="/stranka/:slug" element={<DynamicPage />} />
         <Route path="/jak-to-funguje" element={<InfoPage data={JAK_TO_FUNGUJE} />} />

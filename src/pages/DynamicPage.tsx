@@ -7,11 +7,13 @@ import GridSection from '../components/layout/GridSection'
 import Footer from '../components/layout/Footer'
 import ContactBlock from '../components/common/ContactBlock'
 import { fluid } from '../theme/fluid'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 // Dynamická podstránka z API (pages/{slug}) – nadpis + HTML obsah + galerie.
 export default function DynamicPage() {
   const { slug = '' } = useParams()
   const { data, loading, error } = usePage(slug)
+  useDocumentTitle(data?.title)
 
   return (
     <Box data-testid="page-dynamic">

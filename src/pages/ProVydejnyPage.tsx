@@ -8,11 +8,13 @@ import { CARD_R_SM, HERO_SPLIT, SPLIT_UP } from '../theme/layout'
 import { fluid } from '../theme/fluid'
 import { PAGE_PX } from '../theme/grid'
 import { PROBLEMS } from '../data/content'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 // Domovská stránka – hero, jak to funguje, 6 problémů, formulář, CTA + patička.
 // Header, hero, „jak to funguje" a patička jsou zarovnané na grid (GridSection = margin ≥ 1 sloupec).
 // Karty 6 problémů a formulář nejsou dělané podle gridu – jsou jen centrované (margin ≥ 1 sloupec přes PAGE_PX).
 export default function ProVydejnyPage() {
+  useDocumentTitle('Pro výdejny')
   return (
     <Box data-testid="page-home">
       {/* HERO – text + ruka s telefonem + animované recenze (grid „content") */}

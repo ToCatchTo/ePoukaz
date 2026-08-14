@@ -12,6 +12,7 @@ import { fluid } from '../theme/fluid'
 import { CENIK_HEAD, PRICING, COMPARE_ROWS, SMS_NOTE } from '../data/content'
 import { useTariffs } from '../hooks/useApi'
 import { useImagesReady } from '../hooks/useImagesReady'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { tariffToItem, tierForCode } from '../api/tariffMapping'
 
 // Mapa akcentní barvy tarifu na hex (hlavička srovnávací tabulky)
@@ -56,6 +57,7 @@ const SUB_BOLD = '30 dní ZDARMA'
 const [SUB_BEFORE, SUB_AFTER] = CENIK_HEAD.subtitle.split(SUB_BOLD)
 
 export default function PricingPage() {
+  useDocumentTitle('Ceník')
   const { data: tariffs, loading } = useTariffs()
   // Dynamicky z API; dokud data nejsou (chyba) → statická PRICING, ať stránka není prázdná.
   const cards = tariffs
