@@ -3,7 +3,7 @@ import SectionCard from '../components/common/SectionCard'
 import PricingCard, { tierIcons } from '../components/common/PricingCard'
 import type { Tier } from '../components/common/PricingCard'
 import TwoMonthsFreeBanner from '../components/common/TwoMonthsFreeBanner'
-import TryForFreeForm from '../components/common/TryForFreeForm'
+import MainFeatures from '../components/common/MainFeatures'
 import DecorLines from '../components/common/DecorLines'
 import Footer from '../components/layout/Footer'
 import GridSection from '../components/layout/GridSection'
@@ -89,8 +89,10 @@ export default function PricingPage() {
                 <CircularProgress aria-label="Načítání" />
               </Box>
             )}
-            {/* 3 tarify – vedle sebe jen když je dost místa na pohodlnou šířku karty (≥ ~1600 px),
-                jinak (i na užším desktopu) pod sebou vycentrované, ať nejsou přeplácané/úzké.
+            {/* Tarify se automaticky zalamují (flex-wrap): karty drží pevnou pohodlnou šířku
+                (370 px dle XD) a NEzmenšují se, takže text uvnitř zůstává na svých řádcích a
+                neláme se. Kolik se jich vejde vedle sebe, tolik jich je; zbytek se zalomí pod ně
+                (na širokém desktopu 2+2, na užších oknech postupně méně, na mobilu pod sebou).
                 Renderujeme vždy – dokud není „ready", je blok skrytý mimo obrazovku (jen se přednačtou
                 ikony); po načtení se odkryje, takže nic neposkakuje. */}
             <Box
@@ -100,16 +102,16 @@ export default function PricingPage() {
               <Box
                 sx={{
                   display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: 4,
-                  '@media (min-width:1600px)': { flexDirection: 'row', justifyContent: 'center', alignItems: 'stretch', gap: '30px' },
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                  alignItems: 'stretch',
+                  gap: '30px',
                 }}
               >
                 {cards.map((c) => (
                   <Box
                     key={c.key}
-                    sx={{ width: '100%', maxWidth: 370, minWidth: 0, '@media (min-width:1600px)': { flex: '1 1 0', width: 'auto' } }}
+                    sx={{ width: 370, maxWidth: '100%', flexShrink: 0 }}
                   >
                     <PricingCard item={c.item} tier={c.tier} />
                   </Box>
@@ -145,7 +147,7 @@ export default function PricingPage() {
       </Box>
 
       <TwoMonthsFreeBanner />
-      <TryForFreeForm />
+      <MainFeatures />
 
       {/* CTA + patička jako jedna karta */}
       <Box sx={{ mt: '315px' }}>

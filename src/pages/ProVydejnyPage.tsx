@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from '@mui/material'
 import HeroSection from '../components/common/HeroSection'
 import HowItWorks from '../components/common/HowItWorks'
 import DecorLines from '../components/common/DecorLines'
-import TryForFreeForm from '../components/common/TryForFreeForm'
+import MainFeatures from '../components/common/MainFeatures'
 import Footer from '../components/layout/Footer'
 import { CARD_R_SM, HERO_SPLIT, SPLIT_UP } from '../theme/layout'
 import { fluid } from '../theme/fluid'
@@ -64,8 +64,8 @@ export default function ProVydejnyPage() {
         </Stack>
       </Box>
 
-      {/* Formulář „30 dní zdarma" – centrovaný, vlastní boční margin */}
-      <TryForFreeForm />
+      {/* Sekce „Hlavní funkce" – centrovaná, vlastní boční margin (nahradila formulář) */}
+      <MainFeatures />
 
       {/* CTA + patička jako jedna karta (grid „wide" = 1640 px) */}
       <Box sx={{ mt: '315px' }}>

@@ -172,14 +172,15 @@ export const PROBLEMS = [
   },
 ]
 
-// Formulář „30 dní zdarma" – jen vizuál, 6 polí
-export const TRY_FORM = {
-  title: 'Vyzkoušejte to sami – 30 dní zdarma',
+// Sekce „Hlavní funkce" – nadpis + podtitul (dle XD) + mřížka 9 dlaždic.
+// Obsah je zatím PLACEHOLDER (stejně jako v XD): všude stopky + „Šetři čas a peníze".
+// Reálné texty/ikonky se doplní později (stačí přepsat `items`).
+export const MAIN_FEATURES = {
+  title: 'Hlavní funkce',
   subtitle:
     '<span style="font-weight: 600; font-family: Google Sans;">Zadejte pár údajů a my se vám ozveme s bezplatným přístupem na 30 dní.</span><span style="font-family: Poppins; font-weight: 300;"> Žádný závazek, žádná platební ' +
     'karta – jen zjistíte, kolik času vám a vašemu týmu ePoukaz online ušetří.',
-  fieldsCount: 6,
-  submit: 'Odeslat',
+  items: Array.from({ length: 9 }, () => ({ icon: '/icons/stopwatch.svg', title: 'Šetři čas a peníze' })),
 }
 
 // Spodní CTA banner

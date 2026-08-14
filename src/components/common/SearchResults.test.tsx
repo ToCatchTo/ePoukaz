@@ -18,7 +18,10 @@ test('loading ukáže spinner', () => {
 test('výsledky vykreslí řádky a Vybrat míří na order flow', () => {
   wrap(<SearchResults loading={false} error={null} companies={[company('Lékárna U lva')]} />)
   expect(screen.getByText('Lékárna U lva')).toBeInTheDocument()
-  expect(screen.getByRole('link', { name: 'Vybrat' })).toHaveAttribute('href', 'https://app.epoukazonline.cz/c/abc')
+  const selectLink = screen.getByRole('link', { name: 'Vybrat' })
+  expect(selectLink).toHaveAttribute('href', 'https://app.epoukazonline.cz/c/abc')
+  expect(selectLink).toHaveAttribute('target', '_blank')
+  expect(selectLink).toHaveAttribute('rel', expect.stringContaining('noopener'))
 })
 
 test('prázdný výsledek ukáže „Nic jsme nenašli"', () => {

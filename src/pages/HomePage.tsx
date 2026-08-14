@@ -19,10 +19,10 @@ export default function HomePage() {
   return (
     <Box data-testid="page-home">
       <GridSection>
-        <Stack spacing={fluid(32, 20)} sx={{ alignItems: 'center', textAlign: 'center', mt: fluid(60, 139) }}>
+        <Stack sx={{ alignItems: 'center', textAlign: 'center', mt: fluid(60, 139) }}>
           <Typography variant="h1" sx={{ color: '#fff', maxWidth: 720, fontSize: { xs: 30, sm: 36, md: 42 }, lineHeight: 1.2 }}>{SEARCH.h1}</Typography>
-          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), maxWidth: 812 }}>{SEARCH.perex}</Typography>
-          <Box sx={{ width: '100%', maxWidth: 1088 }}>
+          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), maxWidth: 812, mt: '20px' }}>{SEARCH.perex}</Typography>
+          <Box sx={{ width: '100%', maxWidth: 1088, mt: '50px' }}>
             <SearchField value={query} onChange={setQuery} placeholder={SEARCH.placeholder} placeholderShort={SEARCH.placeholderShort} />
           </Box>
           {showPanel && (

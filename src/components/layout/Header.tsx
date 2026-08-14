@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <GridSection
       component="header"
-      sx={{ mt: fluid(90, 80), mb: fluid(80, 56) }}
+      sx={{ mt: fluid(90, 80), mb: { xl: '40px', md: '0px', xs: '80px' } }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
         {/* Bílá pill – na mobilu/tabletu obepíná jen logo (+odznak), na desktopu se roztáhne a nese navigaci i CTA */}

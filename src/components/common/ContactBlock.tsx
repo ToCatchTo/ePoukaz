@@ -1,6 +1,9 @@
-import { Box, Grid, IconButton, InputBase, Stack, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
+import type { FormEvent } from 'react'
+import { Box, Collapse, Grid, IconButton, InputBase, Link as MuiLink, Stack, Typography } from '@mui/material'
 import { CONTACT } from '../../data/content'
 import { fluid } from '../../theme/fluid'
+import SuccessPopup from './SuccessPopup'
 
 // Společný styl šedých polí formuláře – nápověda (placeholder) černě, plně krytá
 const FIELD = {
@@ -8,10 +11,51 @@ const FIELD = {
   '& input::placeholder, & textarea::placeholder': { color: '#000', opacity: 1 },
 } as const
 
-// Kontaktní blok – vlevo e-mail a telefon (černá kolečka s ikonou), vpravo formulář
-// zprávy s tyrkysovým odesílacím tlačítkem. Ikony jsou hotová SVG (kolečko + glyf).
-// Jen vizuál (bez odesílání).
+// Jednoduchá kontrola formátu e-mailu (základní validace, ne RFC-přesná)
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+// Chybová barva – čitelná červená na šedém poli
+const ERR = '#D14343'
+
+// Chybová hláška pod polem – plynule se rozbalí/sbalí (Collapse animuje výšku),
+// takže layout „neposkočí". Text si drží i během zavírací animace, aby nezmizel
+// dřív, než se stihne sbalit výška.
+function FieldError({ message }: { message?: string }) {
+  const [shown, setShown] = useState(message)
+  useEffect(() => { if (message) setShown(message) }, [message])
+  return (
+    <Collapse in={Boolean(message)} timeout={260}>
+      <Typography sx={{ color: ERR, fontSize: 14, pt: 0.75, ml: 3 }}>{shown}</Typography>
+    </Collapse>
+  )
+}
+
+// Kontaktní blok – vlevo e-mail a telefon (černá kolečka s ikonou, klikací mailto:/tel:),
+// vpravo formulář zprávy s tyrkysovým odesílacím tlačítkem. Formulář má základní validaci
+// (e-mail povinný + formát, zpráva povinná) a po odeslání ukáže potvrzovací pop-up (SuccessPopup).
 export default function ContactBlock() {
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [errors, setErrors] = useState<{ email?: string; message?: string }>({})
+  const [sent, setSent] = useState(false)
+
+  // tel: bez mezer a formátovacích znaků (necháme jen číslice a úvodní +)
+  const telHref = `tel:${CONTACT.phone.replace(/[^\d+]/g, '')}`
+
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault()
+    const next: { email?: string; message?: string } = {}
+    if (!email.trim()) next.email = 'Zadejte e-mail.'
+    else if (!EMAIL_RE.test(email.trim())) next.email = 'Zadejte platný e-mail.'
+    if (!message.trim()) next.message = 'Napište nám zprávu.'
+    setErrors(next)
+    if (Object.keys(next).length > 0) return
+    // (jen vizuál – bez skutečného odeslání) potvrdíme a pole vyčistíme
+    setSent(true)
+    setEmail('')
+    setMessage('')
+  }
+
   return (
     <Grid container spacing={{ xs: 8, lg: 2 }} columns={10} sx={{ alignItems: 'center' }}>
       {/* Kontaktní údaje */}
@@ -19,12 +63,16 @@ export default function ContactBlock() {
         <Stack spacing={3} sx={{ ml: { sm: '0px', xs: '32px' } }}>
           <Stack direction="row" spacing={{ xs: '10px', md: 3 }} sx={{ alignItems: 'center' }}>
             <Box component="img" src="/icons/contact-mail.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
-            <Typography variant="h4" sx={{ minWidth: 0, fontSize: { xs: 18, sm: fluid(21, 30) }, overflowWrap: 'anywhere' }}>{CONTACT.email}</Typography>
+            <MuiLink href={`mailto:${CONTACT.email}`} underline="hover" sx={{ minWidth: 0, color: 'inherit' }}>
+              <Typography variant="h4" sx={{ minWidth: 0, fontSize: { xs: 18, sm: fluid(21, 30) }, overflowWrap: 'anywhere' }}>{CONTACT.email}</Typography>
+            </MuiLink>
           </Stack>
           <Stack direction="row" spacing={{ xs: '10px', md: 3 }} sx={{ alignItems: 'center' }}>
             <Box component="img" src="/icons/contact-phone.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
             <Box sx={{ minWidth: 0 }}>
-              <Typography variant="h4" sx={{ fontSize: { xs: 18, sm: fluid(21, 30) } }}>{CONTACT.phone}</Typography>
+              <MuiLink href={telHref} underline="hover" sx={{ color: 'inherit' }}>
+                <Typography variant="h4" sx={{ fontSize: { xs: 18, sm: fluid(21, 30) } }}>{CONTACT.phone}</Typography>
+              </MuiLink>
               <Typography sx={{ fontSize: { xs: 14, md: 20 }, color: '#000' }}>{CONTACT.phoneNote}</Typography>
             </Box>
           </Stack>
@@ -33,25 +81,52 @@ export default function ContactBlock() {
 
       {/* Formulář zprávy */}
       <Grid size={{ xs: 10, lg: 4 }}>
-        <Stack spacing={2.5}>
+        <Stack component="form" onSubmit={handleSubmit} noValidate spacing={2.5}>
           <Typography sx={{ fontSize: fluid(18, 20), fontWeight: 700, color: '#000', ml: { sm: '24px !important', xs: '0px' }, textAlign: { sm: 'left', xs: 'center' } }}>{CONTACT.formHeading}</Typography>
-          <InputBase placeholder="*Email" sx={{ ...FIELD, borderRadius: '999px', py: '20px !important', height: '60px' }} />
-          <Box sx={{ position: 'relative' }}>
+
+          <Box>
             <InputBase
-              placeholder={`*${CONTACT.messageLabel}`}
-              multiline minRows={4}
-              sx={{ ...FIELD, borderRadius: '53px', alignItems: 'flex-start', pr: 10, minHeight: '210px', '& textarea': { maxWidth: '300px' } }}
+              type="email"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors((p) => ({ ...p, email: undefined })) }}
+              placeholder="*Email"
+              inputProps={{ 'aria-label': 'Email', 'aria-invalid': errors.email ? true : undefined }}
+              sx={{ ...FIELD, borderRadius: '999px', py: '20px !important', height: '60px', boxShadow: errors.email ? `inset 0 0 0 2px ${ERR}` : 'inset 0 0 0 0 transparent', transition: 'box-shadow .2s ease' }}
             />
-            {/* Odesílací tlačítko – hotové SVG (tyrkysové kolečko + bílá šipka) */}
-            <IconButton
-              aria-label="Odeslat zprávu"
-              sx={{ position: 'absolute', right: 28, bottom: 28, p: 0, '&:hover': { opacity: 0.9 } }}
-            >
-              <Box component="img" src="/icons/contact-send.svg" alt="" aria-hidden sx={{ width: fluid(38, 54), height: fluid(38, 54), display: 'block' }} />
-            </IconButton>
+            <FieldError message={errors.email} />
+          </Box>
+
+          <Box>
+            <Box sx={{ position: 'relative' }}>
+              <InputBase
+                value={message}
+                onChange={(e) => { setMessage(e.target.value); if (errors.message) setErrors((p) => ({ ...p, message: undefined })) }}
+                placeholder={`*${CONTACT.messageLabel}`}
+                multiline minRows={4}
+                inputProps={{ 'aria-label': 'Zpráva', 'aria-invalid': errors.message ? true : undefined }}
+                sx={{ ...FIELD, borderRadius: '53px', alignItems: 'flex-start', pr: 10, minHeight: '210px', '& textarea': { maxWidth: '300px' }, boxShadow: errors.message ? `inset 0 0 0 2px ${ERR}` : 'inset 0 0 0 0 transparent', transition: 'box-shadow .2s ease' }}
+              />
+              {/* Odesílací tlačítko – hotové SVG (tyrkysové kolečko + bílá šipka) */}
+              <IconButton
+                type="submit"
+                aria-label="Odeslat zprávu"
+                sx={{ position: 'absolute', right: 28, bottom: 28, p: 0, '&:hover': { opacity: 0.9 } }}
+              >
+                <Box component="img" src="/icons/contact-send.svg" alt="" aria-hidden sx={{ width: fluid(38, 54), height: fluid(38, 54), display: 'block' }} />
+              </IconButton>
+            </Box>
+            <FieldError message={errors.message} />
           </Box>
         </Stack>
       </Grid>
+
+      {/* Potvrzení odeslání – laděné do stylu stránky */}
+      <SuccessPopup
+        open={sent}
+        onClose={() => setSent(false)}
+        title="Zpráva odeslána!"
+        text="Ozveme se vám zpravidla do druhého pracovního dne."
+      />
     </Grid>
   )
 }

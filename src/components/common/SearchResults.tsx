@@ -43,6 +43,8 @@ export default function SearchResults({ loading, error, companies }: Props) {
                 variant="contained"
                 color="secondary"
                 href={orderUrl(c.publicHash)}
+                target="_blank"
+                rel="noopener noreferrer"
                 sx={{ color: '#F5F5F5', flexShrink: 0, px: fluid(20, 28), whiteSpace: 'nowrap' }}
               >
                 {SEARCH.selectLabel}

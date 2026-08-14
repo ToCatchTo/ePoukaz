@@ -21,19 +21,35 @@ export default function InfoAccordion({ items }: { items: Item[] }) {
             {items.map((it, i) => {
               const isOpen = i === open
               return (
-                <Box key={it.title + i} onClick={() => setOpen(i)} sx={{ cursor: 'pointer', py: fluid(20, 28) }}>
+                <Box key={it.title + i} onClick={() => setOpen(i)} sx={{ cursor: 'pointer', py: fluid(20, 28), '&:hover .info-title': { textDecoration: 'underline' } }}>
                   <Stack direction="row" spacing={3} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Typography variant="h5" sx={{ fontSize: fluid(18, 26), color: isOpen ? 'secondary.main' : '#000', textDecoration: isOpen ? 'underline' : 'none' }}>
+                    <Typography className="info-title" variant="h5" sx={{ fontSize: fluid(18, 26), color: isOpen ? 'secondary.main' : '#000', textDecoration: isOpen ? 'underline' : 'none', transition: 'color 0.25s ease' }}>
                       {it.title}
                     </Typography>
-                    {/* Desktop: šipka jen u zavřených; mobil: šipka dolů/nahoru */}
-                    {!isOpen && <CircleArrowButton onClick={() => setOpen(i)} sx={{ display: { xs: 'none', lg: 'inline-flex' } }} />}
+                    {/* Desktop: šipka je VŽDY přítomná (u aktivní jen zprůhledněná) – drží tak
+                        vždy stejné místo, takže se nadpisy nezalamují jinak a výška řádků se nemění.
+                        Díky tomu se při přepnutí položky levý seznam „nepřeskládá" (neposkočí).
+                        Mobil/tablet: šipka dolů/nahoru u každé položky. */}
+                    <CircleArrowButton
+                      onClick={() => setOpen(i)}
+                      sx={{ display: { xs: 'none', lg: 'inline-flex' }, opacity: isOpen ? 0 : 1, pointerEvents: isOpen ? 'none' : 'auto', transition: 'opacity 0.25s ease' }}
+                    />
                     <CircleArrowButton onClick={() => setOpen(i)} src="/icons/arrow-down.svg" rotate={isOpen ? 180 : 0} size={{ xs: 28, sm: 36 }} sx={{ display: { xs: 'inline-flex', lg: 'none' } }} />
                   </Stack>
-                  {/* Tělo inline jen na mobilu/tabletu */}
+                  {/* Tělo inline jen na mobilu/tabletu – rozbalí se (Collapse) a text se navíc
+                      jemně prolne (stejný fade-in jako v HowItWorks), ať se neobjeví skokem */}
                   <Box sx={{ display: { lg: 'none' } }}>
                     <Collapse in={isOpen} unmountOnExit timeout={350} easing="cubic-bezier(0.4, 0, 0.2, 1)">
-                      <Typography sx={{ mt: 2, fontSize: 16, lineHeight: 1.7, whiteSpace: 'pre-line' }}>{it.body}</Typography>
+                      <Typography
+                        sx={{
+                          mt: 2, fontSize: 16, lineHeight: 1.7, whiteSpace: 'pre-line',
+                          animation: 'infoStepFadeIn 0.35s ease',
+                          '@keyframes infoStepFadeIn': { from: { opacity: 0 }, to: { opacity: 1 } },
+                          '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
+                        }}
+                      >
+                        {it.body}
+                      </Typography>
                     </Collapse>
                   </Box>
                 </Box>
@@ -42,10 +58,24 @@ export default function InfoAccordion({ items }: { items: Item[] }) {
           </Stack>
         </Box>
 
-        {/* Pravá polovina – šedý panel s tělem aktivní položky (jen lg+) */}
+        {/* Pravá polovina – šedý panel s tělem aktivní položky (jen lg+).
+            Obsah se při přepnutí položky plynule prolne (fade-in + jemný posun) – klíč {open}
+            při každé změně prvek „přemountuje", takže se animace přehraje znovu. */}
         <Box sx={{ display: { xs: 'none', lg: 'block' }, flexBasis: '50%', maxWidth: '50%', minWidth: 0, bgcolor: '#F5F5F5', p: '170px 138px 150px 71px' }}>
-          <Typography variant="h5" sx={{ fontSize: 26, color: 'secondary.main', mb: fluid(40, 51) }}>{items[open].title}</Typography>
-          <Typography sx={{ fontSize: 18, lineHeight: 1.67, maxWidth: 392, whiteSpace: 'pre-line' }}>{items[open].body}</Typography>
+          <Box
+            key={open}
+            sx={{
+              animation: 'infoPanelFade 350ms cubic-bezier(0.4, 0, 0.2, 1)',
+              '@keyframes infoPanelFade': {
+                from: { opacity: 0, transform: 'translateY(10px)' },
+                to: { opacity: 1, transform: 'translateY(0)' },
+              },
+              '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
+            }}
+          >
+            <Typography variant="h5" sx={{ fontSize: 26, color: 'secondary.main', mb: fluid(40, 51) }}>{items[open].title}</Typography>
+            <Typography sx={{ fontSize: 18, lineHeight: 1.67, maxWidth: 392, whiteSpace: 'pre-line' }}>{items[open].body}</Typography>
+          </Box>
         </Box>
       </Box>
     </GridSection>
