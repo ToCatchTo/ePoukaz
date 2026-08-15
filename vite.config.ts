@@ -52,7 +52,16 @@ export default defineConfig(({ mode }) => {
           args: ['--no-sandbox', '--disable-setuid-sandbox'],
         },
         postProcess(renderedRoute: { route: string; html: string }) {
-          // Viz komentář u writeHomeHtmlPlugin výše – jen zachytáváme HTML.
+          // Prerender server běží na http://127.0.0.1:<port>; Vite runtime při
+          // renderu doinjektuje <link rel="modulepreload"> s TOUTO absolutní
+          // adresou. Bez oříznutí by preloady mimo build (preview, produkce)
+          // mířily na mrtvý port → ERR_CONNECTION_REFUSED. Origin odstraníme,
+          // cesty tak zůstanou root-relativní (/assets/...).
+          renderedRoute.html = renderedRoute.html.replace(
+            /https?:\/\/(?:127\.0\.0\.1|localhost):\d+/g,
+            '',
+          )
+          // Route "/" plugin sám nezapíše (Rolldown) – zachytíme a dopíšeme v closeBundle.
           if (renderedRoute.route === '/') {
             homeHtml = renderedRoute.html
           }
