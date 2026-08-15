@@ -12,6 +12,7 @@ import { UNI } from '../data/content'
 import { useCompanies } from '../hooks/useApi'
 import { useImagesReady } from '../hooks/useImagesReady'
 import { Seo } from '../components/common/Seo'
+import { SEO } from '../data/seo'
 import { formatAddress, orderUrl, fillPlaceholders, companyImages } from '../api/companyFill'
 
 // Mezinadpis = řetězec psaný celý velkými písmeny (vysází se tučně a s odsazením).
@@ -61,7 +62,7 @@ export default function ContentPage({ title }: { title?: string }) {
 
   return (
     <Box data-testid="page-uni">
-      <Seo path={location.pathname} title={pageTitle} description={pageTitle ? `${pageTitle} – ePoukaz online.` : 'ePoukaz online.'} />
+      <Seo path={location.pathname} title={pageTitle} description={SEO[location.pathname]?.description ?? (pageTitle ? `${pageTitle} – ePoukaz online.` : 'ePoukaz online.')} />
       {/* Karta s nadpisem a obchodními podmínkami – dekorace prosvítá v okrajích, zarovnaná na grid */}
       <Box sx={{ position: 'relative', mb: '200px' }}>
         <DecorLines sx={{ top: 110 }} />
