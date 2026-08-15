@@ -6,7 +6,7 @@ import GridSection from '../layout/GridSection'
 import { HOW_STEPS } from '../../data/content'
 
 // TODO: až budou dodány obrázky, každý krok dostane vlastní; zatím společný placeholder.
-const STEP_IMAGES = HOW_STEPS.map(() => '/images/howitworks-phone.png')
+const STEP_IMAGES = HOW_STEPS.map(() => '/images/howitworks-phone.webp')
 
 // Sekce „Jak to funguje" – vlevo accordion kroků (vždy právě jeden otevřený),
 // vpravo obrázek přes celou výšku karty, měnící se podle otevřeného kroku.
@@ -88,6 +88,8 @@ export default function HowItWorks() {
             component="img"
             src={STEP_IMAGES[open]}
             alt="Ukázka aplikace ePoukaz online v telefonu"
+            width={814}
+            height={1548}
             sx={{
               position: 'absolute',
               inset: 0,

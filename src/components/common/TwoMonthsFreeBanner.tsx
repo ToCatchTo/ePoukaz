@@ -23,7 +23,8 @@ export default function TwoMonthsFreeBanner() {
             Gradientová maska nechá levou hranu plynule naběhnout do pozadí,
             aby na rozhraní nevznikl ostrý svislý šev. */}
         <Box
-          component="img" src="/images/two-months-banner.png" alt="" aria-hidden
+          component="img" src="/images/two-months-banner.webp" alt="" aria-hidden
+          width={2728} height={800}
           sx={{
             position: 'absolute', inset: 0, width: '100%', height: '100%',
             objectFit: 'cover', display: { xs: 'none', md: 'block' },
@@ -63,7 +64,7 @@ export default function TwoMonthsFreeBanner() {
           sx={{
             display: { xs: 'block', md: 'none' }, width: '100%', height: 300,
             backgroundColor: PINK,
-            backgroundImage: 'url(/images/two-months-banner.png)',
+            backgroundImage: 'url(/images/two-months-banner.webp)',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: '82% bottom',
             backgroundSize: 'auto 250px',

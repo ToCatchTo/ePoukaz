@@ -21,9 +21,9 @@ const isHeading = (s: string) => s === s.toUpperCase()
 // a kontakt spojený s patičkou do jedné karty.
 // Fallback obrázky galerie (3 v řadě); zatím 3× stejný vizuál.
 const GALLERY_IMAGES = [
-  '/images/uni-gallery.png',
-  '/images/uni-gallery.png',
-  '/images/uni-gallery.png',
+  '/images/uni-gallery.webp',
+  '/images/uni-gallery.webp',
+  '/images/uni-gallery.webp',
 ]
 
 // title = pevný název podstránky (např. „Obchodní podmínky"); u provozovny se přepíše jejím názvem.
@@ -102,6 +102,8 @@ export default function ContentPage({ title }: { title?: string }) {
                               src={img.src}
                               alt=""
                               aria-hidden
+                              width={486}
+                              height={370}
                               sx={{
                                 width: '100%', maxWidth: 360, aspectRatio: '4 / 3', borderRadius: '20px', display: 'block',
                                 // logo celé (contain) na bílém s odsazením; fotky vyplní rám (cover)
