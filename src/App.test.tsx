@@ -15,12 +15,12 @@ function renderAt(path: string) {
   )
 }
 
-test('domovská stránka se vyrenderuje', () => {
+test('domovská stránka se vyrenderuje', async () => {
   renderAt('/')
-  expect(screen.getByTestId('page-home')).toBeInTheDocument()
+  expect(await screen.findByTestId('page-home')).toBeInTheDocument()
 })
 
-test('ceník se vyrenderuje', () => {
+test('ceník se vyrenderuje', async () => {
   renderAt('/cenik')
-  expect(screen.getByTestId('page-cenik')).toBeInTheDocument()
+  expect(await screen.findByTestId('page-cenik')).toBeInTheDocument()
 })
