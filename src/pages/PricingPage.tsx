@@ -91,10 +91,12 @@ export default function PricingPage() {
                 <CircularProgress aria-label="Načítání" />
               </Box>
             )}
-            {/* Tarify se automaticky zalamují (flex-wrap): karty drží pevnou pohodlnou šířku
-                (370 px dle XD) a NEzmenšují se, takže text uvnitř zůstává na svých řádcích a
-                neláme se. Kolik se jich vejde vedle sebe, tolik jich je; zbytek se zalomí pod ně
-                (na širokém desktopu 2+2, na užších oknech postupně méně, na mobilu pod sebou).
+            {/* Tarify ve flexboxu s pevnou šířkou karty (360 px) a BEZ flex-grow – proto jsou všechny
+                karty stejně široké současně (grow by osamocenou kartu na posledním řádku roztáhl) a
+                mezi nimi je přesně gap 30 px (žádné grid buňky, které by přidávaly místo navíc).
+                Kolik se jich vejde vedle sebe, tolik jich v řadě je – na širokém desktopu 3, na užších
+                oknech 2, na mobilu pod sebou; každý řádek (i neúplný) je díky justifyContent center
+                vycentrovaný jako skupina. maxWidth 100 % nechá kartu zúžit na úzkých telefonech.
                 Renderujeme vždy – dokud není „ready", je blok skrytý mimo obrazovku (jen se přednačtou
                 ikony); po načtení se odkryje, takže nic neposkakuje. */}
             <Box
@@ -113,7 +115,7 @@ export default function PricingPage() {
                 {cards.map((c) => (
                   <Box
                     key={c.key}
-                    sx={{ width: 370, maxWidth: '100%', flexShrink: 0 }}
+                    sx={{ width: 360, maxWidth: '100%', flexShrink: 0 }}
                   >
                     <PricingCard item={c.item} tier={c.tier} />
                   </Box>
