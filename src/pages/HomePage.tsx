@@ -4,15 +4,15 @@ import SearchField from '../components/common/SearchField'
 import SearchResults from '../components/common/SearchResults'
 import VydejnaCtaFooter from '../components/common/VydejnaCtaFooter'
 import GridSection from '../components/layout/GridSection'
+import { Seo } from '../components/common/Seo'
 import { useDebouncedValue } from '../hooks/useDebouncedValue'
 import { useCompaniesSearch } from '../hooks/useApi'
-import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { SEARCH } from '../data/content'
+import { SEO } from '../data/seo'
 import { fluid } from '../theme/fluid'
 
 // Úvodní stránka – vyhledávání provozoven. Prázdný dotaz nezobrazuje panel výsledků.
 export default function HomePage() {
-  useDocumentTitle() // domovská = jen brand
   const [query, setQuery] = useState('')
   const debounced = useDebouncedValue(query, 300)
   const { data, loading, error } = useCompaniesSearch(debounced)
@@ -20,6 +20,7 @@ export default function HomePage() {
 
   return (
     <Box data-testid="page-home">
+      <Seo path="/" description={SEO['/'].description} />
       <GridSection>
         <Stack sx={{ alignItems: 'center', textAlign: 'center', mt: fluid(60, 139) }}>
           <Typography variant="h1" sx={{ color: '#fff', maxWidth: 720, fontSize: { xs: 30, sm: 36, md: 42 }, lineHeight: 1.2 }}>{SEARCH.h1}</Typography>

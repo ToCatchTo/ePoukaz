@@ -8,14 +8,15 @@ import { CARD_R_SM, HERO_SPLIT, SPLIT_UP } from '../theme/layout'
 import { fluid } from '../theme/fluid'
 import { PAGE_PX } from '../theme/grid'
 import { PROBLEMS } from '../data/content'
-import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { Seo } from '../components/common/Seo'
+import { SEO } from '../data/seo'
 
 // Stránka „Pro výdejny" – hero, jak to funguje, 6 problémů, hlavní funkce, CTA + patička.
 // Hero, „jak to funguje" a patička jsou zarovnané na grid; karty 6 problémů jsou pouze centrované (PAGE_PX).
 export default function ProVydejnyPage() {
-  useDocumentTitle('Pro výdejny')
   return (
     <Box data-testid="page-home">
+      <Seo path="/pro-vydejny" title={SEO['/pro-vydejny'].title} description={SEO['/pro-vydejny'].description} />
       {/* Hero – text, ruka s telefonem a animované recenze */}
       <HeroSection />
 

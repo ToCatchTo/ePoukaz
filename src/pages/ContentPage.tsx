@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Box, CircularProgress, Grid, Stack, Typography } from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import SectionCard from '../components/common/SectionCard'
 import TwoMonthsFreeBanner from '../components/common/TwoMonthsFreeBanner'
 import ContactBlock from '../components/common/ContactBlock'
@@ -11,7 +11,7 @@ import { fluid } from '../theme/fluid'
 import { UNI } from '../data/content'
 import { useCompanies } from '../hooks/useApi'
 import { useImagesReady } from '../hooks/useImagesReady'
-import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { Seo } from '../components/common/Seo'
 import { formatAddress, orderUrl, fillPlaceholders, companyImages } from '../api/companyFill'
 
 // Mezinadpis = řetězec psaný celý velkými písmeny (vysází se tučně a s odsazením).
@@ -29,9 +29,10 @@ const GALLERY_IMAGES = [
 // title = pevný název podstránky (např. „Obchodní podmínky"); u provozovny se přepíše jejím názvem.
 export default function ContentPage({ title }: { title?: string }) {
   const { publicHash } = useParams()
+  const location = useLocation()
   const { data: companies, loading } = useCompanies()
   const company = publicHash ? companies?.find((c) => c.publicHash === publicHash) : undefined
-  useDocumentTitle(company?.name ?? title)
+  const pageTitle = company?.name ?? title
 
   // Hodnoty do šablony – prázdné, když provozovna není (holé /faq, /obchodni-podminky).
   const fill = {
@@ -60,6 +61,7 @@ export default function ContentPage({ title }: { title?: string }) {
 
   return (
     <Box data-testid="page-uni">
+      <Seo path={location.pathname} title={pageTitle} description={pageTitle ? `${pageTitle} – ePoukaz online.` : 'ePoukaz online.'} />
       {/* Karta s nadpisem a obchodními podmínkami – dekorace prosvítá v okrajích, zarovnaná na grid */}
       <Box sx={{ position: 'relative', mb: '200px' }}>
         <DecorLines sx={{ top: 110 }} />

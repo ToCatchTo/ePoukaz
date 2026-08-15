@@ -12,7 +12,8 @@ import { fluid } from '../theme/fluid'
 import { CENIK_HEAD, PRICING, COMPARE_ROWS, SMS_NOTE } from '../data/content'
 import { useTariffs } from '../hooks/useApi'
 import { useImagesReady } from '../hooks/useImagesReady'
-import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { Seo } from '../components/common/Seo'
+import { SEO } from '../data/seo'
 import { tariffToItem, tierForCode } from '../api/tariffMapping'
 
 // Akcentní barvy tarifů (hlavička srovnávací tabulky)
@@ -57,7 +58,6 @@ const SUB_BOLD = '30 dní ZDARMA'
 const [SUB_BEFORE, SUB_AFTER] = CENIK_HEAD.subtitle.split(SUB_BOLD)
 
 export default function PricingPage() {
-  useDocumentTitle('Ceník')
   const { data: tariffs, loading } = useTariffs()
   // Data z API; při chybě fallback na statickou PRICING, ať stránka není prázdná.
   const cards = tariffs
@@ -72,6 +72,7 @@ export default function PricingPage() {
 
   return (
     <Box data-testid="page-cenik">
+      <Seo path="/cenik" title={SEO['/cenik'].title} description={SEO['/cenik'].description} />
       {/* Světlá karta s tarify a tabulkou (#F5F5F5), dekorace za horní částí – zarovnaná na grid */}
       <Box sx={{ position: 'relative', mt: 4 }}>
         <DecorLines sx={{ top: 110 }} />

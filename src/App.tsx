@@ -27,8 +27,8 @@ export function AppRoutes() {
           <Route path="/obchodni-podminky" element={<ContentPage title="Obchodní podmínky" />} />
           <Route path="/provozovna/:publicHash" element={<ContentPage />} />
           <Route path="/stranka/:slug" element={<DynamicPage />} />
-          <Route path="/jak-to-funguje" element={<InfoPage data={JAK_TO_FUNGUJE} />} />
-          <Route path="/vse-o-epoukazu" element={<InfoPage data={VSE_O_EPOUKAZU} />} />
+          <Route path="/jak-to-funguje" element={<InfoPage data={JAK_TO_FUNGUJE} path="/jak-to-funguje" />} />
+          <Route path="/vse-o-epoukazu" element={<InfoPage data={VSE_O_EPOUKAZU} path="/vse-o-epoukazu" />} />
         </Route>
       </Routes>
     </Suspense>

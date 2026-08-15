@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { usePage } from '../hooks/useApi'
 import DecorLines from '../components/common/DecorLines'
 import SectionCard from '../components/common/SectionCard'
@@ -7,16 +7,18 @@ import GridSection from '../components/layout/GridSection'
 import Footer from '../components/layout/Footer'
 import ContactBlock from '../components/common/ContactBlock'
 import { fluid } from '../theme/fluid'
-import { useDocumentTitle } from '../hooks/useDocumentTitle'
+import { Seo } from '../components/common/Seo'
 
 // Dynamická podstránka z API (pages/{slug}) – nadpis, HTML obsah a galerie.
 export default function DynamicPage() {
   const { slug = '' } = useParams()
+  const location = useLocation()
   const { data, loading, error } = usePage(slug)
-  useDocumentTitle(data?.title)
+  const pageTitle = data?.title
 
   return (
     <Box data-testid="page-dynamic">
+      <Seo path={location.pathname} title={pageTitle} description={pageTitle ? `${pageTitle} – ePoukaz online.` : 'ePoukaz online.'} />
       <Box sx={{ position: 'relative', mb: '200px' }}>
         <DecorLines sx={{ top: 110 }} />
         <GridSection sx={{ position: 'relative', zIndex: 1 }}>
