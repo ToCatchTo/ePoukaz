@@ -5,6 +5,7 @@ import SearchResults from '../components/common/SearchResults'
 import VydejnaCtaFooter from '../components/common/VydejnaCtaFooter'
 import GridSection from '../components/layout/GridSection'
 import { Seo } from '../components/common/Seo'
+import { JsonLd } from '../components/common/JsonLd'
 import { useDebouncedValue } from '../hooks/useDebouncedValue'
 import { useCompaniesSearch } from '../hooks/useApi'
 import { SEARCH } from '../data/content'
@@ -21,6 +22,12 @@ export default function HomePage() {
   return (
     <Box data-testid="page-home">
       <Seo path="/" description={SEO['/'].description} />
+      <JsonLd data={{
+        '@type': 'Organization',
+        name: 'ePoukaz online',
+        url: 'https://epoukazonline.cz',
+        logo: 'https://epoukazonline.cz/images/logo-epoukaz.svg',
+      }} />
       <GridSection>
         <Stack sx={{ alignItems: 'center', textAlign: 'center', mt: fluid(60, 139) }}>
           <Typography variant="h1" sx={{ color: '#fff', maxWidth: 720, fontSize: { xs: 30, sm: 36, md: 42 }, lineHeight: 1.2 }}>{SEARCH.h1}</Typography>

@@ -13,8 +13,14 @@ import { CENIK_HEAD, PRICING, COMPARE_ROWS, SMS_NOTE } from '../data/content'
 import { useTariffs } from '../hooks/useApi'
 import { useImagesReady } from '../hooks/useImagesReady'
 import { Seo } from '../components/common/Seo'
+import { JsonLd } from '../components/common/JsonLd'
 import { SEO } from '../data/seo'
 import { tariffToItem, tierForCode } from '../api/tariffMapping'
+
+// Vytáhne z ceny (např. „1 490 Kč") čisté číslo pro JSON-LD Offer.price.
+function priceToNumber(price: string): string {
+  return price.replace(/[^\d]/g, '')
+}
 
 // Akcentní barvy tarifů (hlavička srovnávací tabulky)
 const ACCENT: Record<string, string> = { black: '#000000', purple: '#4200D8', teal: '#00C7BF' }
@@ -73,6 +79,20 @@ export default function PricingPage() {
   return (
     <Box data-testid="page-cenik">
       <Seo path="/cenik" title={SEO['/cenik'].title} description={SEO['/cenik'].description} />
+      {cards.map((c) => (
+        <JsonLd
+          key={c.key}
+          data={{
+            '@type': 'Product',
+            name: `ePoukaz ${c.item.name}`,
+            offers: {
+              '@type': 'Offer',
+              price: priceToNumber(c.item.price),
+              priceCurrency: 'CZK',
+            },
+          }}
+        />
+      ))}
       {/* Světlá karta s tarify a tabulkou (#F5F5F5), dekorace za horní částí – zarovnaná na grid */}
       <Box sx={{ position: 'relative', mt: 4 }}>
         <DecorLines sx={{ top: 110 }} />
