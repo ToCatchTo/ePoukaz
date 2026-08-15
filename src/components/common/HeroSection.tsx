@@ -105,6 +105,8 @@ function HeroComposition({ gabinaLeft }: { gabinaLeft?: string }) {
           alt="Aplikace ePoukaz online v telefonu"
           width={1284}
           height={1818}
+          loading="eager"
+          fetchPriority="high"
           sx={{ height: '100%', width: 'auto', display: 'block' }}
         />
         {/* Slot na displej – animovaný WebP jako smyčkované video.
@@ -187,6 +189,8 @@ export default function HeroSection() {
               alt="Aplikace ePoukaz online v telefonu"
               width={1284}
               height={1818}
+              loading="eager"
+              fetchPriority="high"
               sx={{ position: 'relative', display: 'block', width: 'auto', height: 'auto', maxWidth: { xs: '143%', sm: 500 }, mx: 'auto', pt: '52px' }}
             />
           </Box>

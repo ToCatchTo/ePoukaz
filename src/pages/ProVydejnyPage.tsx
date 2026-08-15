@@ -17,6 +17,9 @@ export default function ProVydejnyPage() {
   return (
     <Box data-testid="page-home">
       <Seo path="/pro-vydejny" title={SEO['/pro-vydejny'].title} description={SEO['/pro-vydejny'].description} />
+      {/* Preload LCP obrázku hera (React 19 hoistne <link> do <head>) – hero-phone.webp
+          se renderuje jen na téhle stránce, proto preload patří sem, ne do sdíleného <Seo>. */}
+      <link rel="preload" as="image" href="/images/hero-phone.webp" />
       {/* Hero – text, ruka s telefonem a animované recenze */}
       <HeroSection />
 

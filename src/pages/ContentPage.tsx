@@ -104,6 +104,7 @@ export default function ContentPage({ title }: { title?: string }) {
                               aria-hidden
                               width={486}
                               height={370}
+                              loading="lazy"
                               sx={{
                                 width: '100%', maxWidth: 360, aspectRatio: '4 / 3', borderRadius: '20px', display: 'block',
                                 // logo celé (contain) na bílém s odsazením; fotky vyplní rám (cover)

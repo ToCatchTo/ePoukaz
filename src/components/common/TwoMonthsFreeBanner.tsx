@@ -25,6 +25,7 @@ export default function TwoMonthsFreeBanner() {
         <Box
           component="img" src="/images/two-months-banner.webp" alt="" aria-hidden
           width={2728} height={800}
+          loading="lazy"
           sx={{
             position: 'absolute', inset: 0, width: '100%', height: '100%',
             objectFit: 'cover', display: { xs: 'none', md: 'block' },

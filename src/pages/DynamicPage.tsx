@@ -41,7 +41,7 @@ export default function DynamicPage() {
                 {data.gallery.length > 0 && (
                   <Box data-testid="page-gallery" sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' }, gap: '24px', mt: fluid(32, 48) }}>
                     {data.gallery.map((src, i) => (
-                      <Box key={i} component="img" src={src} alt="" sx={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: '20px', display: 'block' }} />
+                      <Box key={i} component="img" src={src} alt="" loading="lazy" sx={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: '20px', display: 'block' }} />
                     ))}
                   </Box>
                 )}

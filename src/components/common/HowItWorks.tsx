@@ -90,6 +90,7 @@ export default function HowItWorks() {
             alt="Ukázka aplikace ePoukaz online v telefonu"
             width={814}
             height={1548}
+            loading="lazy"
             sx={{
               position: 'absolute',
               inset: 0,
