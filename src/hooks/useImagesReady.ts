@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
-// Vrací true, až se přednačtou VŠECHNY zadané obrázky (nebo hned, je-li seznam prázdný).
+// Vrací true, až se přednačtou všechny zadané obrázky (nebo ihned, je-li seznam prázdný).
 //
-// Přednačítá přes `new Image()` a handlery (`onload`/`onerror`) navěsí PŘED nastavením `src`,
-// takže se spustí i u obrázků z cache. (Kdybychom spoléhali na `onLoad` přímo na `<img>` v DOM,
-// prohlížeč by po refreshi měl obrázky z cache načtené dřív, než React handler navěsí → událost
-// by se nezavolala a načítání by se točilo donekonečna.) `img.complete` pokrývá synchronní cache.
+// Přednačítá přes `new Image()`; handlery se navěšují před nastavením `src`, aby se spustily
+// i u obrázků z cache. Kontrola `img.complete` pokrývá synchronní cache. Spoléhat na `onLoad`
+// přímo na `<img>` v DOM nelze – u obrázků z cache se událost může spustit dřív, než React
+// handler navěsí, a načítání by nikdy neskončilo.
 //
-// `enabled=false` (např. dokud se načítají data z API) drží výsledek na false.
+// enabled=false (např. dokud se načítají data z API) drží výsledek na false.
 export function useImagesReady(srcs: string[], enabled = true): boolean {
   const key = srcs.join('|')
   const [ready, setReady] = useState(false)

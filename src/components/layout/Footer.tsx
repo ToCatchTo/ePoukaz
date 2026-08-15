@@ -8,19 +8,18 @@ import { fluid } from '../../theme/fluid'
 import GridSection from './GridSection'
 import { useCompanies, usePages } from '../../hooks/useApi'
 
-// Sdílený styl odkazů ve sloupcích patičky (dynamické firmy i statické odkazy)
+// Sdílený styl odkazů ve sloupcích patičky
 const footerLinkSx = { display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } } as const
 
-// Patička – JEDNA bílá karta (1640 px) dle XD návrhu. Volitelně obsahuje nahoře
-// CTA blok („A to není vše…") NEBO libovolný horní obsah (`topContent`, např. kontaktní blok),
-// oddělený vodorovnou čarou; pod ním firmu + 3 sloupce odkazů oddělené svislou čarou a dole
-// centrovaný copyright. Pod kartou je kredit.
+// Patička jako jedna bílá karta. Volitelně nahoře CTA blok nebo vlastní horní obsah
+// (`topContent`, např. kontaktní blok) oddělený vodorovnou čarou; níže firma + 3 sloupce
+// odkazů oddělené svislou čarou a centrovaný copyright. Pod kartou kredit agentury.
 export default function Footer({ withCta = false, topContent }: { withCta?: boolean; topContent?: ReactNode }) {
   const { data: companies } = useCompanies()
   const { data: pages } = usePages()
 
-  // Odkazy pro sloupec patičky: „Doplňkové služby" → provozovny z API (/provozovna/{hash}),
-  // „Jak na to?" → podstránky z API (/stranka/{slug}); jinak (a při chybějících datech) statické odkazy.
+  // Odkazy sloupce: „Doplňkové služby" → provozovny z API, „Jak na to?" → podstránky z API;
+  // při chybějících datech fallback na statické odkazy.
   const columnLinks = (col: (typeof FOOTER.columns)[number]) => {
     if (col.title === 'Doplňkové služby' && companies && companies.length > 0) {
       return companies.map((c) => ({ key: c.publicHash, to: `/provozovna/${c.publicHash}`, label: c.name }))
@@ -33,12 +32,12 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
 
   return (
     <>
-      {/* Vlnité čáry za horní částí patiční karty – prosvítají v okrajích */}
+      {/* Dekorativní vlnité čáry prosvítající v okrajích karty */}
       <Box sx={{ position: 'relative' }}>
         <DecorLines sx={{ top: topContent ? 120 : fluid(-200, 173) }} />
         <GridSection variant="wide" sx={{ position: 'relative', zIndex: 1, px: { xs: '14px', sm: CARD_R } }}>
           <Box sx={{ bgcolor: '#fff', borderRadius: CARD_R, px: fluid(24, 140), pt: topContent ? fluid(70, 110) : fluid(97, 140), pb: fluid(40, 60) }}>
-            {/* Horní obsah (např. kontaktní blok na stránce Kontakt) oddělený vodorovnou čarou */}
+            {/* Horní obsah oddělený vodorovnou čarou */}
             {topContent && (
               <>
                 {topContent}
@@ -46,12 +45,12 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
               </>
             )}
 
-            {/* CTA blok (jen homepage a ceník) */}
+            {/* CTA blok: jen homepage a ceník */}
             {withCta && (
               <>
                 <Stack spacing={4} sx={{ alignItems: 'center', textAlign: 'center' }}>
                   <Typography variant="h2" sx={{ color: 'primary.main', maxWidth: 796 }}>
-                    {/* na mobilu (xs) kratší varianta titulku, od sm výš plné znění */}
+                    {/* xs kratší varianta titulku, od sm plné znění */}
                     <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>{CTA_BANNER.title}</Box>
                     <Box component="span" sx={{ display: { xs: 'inline', sm: 'none' }, fontSize: fluid(40, 74) }}>{CTA_BANNER.titleMobile}</Box>
                   </Typography>
@@ -71,19 +70,19 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
               </>
             )}
 
-            {/* Firma + 3 sloupce odkazů – na desktopu 10sloupcový grid (firma 3, mezera 1, sloupce 2),
-              na mobilu i tabletu vše pod sebou (firma, pak jednotlivé sloupce). Svislá čára jen na desktopu. */}
+            {/* Firma + 3 sloupce odkazů: na desktopu 10sloupcový grid (firma 3, mezera 1, sloupce 2),
+              na mobilu i tabletu vše pod sebou. Svislá čára jen na desktopu. */}
             <Grid container columns={10} rowSpacing={{ xs: 5, lg: 0 }} sx={{ alignItems: 'flex-start' }}>
-              {/* Firma – svislá čára na pravém okraji (jen desktop); na svislé verzi odsazení dolů */}
+              {/* Firma: svislá čára na pravém okraji (jen desktop) */}
               <Grid size={{ xs: 10, lg: 3 }} sx={{ borderRight: { lg: '1px solid' }, borderColor: { lg: 'divider' }, mb: { xs: '60px', lg: 0 } }}>
                 <Box component="img" src="/images/logo-epoukaz.svg" alt="ePoukaz online" sx={{ height: 26, mb: 3, display: 'block' }} />
                 {FOOTER.company.map((line) => (
                   <Typography key={line} sx={{ fontSize: fluid(14, 16), color: '#000', lineHeight: 2 }}>{line}</Typography>
                 ))}
               </Grid>
-              {/* mezera mezi firmou a sloupci odkazů – jen desktop */}
+              {/* Mezera mezi firmou a sloupci: jen desktop */}
               <Grid size={{ lg: 1 }} sx={{ display: { xs: 'none', lg: 'block' } }} />
-              {/* 3 sloupce odkazů */}
+              {/* Sloupce odkazů */}
               {FOOTER.columns.map((col) => (
                 <Grid size={{ xs: 10, lg: 2 }} key={col.title}>
                   <Typography sx={{ fontWeight: 700, fontSize: fluid(18, 20), mb: 0.5 }}>{col.title}</Typography>
@@ -104,12 +103,12 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
         </GridSection>
       </Box>
 
-      {/* Kredit agentury – pod kartou na fialové (text + odkaz s logem MatFix) */}
+      {/* Kredit agentury pod kartou: text + odkaz s logem MatFix */}
       <Stack direction="row" spacing={1.5} sx={{ justifyContent: 'center', alignItems: 'center', mt: fluid(150, 220) }}>
         <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: 16, lineHeight: 1 }}>
           {FOOTER.credit}
         </Typography>
-        {/* Odkaz na web agentury – jen logo MatFix + „tvorba" ikonka */}
+        {/* Odkaz na web agentury: logo MatFix + ikona „tvorba" */}
         <MuiLink
           href="https://matfix.cz"
           target="_blank"

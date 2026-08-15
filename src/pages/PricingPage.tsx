@@ -15,7 +15,7 @@ import { useImagesReady } from '../hooks/useImagesReady'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { tariffToItem, tierForCode } from '../api/tariffMapping'
 
-// Mapa akcentní barvy tarifu na hex (hlavička srovnávací tabulky)
+// Akcentní barvy tarifů (hlavička srovnávací tabulky)
 const ACCENT: Record<string, string> = { black: '#000000', purple: '#4200D8', teal: '#00C7BF' }
 
 // Fajfky ve srovnávací tabulce – plné kolečko s bílou fajfkou (Start černá, Pro fialová, Premium tyrkysová)
@@ -40,7 +40,7 @@ function TierHead({ full, abbr, color }: { full: string; abbr: string; color?: s
   )
 }
 
-// Popisek řádku; u „… (detail)" podtrhne slovo „detail" jako odkaz
+// Popisek řádku; u „… (detail)" podtrhne slovo „detail" jako odkaz.
 function rowLabel(label: string) {
   const marker = '(detail)'
   if (!label.endsWith(marker)) return label
@@ -52,19 +52,19 @@ function rowLabel(label: string) {
   )
 }
 
-// Tučná část podtitulu dle XD
+// Tučná část podtitulu
 const SUB_BOLD = '30 dní ZDARMA'
 const [SUB_BEFORE, SUB_AFTER] = CENIK_HEAD.subtitle.split(SUB_BOLD)
 
 export default function PricingPage() {
   useDocumentTitle('Ceník')
   const { data: tariffs, loading } = useTariffs()
-  // Dynamicky z API; dokud data nejsou (chyba) → statická PRICING, ať stránka není prázdná.
+  // Data z API; při chybě fallback na statickou PRICING, ať stránka není prázdná.
   const cards = tariffs
     ? tariffs.map((t) => ({ key: t.code, item: tariffToItem(t), tier: tierForCode(t.code) }))
     : PRICING.map((p) => ({ key: p.name, item: p, tier: p.name.toLowerCase() as Tier }))
 
-  // Kolečko na místě karet: drží se, dokud nedorazí tarify z API a nenačtou se ikony karet
+  // Kolečko na místě karet se drží, dokud nedorazí tarify z API a nenačtou se ikony karet
   // (lodičky + fajfky). Stejný princip jako u univerzální podstránky (viz useImagesReady).
   const iconSrcs = Array.from(new Set(cards.flatMap((c) => tierIcons(c.tier))))
   const imagesReady = useImagesReady(iconSrcs, !loading)
@@ -72,7 +72,7 @@ export default function PricingPage() {
 
   return (
     <Box data-testid="page-cenik">
-      {/* Světlá karta s tarify a tabulkou (#F5F5F5) + vlnité čáry za horní částí – zarovnaná na grid */}
+      {/* Světlá karta s tarify a tabulkou (#F5F5F5), dekorace za horní částí – zarovnaná na grid */}
       <Box sx={{ position: 'relative', mt: 4 }}>
         <DecorLines sx={{ top: 110 }} />
         <GridSection sx={{ position: 'relative', zIndex: 1 }}>
@@ -91,14 +91,11 @@ export default function PricingPage() {
                 <CircularProgress aria-label="Načítání" />
               </Box>
             )}
-            {/* Tarify ve flexboxu s pevnou šířkou karty (360 px) a BEZ flex-grow – proto jsou všechny
-                karty stejně široké současně (grow by osamocenou kartu na posledním řádku roztáhl) a
-                mezi nimi je přesně gap 30 px (žádné grid buňky, které by přidávaly místo navíc).
-                Kolik se jich vejde vedle sebe, tolik jich v řadě je – na širokém desktopu 3, na užších
-                oknech 2, na mobilu pod sebou; každý řádek (i neúplný) je díky justifyContent center
-                vycentrovaný jako skupina. maxWidth 100 % nechá kartu zúžit na úzkých telefonech.
-                Renderujeme vždy – dokud není „ready", je blok skrytý mimo obrazovku (jen se přednačtou
-                ikony); po načtení se odkryje, takže nic neposkakuje. */}
+            {/* Tarify ve flexboxu s pevnou šířkou karty (360 px) bez flex-grow: všechny karty jsou stejně
+                široké (grow by osamocenou kartu na posledním řádku roztáhl) a mezi nimi je přesně gap 30 px.
+                Počet karet v řadě se řídí dostupnou šířkou; každý řádek je přes justifyContent center
+                vycentrovaný jako skupina. maxWidth 100 % zúží kartu na úzkých telefonech.
+                Blok se renderuje vždy – dokud není „ready", je skrytý mimo obrazovku (přednačtení ikon). */}
             <Box
               aria-hidden={ready ? undefined : true}
               sx={ready ? undefined : { position: 'absolute', left: -99999, top: 0, width: '100%', opacity: 0, pointerEvents: 'none' }}
@@ -144,8 +141,8 @@ export default function PricingPage() {
         </GridSection>
       </Box>
 
-      {/* SMS poznámka – bílý text na fialové; lehčí řez 300 (Poppins) vyrovnává
-          optické „bobtnání" světlého textu na tmavém pozadí (halace). Centrovaná, margin ≥ 1 sloupec. */}
+      {/* SMS poznámka – bílý text na fialové; lehčí řez 300 (Poppins) vyrovnává optické „bobtnání"
+          světlého textu na tmavém pozadí (halace). Centrovaná (PAGE_PX). */}
       <Box sx={{ px: PAGE_PX }}>
         <Typography sx={{ color: '#fff', fontFamily: 'Poppins', fontWeight: 300, fontSize: fluid(14, 20), mt: fluid(64, 125), mb: fluid(120, 230), lineHeight: 1.8, maxWidth: 1040, mx: 'auto' }} dangerouslySetInnerHTML={{ __html: SMS_NOTE }} />
       </Box>

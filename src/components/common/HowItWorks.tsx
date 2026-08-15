@@ -5,12 +5,11 @@ import { fluid } from '../../theme/fluid'
 import GridSection from '../layout/GridSection'
 import { HOW_STEPS } from '../../data/content'
 
-// TODO: až budou dodány, každý krok bude mít vlastní obrázek.
-// Zatím placeholder (ruka s telefonem) pro všechny kroky.
+// TODO: až budou dodány obrázky, každý krok dostane vlastní; zatím společný placeholder.
 const STEP_IMAGES = HOW_STEPS.map(() => '/images/howitworks-phone.png')
 
-// Sekce „Jak to funguje" – vlevo accordion 8 kroků (vždy právě jeden otevřený),
-// vpravo obrázek přes celou výšku karty, který se mění podle otevřeného kroku.
+// Sekce „Jak to funguje" – vlevo accordion kroků (vždy právě jeden otevřený),
+// vpravo obrázek přes celou výšku karty, měnící se podle otevřeného kroku.
 export default function HowItWorks() {
   const [open, setOpen] = useState(0)
 
@@ -25,14 +24,13 @@ export default function HowItWorks() {
           display: 'flex',
           flexDirection: { xs: 'column', lg: 'row' },
           alignItems: 'stretch', // obě poloviny stejně vysoké
-          // Pevná výška karty = jako v nejvyšším stavu (nejdelší krok otevřený).
-          // Díky tomu se při přepínání kroků NEMĚNÍ výška karty → pravý obrázek se nepřeškáluje
-          // a sekce pod kartou neposkakuje. Roztahuje se plynule jen popisek uvnitř.
-          // (tunable – kdyby se texty kroků prodloužily, hodnotu zvyš)
+          // Pevná výška karty dimenzovaná na nejdelší krok, aby se při přepínání neměnila
+          // (pravý obrázek se nepřeškáluje, sekce pod kartou neposkakuje).
+          // Zvyš, pokud se texty kroků prodlouží.
           minHeight: { lg: 1240 },
         }}
       >
-        {/* Levá polovina – accordion kroků (přesně 50 % šířky, nadpisy se zalamují) */}
+        {/* Levá polovina – accordion kroků (50 % šířky) */}
         <Box sx={{ flexBasis: { xs: 'auto', lg: '50%' }, maxWidth: { xs: '100%', lg: '50%' }, minWidth: 0, flexGrow: 0, flexShrink: 1, p: { xs: '50px 24px', sm: '108px 76px', lg: '140px 90px 130px 90px', xl: '170px 90px 150px 140px' } }}>
           <Stack divider={<Divider sx={{ borderColor: '#E8E8E8', height: 2, borderWidth: 1 }} />} spacing={0}>
             {HOW_STEPS.map((s, i) => {
@@ -47,11 +45,11 @@ export default function HowItWorks() {
                     <Typography className="step-title" variant="h5" sx={{ textDecoration: isOpen ? 'underline' : 'none', maxWidth: '374px', fontSize: fluid(18, 26) }}>
                       {s.title}
                     </Typography>
-                    {/* Desktop: šipka doprava, jen u zavřených kroků */}
+                    {/* Desktop: šipka jen u zavřených kroků */}
                     {!isOpen && (
                       <CircleArrowButton onClick={() => setOpen(i)} sx={{ display: { xs: 'none', lg: 'inline-flex' } }} />
                     )}
-                    {/* Mobil + tablet: vždy šipka – dolů u zavřených, nahoru u otevřených */}
+                    {/* Mobil + tablet: šipka dolů u zavřených, nahoru u otevřených */}
                     <CircleArrowButton
                       onClick={() => setOpen(i)}
                       src="/icons/arrow-down.svg"
@@ -68,7 +66,7 @@ export default function HowItWorks() {
                         lineHeight: 1.7,
                         color: '#000',
                         maxWidth: fluid(270, 392),
-                        // jemný fade-in textu při rozbalení, ať se neobjeví skokem
+                        // fade-in textu při rozbalení, aby se neobjevil skokem
                         animation: 'howStepFadeIn 0.35s ease',
                         '@keyframes howStepFadeIn': { from: { opacity: 0 }, to: { opacity: 1 } },
                         '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
@@ -83,8 +81,8 @@ export default function HowItWorks() {
           </Stack>
         </Box>
 
-        {/* Pravá polovina – obrázek přes celou výšku (přesně 50 % šířky, mění se podle otevřeného kroku).
-          Na mobilu i tabletu skrytý – XD Mobile_HP ukazuje jen seznam kroků. */}
+        {/* Pravá polovina – obrázek přes celou výšku (50 % šířky), měnící se podle otevřeného kroku.
+          Na mobilu i tabletu skrytý (zobrazuje se jen seznam kroků). */}
         <Box sx={{ display: { xs: 'none', lg: 'block' }, flexBasis: { xs: 'auto', lg: '50%' }, maxWidth: { xs: '100%', lg: '50%' }, minWidth: 0, flexGrow: 1, flexShrink: 1, position: 'relative', bgcolor: '#F3EEF9', minHeight: { xs: 360, lg: 'auto' } }}>
           <Box
             component="img"

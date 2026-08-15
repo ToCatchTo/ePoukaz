@@ -7,7 +7,7 @@ import { fluid } from '../../theme/fluid'
 
 type Props = { loading: boolean; error: Error | null; companies: Company[] }
 
-// Bílý panel pod vyhledávacím polem – spinner / chyba / řádky výsledků / „nic nenašli".
+// Panel pod vyhledávacím polem: spinner, chyba, řádky výsledků, nebo prázdný stav.
 export default function SearchResults({ loading, error, companies }: Props) {
   return (
     <Box sx={{ bgcolor: '#fff', borderRadius: CARD_R, px: fluid(28, 138), py: fluid(40, 88), width: '100%' }}>

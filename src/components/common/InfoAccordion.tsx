@@ -8,7 +8,7 @@ import { fluid } from '../../theme/fluid'
 type Item = { title: string; body: string }
 
 // Infobox accordion – vlevo nadpisy (aktivní teal + underline), vpravo (lg+) šedý panel
-// s tělem aktivní položky; na mobilu/tabletu se tělo rozbaluje inline (vzor HowItWorks).
+// s tělem aktivní položky; na mobilu/tabletu se tělo rozbaluje inline.
 export default function InfoAccordion({ items }: { items: Item[] }) {
   const [open, setOpen] = useState(0)
 
@@ -26,9 +26,8 @@ export default function InfoAccordion({ items }: { items: Item[] }) {
                     <Typography className="info-title" variant="h5" sx={{ fontSize: fluid(18, 26), color: isOpen ? 'secondary.main' : '#000', textDecoration: isOpen ? 'underline' : 'none', transition: 'color 0.25s ease' }}>
                       {it.title}
                     </Typography>
-                    {/* Desktop: šipka je VŽDY přítomná (u aktivní jen zprůhledněná) – drží tak
-                        vždy stejné místo, takže se nadpisy nezalamují jinak a výška řádků se nemění.
-                        Díky tomu se při přepnutí položky levý seznam „nepřeskládá" (neposkočí).
+                    {/* Desktop: šipka je vždy přítomná (u aktivní zprůhledněná), drží stejné místo,
+                        takže se řádky nepřeskládají a levý seznam při přepnutí neposkočí.
                         Mobil/tablet: šipka dolů/nahoru u každé položky. */}
                     <CircleArrowButton
                       onClick={() => setOpen(i)}
@@ -36,8 +35,7 @@ export default function InfoAccordion({ items }: { items: Item[] }) {
                     />
                     <CircleArrowButton onClick={() => setOpen(i)} src="/icons/arrow-down.svg" rotate={isOpen ? 180 : 0} size={{ xs: 28, sm: 36 }} sx={{ display: { xs: 'inline-flex', lg: 'none' } }} />
                   </Stack>
-                  {/* Tělo inline jen na mobilu/tabletu – rozbalí se (Collapse) a text se navíc
-                      jemně prolne (stejný fade-in jako v HowItWorks), ať se neobjeví skokem */}
+                  {/* Tělo inline jen na mobilu/tabletu – rozbalí se (Collapse) a text se prolne (fade-in) */}
                   <Box sx={{ display: { lg: 'none' } }}>
                     <Collapse in={isOpen} unmountOnExit timeout={350} easing="cubic-bezier(0.4, 0, 0.2, 1)">
                       <Typography
@@ -59,8 +57,7 @@ export default function InfoAccordion({ items }: { items: Item[] }) {
         </Box>
 
         {/* Pravá polovina – šedý panel s tělem aktivní položky (jen lg+).
-            Obsah se při přepnutí položky plynule prolne (fade-in + jemný posun) – klíč {open}
-            při každé změně prvek „přemountuje", takže se animace přehraje znovu. */}
+            Klíč {open} prvek při každé změně přemountuje, takže se fade-in animace přehraje znovu. */}
         <Box sx={{ display: { xs: 'none', lg: 'block' }, flexBasis: '50%', maxWidth: '50%', minWidth: 0, bgcolor: '#F5F5F5', p: '170px 138px 150px 71px' }}>
           <Box
             key={open}

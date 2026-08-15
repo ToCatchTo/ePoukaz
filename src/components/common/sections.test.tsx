@@ -21,19 +21,19 @@ test('kontaktní blok ukazuje e-mail a má mailto:/tel: odkazy', () => {
 
 test('kontaktní formulář validuje a po odeslání ukáže potvrzení', () => {
   render(wrap(<ContactBlock />))
-  // Prázdné odeslání → chybové hlášky, žádné potvrzení
+  // Prázdné odeslání: chybové hlášky, žádné potvrzení.
   fireEvent.click(screen.getByRole('button', { name: 'Odeslat zprávu' }))
   expect(screen.getByText('Zadejte e-mail.')).toBeInTheDocument()
   expect(screen.getByText('Napište nám zprávu.')).toBeInTheDocument()
   expect(screen.queryByText('Zpráva odeslána!')).not.toBeInTheDocument()
 
-  // Neplatný e-mail → hláška o formátu
+  // Neplatný e-mail: hláška o formátu.
   fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'neni-email' } })
   fireEvent.change(screen.getByLabelText('Zpráva'), { target: { value: 'Dobrý den' } })
   fireEvent.click(screen.getByRole('button', { name: 'Odeslat zprávu' }))
   expect(screen.getByText('Zadejte platný e-mail.')).toBeInTheDocument()
 
-  // Platné hodnoty → potvrzovací pop-up
+  // Platné hodnoty: potvrzovací pop-up.
   fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'jan@example.cz' } })
   fireEvent.click(screen.getByRole('button', { name: 'Odeslat zprávu' }))
   expect(screen.getByText('Zpráva odeslána!')).toBeInTheDocument()

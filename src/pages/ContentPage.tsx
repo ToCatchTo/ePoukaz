@@ -14,26 +14,26 @@ import { useImagesReady } from '../hooks/useImagesReady'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { formatAddress, orderUrl, fillPlaceholders, companyImages } from '../api/companyFill'
 
-// Mezinadpis = řetězec psaný celý VELKÝMI písmeny (vysází se tučně a s odsazením)
+// Mezinadpis = řetězec psaný celý velkými písmeny (vysází se tučně a s odsazením).
 const isHeading = (s: string) => s === s.toUpperCase()
 
-// Univerzální šablona podstránky (Desktop_UNI) – nadpis + obchodní podmínky,
-// banner „2 měsíce ZDARMA" a kontakt spojený s patičkou do jedné karty.
-// Obrázky do galerie (3 v řadě). Zatím 3× stejný vizuál – nahraď finálními z XD.
+// Univerzální šablona podstránky – nadpis a obchodní podmínky, banner „2 měsíce ZDARMA"
+// a kontakt spojený s patičkou do jedné karty.
+// Fallback obrázky galerie (3 v řadě); zatím 3× stejný vizuál.
 const GALLERY_IMAGES = [
   '/images/uni-gallery.png',
   '/images/uni-gallery.png',
   '/images/uni-gallery.png',
 ]
 
-// title = pevný název podstránky (např. „Obchodní podmínky"); u provozovny se přebije jejím názvem.
+// title = pevný název podstránky (např. „Obchodní podmínky"); u provozovny se přepíše jejím názvem.
 export default function ContentPage({ title }: { title?: string }) {
   const { publicHash } = useParams()
   const { data: companies, loading } = useCompanies()
   const company = publicHash ? companies?.find((c) => c.publicHash === publicHash) : undefined
   useDocumentTitle(company?.name ?? title)
 
-  // Hodnoty do šablony – prázdné, když provozovna není (holé /faq, /obchodni-podminky jako dnes).
+  // Hodnoty do šablony – prázdné, když provozovna není (holé /faq, /obchodni-podminky).
   const fill = {
     companyName: company?.name ?? '',
     address: company ? formatAddress(company.address) : '',
@@ -46,22 +46,21 @@ export default function ContentPage({ title }: { title?: string }) {
     ? companyImages(company)
     : GALLERY_IMAGES.map((src) => ({ src, kind: 'photo' as const }))
 
-  // Index posledního mezinadpisu – ten se vysází jako běžný text (bez tučného řezu a odsazení)
+  // Index posledního mezinadpisu – vysází se jako běžný text (bez tučného řezu a odsazení).
   const lastHeadingIndex = UNI.paragraphs.reduce((last, p, i) => (isHeading(p) ? i : last), -1)
-  // Galerie se vloží před druhý nadpis (za úvodní blok, před „ÚVODNÍ USTANOVENÍ")
+  // Galerie se vloží před druhý nadpis (za úvodní blok).
   const galleryBeforeIndex = UNI.paragraphs.findIndex((p, i) => i > 0 && isHeading(p))
 
-  // Načítací kolečko: drží se, dokud (1) nedorazí data z API a (2) se nenačtou VŠECHNY obrázky
-  // (logo + fotky galerie). Obsah renderujeme i během načítání (skrytý mimo obrazovku), aby se
-  // obrázky stihly přednačíst – po odkrytí už nic neposkakuje.
-  // Kolečko se drží, dokud nedorazí data z API a nenačtou se všechny obrázky galerie (logo + fotky).
+  // Načítací kolečko se drží, dokud nedorazí data z API a nenačtou se všechny obrázky galerie
+  // (logo + fotky). Obsah se renderuje i během načítání (skrytý mimo obrazovku), aby se obrázky
+  // stihly přednačíst – po odkrytí nic neposkakuje.
   const uniqueSrcs = Array.from(new Set(galleryImages.map((img) => img.src)))
   const imagesReady = useImagesReady(uniqueSrcs, !loading)
   const ready = !loading && imagesReady
 
   return (
     <Box data-testid="page-uni">
-      {/* Karta s nadpisem a obchodními podmínkami – vlnité čáry prosvítají v okrajích, zarovnaná na grid */}
+      {/* Karta s nadpisem a obchodními podmínkami – dekorace prosvítá v okrajích, zarovnaná na grid */}
       <Box sx={{ position: 'relative', mb: '200px' }}>
         <DecorLines sx={{ top: 110 }} />
         <GridSection sx={{ position: 'relative', zIndex: 1 }}>
@@ -71,13 +70,13 @@ export default function ContentPage({ title }: { title?: string }) {
                 <CircularProgress aria-label="Načítání" />
               </Box>
             )}
-            {/* Obsah renderujeme vždy – dokud není „ready", je skrytý mimo obrazovku (jen aby se
-                přednačetly obrázky). Po načtení se odkryje. */}
+            {/* Obsah se renderuje vždy – dokud není „ready", je skrytý mimo obrazovku (přednačtení
+                obrázků); po načtení se odkryje. */}
             <Box
               aria-hidden={ready ? undefined : true}
               sx={ready ? undefined : { position: 'absolute', left: -99999, top: 0, width: '100%', opacity: 0, pointerEvents: 'none' }}
             >
-            {/* Obsah na 10sloupcovém gridu: na desktopu odsazený (obsah 8/10), na mobilu i tabletu plná šířka */}
+            {/* Obsah na 10sloupcovém gridu: desktop odsazený (8/10), mobil i tablet plná šířka */}
             <Grid container columns={10}>
               <Grid offset={{ xs: 0, lg: 1 }} size={{ xs: 10, lg: 8 }}>
                 <Typography variant="h3" sx={{ mb: 6, textAlign: 'center', maxWidth: 592, lineHeight: fluid(22, 57), letterSpacing: '-0.84px', m: '0 auto', fontSize: fluid(18, 42) }}>{UNI.title}</Typography>
@@ -128,7 +127,7 @@ export default function ContentPage({ title }: { title?: string }) {
 
       <TwoMonthsFreeBanner />
 
-      {/* Kontakt spojený s patičkou do jedné bílé karty (dle XD Desktop_UNI) */}
+      {/* Kontakt spojený s patičkou do jedné bílé karty */}
       <Footer topContent={<ContactBlock />} />
     </Box >
   )

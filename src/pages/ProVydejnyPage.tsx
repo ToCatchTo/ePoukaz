@@ -10,35 +10,29 @@ import { PAGE_PX } from '../theme/grid'
 import { PROBLEMS } from '../data/content'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
-// Domovská stránka – hero, jak to funguje, 6 problémů, formulář, CTA + patička.
-// Header, hero, „jak to funguje" a patička jsou zarovnané na grid (GridSection = margin ≥ 1 sloupec).
-// Karty 6 problémů a formulář nejsou dělané podle gridu – jsou jen centrované (margin ≥ 1 sloupec přes PAGE_PX).
+// Stránka „Pro výdejny" – hero, jak to funguje, 6 problémů, hlavní funkce, CTA + patička.
+// Hero, „jak to funguje" a patička jsou zarovnané na grid; karty 6 problémů jsou pouze centrované (PAGE_PX).
 export default function ProVydejnyPage() {
   useDocumentTitle('Pro výdejny')
   return (
     <Box data-testid="page-home">
-      {/* HERO – text + ruka s telefonem + animované recenze (grid „content") */}
+      {/* Hero – text, ruka s telefonem a animované recenze */}
       <HeroSection />
 
-      {/* Dekorační pás vlnitých čar – celý, bez ořezu (full-bleed 100vw).
-          zIndex 1 = leží nad rukou z hero (ruka má zIndex 0), takže vlny prosvítají přes její spodek.
-          Zapíná se na HERO_SPLIT (SPLIT_UP = 1280) – tam už je hero „vedle sebe" s přetékající rukou,
-          takže pás musí být vidět a udělat mezeru (dřív byl vázaný na xl=1536 a v pásmu 1280–1536 chyběl). */}
       {/* <Box sx={{ position: 'relative', zIndex: 1, height: 170, mt: fluid(48, 100), display: 'none', '@media (min-width:900px)': { height: 160, display: 'unset' } }}>
         <DecorLines sx={{ top: 50 }} />
       </Box> */}
 
-      {/* JAK TO FUNGUJE – vytažené nahoru přes pás (zIndex 2), takže pás prosvítá jen za jeho horní/bočními okraji (grid „content").
-          Na desktopu (≥ HERO_SPLIT) záporný margin = karta překryje horní část pásu, aby pás nevyčníval do hero sekce.
-          Pod HERO_SPLIT (naskládané hero) je pás skrytý (hero má vlastní dekor), proto tam jen kladná mezera. */}
+      {/* Jak to funguje – vytažené nahoru přes dekorační pás (zIndex 2), aby pás prosvítal jen za okraji.
+          Na desktopu (≥ HERO_SPLIT) záporný margin překryje horní část pásu; pod HERO_SPLIT je pás skrytý. */}
       <Box sx={{ position: 'relative', zIndex: 2, mt: { xs: '80px', md: '-5px' }, [SPLIT_UP]: { mt: fluid(100, 220, HERO_SPLIT, 1920) }, mb: fluid(120, 200) }}>
         <DecorLines sx={{ top: fluid(-100, -120, HERO_SPLIT, 1920), zIndex: -1, display: 'none', '@media (min-width:900px)': { display: 'unset' } }} />
         <HowItWorks />
       </Box>
 
-      {/* 6 PROBLÉMŮ – centrované (ne grid), boční margin ≥ 1 sloupec přes PAGE_PX */}
+      {/* 6 problémů – centrované (PAGE_PX) */}
       <Box sx={{ px: { ...PAGE_PX, xs: '25px' } }}>
-        {/* na desktopu mřížka 3×2 (karty do 400 px), na mobilu 1 sloupec plné šířky */}
+        {/* Desktop: mřížka 3×2 (karty do 400 px); mobil: 1 sloupec plné šířky */}
         <Stack spacing={{ xs: 5, lg: 8 }} sx={{ alignItems: 'center', mb: fluid(120, 350) }}>
           <Typography variant="h1" sx={{ color: '#fff', textAlign: 'center', maxWidth: 820, mb: fluid(30, 0) + ' !important' }}>
             6 problémů, které s námi vyřešíte
@@ -66,10 +60,10 @@ export default function ProVydejnyPage() {
         </Stack>
       </Box>
 
-      {/* Sekce „Hlavní funkce" – centrovaná, vlastní boční margin (nahradila formulář) */}
+      {/* Sekce „Hlavní funkce" – centrovaná, vlastní boční margin */}
       <MainFeatures />
 
-      {/* CTA + patička jako jedna karta (grid „wide" = 1640 px) */}
+      {/* CTA + patička jako jedna karta */}
       <Box sx={{ mt: '315px' }}>
         <Footer withCta />
       </Box>

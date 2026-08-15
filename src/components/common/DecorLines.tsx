@@ -1,10 +1,9 @@
 import { Box } from '@mui/material'
 import type { SxProps, Theme } from '@mui/material'
 
-// Dekorativní pás vlnitých čar z XD návrhu (public/images/decor-lines.svg, 1920×390, teal #a0ffef).
-// Vykresluje se v PŮVODNÍM měřítku (nezmenšuje se podle obrazovky) a je centrovaný – na užších
-// obrazovkách se jen ořízne okraji (ne squish). Když je umístěný za bílou kartou (position:relative
-// wrapper + karta se zIndex 1), prosvítá jen v postranních okrajích – přesně jako v návrhu.
+// Dekorativní pás vlnitých čar (public/images/decor-lines.svg, 1920×390, teal #a0ffef).
+// Vykresluje se v původním měřítku (neškáluje se dolů) a je centrovaný – na užších obrazovkách
+// se jen ořízne. Za bílou kartou (relativní wrapper + karta se zIndex 1) prosvítá jen v okrajích.
 export default function DecorLines({ sx }: { sx?: SxProps<Theme> }) {
   return (
     <Box
@@ -16,8 +15,8 @@ export default function DecorLines({ sx }: { sx?: SxProps<Theme> }) {
         left: { lg: '0%', xs: '50%' },
         top: 0,
         transform: { lg: 'none', xs: 'translateX(-50%)' },
-        // Pevná šířka = původní měřítko SVG (1920). Na širších obrazovkách roste s viewportem,
-        // aby dosáhl k okrajům; na užších se drží 1920 a jen se ořízne (neškáluje se dolů).
+        // Šířka = původní měřítko SVG (1920); na širších obrazovkách roste s viewportem,
+        // na užších se drží 1920 a jen se ořízne.
         width: 'max(1920px, 100vw)',
         maxWidth: 'none',
         height: 'auto',

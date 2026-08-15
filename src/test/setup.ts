@@ -2,7 +2,7 @@
 import '@testing-library/jest-dom'
 import { beforeEach, vi } from 'vitest'
 
-// Výchozí: žádný test nechodí na síť; vrací prázdné pole (komponenty → statický fallback).
+// Žádný test nechodí na síť; fetch vrací prázdné pole, komponenty tak spadnou na statický fallback.
 beforeEach(() => {
   vi.stubGlobal(
     'fetch',

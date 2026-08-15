@@ -19,7 +19,7 @@ test('zobrazuje název, cenu, poznámku, CTA a všechny vlastnosti', () => {
   expect(screen.getByText('Pro')).toBeInTheDocument()
   expect(screen.getByText('2 490 Kč')).toBeInTheDocument()
   expect(screen.getByText('MĚSÍČNÍ BALÍČEK BEZ DPH')).toBeInTheDocument()
-  // CTA je odkaz na registraci (MUI Button s href → <a role="link">)
+  // CTA je odkaz na registraci (MUI Button s href renderuje <a role="link">)
   const cta = screen.getByRole('link', { name: 'Začněte zdarma' })
   expect(cta).toHaveAttribute('href', 'https://admin.epoukazonline.cz/register')
   for (const f of ITEM.features) {
@@ -29,7 +29,7 @@ test('zobrazuje název, cenu, poznámku, CTA a všechny vlastnosti', () => {
 
 test('používá lodičku a fajfku odpovídající tarifu', () => {
   const { container } = render(wrap(<PricingCard item={ITEM} tier="premium" />))
-  // dekorativní ikony jsou aria-hidden <img> – ověříme přes src
+  // dekorativní ikony jsou aria-hidden <img>, ověřují se přes src
   const imgs = Array.from(container.querySelectorAll('img')).map((i) => i.getAttribute('src'))
   expect(imgs).toContain('/icons/pricing-ship-premium.svg')
   expect(imgs).toContain('/icons/pricing-check-premium.svg')

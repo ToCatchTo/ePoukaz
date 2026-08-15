@@ -7,12 +7,12 @@ import { fluid } from '../../theme/fluid'
 import GridSection from '../layout/GridSection'
 
 // Zjednodušená patička pro zákaznické stránky (/, /jak-to-funguje, /vse-o-epoukazu).
-// Bílá CTA karta „Jste výdejna ePoukazů?" + provozovatel; pod kartou kredit agentury (XD §1.2).
+// CTA karta „Jste výdejna ePoukazů?" s provozovatelem, pod kartou kredit agentury.
 export default function VydejnaCtaFooter() {
   return (
     <>
       <Box sx={{ position: 'relative' }}>
-        {/* Vlnité čáry za kartou – vždy vycentrované (vodorovně i svisle vůči kartě), prosvítají v okrajích */}
+        {/* Vlnité čáry za kartou, vycentrované vůči kartě a prosvítající v okrajích. */}
         <DecorLines sx={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
         <GridSection variant="wide" sx={{ position: 'relative', zIndex: 1, px: { xs: '14px', sm: CARD_R } }}>
           <Box sx={{ bgcolor: '#fff', borderRadius: CARD_R, px: fluid(24, 140), pt: fluid(80, 115), pb: fluid(40, 60) }}>
@@ -48,7 +48,7 @@ export default function VydejnaCtaFooter() {
         </GridSection>
       </Box>
 
-      {/* Kredit agentury pod kartou na fialové (shodné s hlavní patičkou) */}
+      {/* Kredit agentury pod kartou (shodné s hlavní patičkou). */}
       <Stack direction="row" spacing={1.5} sx={{ justifyContent: 'center', alignItems: 'center', mt: fluid(150, 119) }}>
         <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: 16, lineHeight: 1 }}>{FOOTER.credit}</Typography>
         <MuiLink href="https://matfix.cz" target="_blank" rel="noopener noreferrer" aria-label="MatFix" sx={{ display: 'inline-flex', alignItems: 'center' }}>

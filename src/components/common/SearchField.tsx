@@ -5,11 +5,11 @@ type Props = {
   value: string
   onChange: (v: string) => void
   placeholder: string
-  // Kratší varianta pro mobil (pod sm) – dlouhý placeholder se do úzkého pole nevejde.
+  // Kratší varianta pro mobil (pod sm); dlouhý placeholder se do úzkého pole nevejde.
   placeholderShort?: string
 }
 
-// Bílý zaoblený vyhledávací input (pill) s lupou vlevo a mazacím křížkem vpravo (jen když je text).
+// Vyhledávací pole (pill) s lupou a mazacím křížkem, který se zobrazí jen s textem.
 export default function SearchField({ value, onChange, placeholder, placeholderShort }: Props) {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))

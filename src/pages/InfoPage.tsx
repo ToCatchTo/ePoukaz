@@ -8,7 +8,7 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 type InfoData = { title: string; items: { title: string; body: string }[] }
 
-// Informační podstránka (Jak to funguje? / Vše o ePoukazu) – nadpis + accordion + patička.
+// Informační podstránka (Jak to funguje? / Vše o ePoukazu) – nadpis, accordion a patička.
 export default function InfoPage({ data }: { data: InfoData }) {
   useDocumentTitle(data.title)
   return (
@@ -20,7 +20,7 @@ export default function InfoPage({ data }: { data: InfoData }) {
       </GridSection>
 
       <Box sx={{ position: 'relative', mb: fluid(120, 200) }}>
-        {/* Decor zIndex 0, karta accordionu zIndex 1 – decor prosvítá v postranních okrajích (jen desktop). */}
+        {/* Dekorace zIndex 0, accordion zIndex 1 – dekorace prosvítá v postranních okrajích (jen desktop). */}
         <DecorLines sx={{ top: fluid(-40, -120), display: 'none', '@media (min-width:900px)': { display: 'unset' } }} />
         <Box sx={{ position: 'relative', zIndex: 1 }}>
           <InfoAccordion items={data.items} />

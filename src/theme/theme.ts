@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material/styles'
 import { fluid } from './fluid'
 
-// Pastelové barvy 6 karet „problémů" (přesně z XD)
+// Pastelové barvy 6 karet „problémů" dle XD
 export const PASTELS = {
   teal: '#C4FFFD',
   pink: '#F6C9FF',
@@ -11,7 +11,7 @@ export const PASTELS = {
   green: '#B3FCB9',
 } as const
 
-// Centrální theme – drží barvy, typografii a tvary z návrhu
+// Centrální theme – barvy, typografie a tvary z návrhu
 export const theme = createTheme({
   palette: {
     primary: { main: '#4200D8' },   // fialová – pozadí, brand
@@ -21,8 +21,8 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: "'Google Sans', Poppins, Arial, sans-serif",
-    // Velikosti plynule škálované mezi mobilem (390 px) a desktopem (1920 px).
-    // Desktopová (max) hodnota = přesně XD desktop; mobilní (min) = XD mobil.
+    // Velikosti fluid škálované mezi mobilem (390 px) a desktopem (1920 px).
+    // Min/max hodnoty odpovídají XD mobilu/desktopu.
     h1: { fontWeight: 700, fontSize: fluid(40, 90), lineHeight: 1.05 }, // hero, „6 problémů", nadpis formuláře
     h2: { fontWeight: 700, fontSize: fluid(30, 50), lineHeight: 1.1 }, // CTA „A to není vše!"
     h3: { fontWeight: 700, fontSize: fluid(26, 42), lineHeight: 1.15 }, // nadpis ceníku, univerzální podstránky
@@ -33,7 +33,7 @@ export const theme = createTheme({
   },
   shape: { borderRadius: 24 },
   components: {
-    // Tlačítka jako „pill" – plně zaoblená, bez stínu (disableElevation globálně)
+    // Tlačítka jako „pill" – plně zaoblená, bez stínu (globální disableElevation)
     MuiButton: {
       defaultProps: { disableElevation: true },
       styleOverrides: {

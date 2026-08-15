@@ -3,11 +3,11 @@ import type { SxProps, Theme } from '@mui/material'
 import type { ElementType, ReactNode } from 'react'
 import { GRID_COLUMNS, GRID_MAX, GRID_SPANS, PAGE_PX } from '../../theme/grid'
 
-// Obal jedné sekce zarovnané na grid: boční margin = 1 sloupec (PAGE_PX), obsah centrovaný
-// a zastropovaný na GRID_MAX, uvnitř MUI Grid s jednou položkou o daném rozsahu.
-//   variant „content" – header, hero, jak-to-funguje (na desktopu odsazení 2 sloupce)
-//   variant „wide"    – karta CTA + patička (na desktopu odsazení 1 sloupec)
-// Vertikální marže/pozicování předávej přes `sx`.
+// Obal sekce zarovnané na grid: boční margin 1 sloupec (PAGE_PX), obsah centrovaný a
+// zastropovaný na GRID_MAX, uvnitř MUI Grid s jednou položkou o daném rozsahu.
+//   variant „content" – header, hero, jak-to-funguje (desktop odsazení 2 sloupce)
+//   variant „wide"    – karta CTA + patička (desktop odsazení 1 sloupec)
+// Vertikální marže a pozicování se předávají přes `sx`.
 export default function GridSection({
   variant = 'content',
   children,

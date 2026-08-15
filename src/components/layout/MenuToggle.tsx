@@ -1,7 +1,7 @@
 import { Box, IconButton } from '@mui/material'
 
-// Kruhové bílé tlačítko se třemi proužky, které se při otevření plynule přetočí do „×".
-// Slouží jako hamburger v hlavičce i jako zavírací tlačítko v otevřeném menu (stejné místo → efekt morphu).
+// Kruhové bílé tlačítko se třemi proužky, které se při otevření plynule přetočí do křížku.
+// Slouží jako hamburger i jako zavírací tlačítko na stejném místě (efekt morphu).
 export default function MenuToggle({ open, onClick }: { open: boolean; onClick: () => void }) {
   const bar = {
     position: 'absolute' as const,

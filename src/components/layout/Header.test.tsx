@@ -42,7 +42,7 @@ test('dynamické stránky z API se přidají do pacientské sady', () => {
 test('CTA v zákaznické sadě je „Stáhnout aplikaci"', () => {
   renderAt('/')
   expect(screen.getByText('Stáhnout aplikaci')).toBeInTheDocument()
-  // tlačítko „30 dní ZDARMA" (jeden řetězec) se v pacientské sadě nezobrazuje
+  // odznak „30 dní ZDARMA" se v pacientské sadě nezobrazuje
   expect(screen.queryByText('30 dní ZDARMA')).toBeNull()
 })
 

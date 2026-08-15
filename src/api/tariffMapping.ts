@@ -1,7 +1,7 @@
 import type { Tariff } from './types'
 import type { PricingItem, Tier } from '../components/common/PricingCard'
 
-// API vrací 4 kódy, karta má 3 vizuální varianty – přiřazení stylu ke kódu.
+// Mapování 4 kódů z API na 3 vizuální varianty karty.
 const TIER_BY_CODE: Record<string, Tier> = {
   free_trial: 'start',
   lite: 'start',

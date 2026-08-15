@@ -3,7 +3,7 @@ import type { SxProps, Theme } from '@mui/material'
 import type { ReactNode } from 'react'
 import { CARD_R } from '../../theme/layout'
 
-// Bílá zaoblená karta – univerzální obal sekcí
+// Bílá zaoblená karta – univerzální obal sekce
 export default function SectionCard(
   { children, sx, id }: { children: ReactNode; sx?: SxProps<Theme>; id?: string },
 ) {

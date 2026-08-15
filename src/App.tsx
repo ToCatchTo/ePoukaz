@@ -10,7 +10,7 @@ import DynamicPage from './pages/DynamicPage'
 import InfoPage from './pages/InfoPage'
 import { JAK_TO_FUNGUJE, VSE_O_EPOUKAZU } from './data/content'
 
-// Definice cest – oddělené, aby šly testovat přes MemoryRouter
+// Definice cest oddělená od App, aby šla testovat přes MemoryRouter
 export function AppRoutes() {
   return (
     <Routes>

@@ -6,9 +6,9 @@ import MenuToggle from './MenuToggle'
 import { fluid } from '../../theme/fluid'
 import { PAGE_PX } from '../../theme/grid'
 
-// Mobilní menu (XD Mobile_menu) – panel, který se vysune SHORA přes horní část obrazovky
-// a při zavření se zase zasune nahoru. Panel zůstává v DOM (kvůli plynulé animaci oběma směry),
-// v zavřeném stavu je odsunutý mimo obrazovku a skrytý pro asistivní technologie (aria-hidden).
+// Mobilní menu: panel vysouvající se shora a při zavření zasunutý zpět nahoru. Panel zůstává
+// v DOM kvůli plynulé animaci oběma směry; v zavřeném stavu je mimo obrazovku a skrytý pro
+// asistivní technologie (aria-hidden).
 export default function MobileMenu({
   open, onClose, links,
 }: { open: boolean; onClose: () => void; links: { label: string; to: string }[] }) {
@@ -34,7 +34,7 @@ export default function MobileMenu({
 
   return (
     <>
-      {/* Klikem zavře (bílý panel + CTA leží na něm, jako v XD) */}
+      {/* Overlay: klikem zavře menu */}
       <Box
         onClick={onClose}
         aria-hidden
@@ -49,7 +49,7 @@ export default function MobileMenu({
         }}
       />
 
-      {/* Vysouvací obsah – bílý panel s navigací + CTA pod ním na fialovém pozadí */}
+      {/* Vysouvací obsah: bílý panel s navigací */}
       <Box
         role="dialog"
         aria-modal="true"
@@ -77,7 +77,7 @@ export default function MobileMenu({
             pb: '110px'
           }}
         >
-          {/* Horní lišta – pill s logem + odznakem a kruhové zavírací tlačítko (na místě hamburgeru) */}
+          {/* Horní lišta: pill s logem a odznakem, kruhové zavírací tlačítko na místě hamburgeru */}
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2 }}>
             <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.25, bgcolor: '#fff', borderRadius: 999, py: 0.75, pl: 2.5, pr: 1, boxShadow: '0 4px 24px rgba(0,0,0,0.30)' }}>
               <Box component="img" src="/images/logo-epoukaz.svg" alt="ePoukaz online" sx={{ height: 11, display: 'block' }} />
@@ -90,7 +90,7 @@ export default function MobileMenu({
             </Box>
           </Box>
 
-          {/* Navigace – černé odkazy přímo na bílém panelu */}
+          {/* Navigace */}
           <Stack spacing={5.5} sx={{ mt: '94px', pl: 4 }}>
             {links.map((l) => {
               const active = l.to === pathname

@@ -2,7 +2,7 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import { darken } from '@mui/material/styles'
 import { REGISTER_URL } from '../../data/content'
 
-// Tarif = vizuální varianta karty. Barvy a ikony přesně dle XD a dodaných SVG (Ship_*, Check_*).
+// Vizuální varianta karty (barvy a ikony)
 export type Tier = 'start' | 'pro' | 'premium'
 
 // Data jednoho tarifu (podmnožina PRICING z content.ts)
@@ -14,7 +14,7 @@ export type PricingItem = {
   cta: string
 }
 
-// Per-tier konfigurace: barva názvu/ceny, pozadí tlačítka, fajfka, lodička a plná barva „jazyku“ za boatem
+// Konfigurace tarifu: barva názvu/ceny, pozadí tlačítka, ikona fajfky a lodičky, barva jazyku
 const TIERS: Record<Tier, { color: string; button: string; check: string; ship: string; tab: string }> = {
   start: {
     color: '#000000', button: '#939393',
@@ -33,17 +33,15 @@ const TIERS: Record<Tier, { color: string; button: string; check: string; ship: 
   },
 }
 
-// Ikony (SVG) jednoho tarifu – lodička + fajfka. Slouží k přednačtení obrázků karty.
+// Ikony tarifu (lodička, fajfka) pro přednačtení
 export const tierIcons = (tier: Tier): string[] => [TIERS[tier].ship, TIERS[tier].check]
 
-// „Jazyk“ u horní hrany karty, ve kterém sedí lodička. Tvar: plochý horní okraj
-// (nejširší část), z něj dva rovné boky sbíhající se dolů do zaobleného cípu.
-// Jednotná barva (bez přechodu).
+// Jazyk u horní hrany karty s lodičkou uvnitř
 function BoatTab({ color, ship }: { color: string; ship: string }) {
   return (
     <Box sx={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 175, height: 68 }}>
       <Box sx={{ backgroundColor: color, width: '150px', height: '150px', transform: 'rotate(45deg)', margin: '-76px auto 0 auto', borderRadius: '20px 20px 60px 20px' }} />
-      {/* Lodička – dekorativní ikona tarifu, vycentrovaná v horní části jazyku */}
+      {/* Dekorativní ikona tarifu, vycentrovaná v jazyku */}
       <Box
         component="img" src={ship} alt="" aria-hidden
         sx={{ position: 'absolute', top: 35, left: '50%', transform: 'translateX(-50%)', width: 26, height: 26 }}
@@ -52,7 +50,7 @@ function BoatTab({ color, ship }: { color: string; ship: string }) {
   )
 }
 
-// Jedna tarifní karta. Všechny karty mají stejný stín; na hover se jen nadzvednou.
+// Tarifní karta
 export default function PricingCard({
   item, tier,
 }: { item: PricingItem; tier: Tier }) {
@@ -64,8 +62,8 @@ export default function PricingCard({
         position: 'relative',
         bgcolor: '#fff',
         borderRadius: '100px',
-        height: '583px', // všechny karty stejně vysoké dle XD
-        maxWidth: '370px', // max šířka karty dle XD
+        height: '583px', // jednotná výška všech karet
+        maxWidth: '370px',
         width: '100%',
         overflow: 'hidden', // ořízne obsah do zaoblených rohů
         display: 'flex',
@@ -73,11 +71,11 @@ export default function PricingCard({
         alignItems: 'flex-start',
         textAlign: 'left',
         px: 4,
-        pt: '104px', // místo pro „jazýček“ s lodičkou nahoře – stejné u všech karet (obsah zarovnaný dle XD)
+        pt: '104px', // místo pro jazyk s lodičkou nahoře
         pb: '65px',
-        boxShadow: '0 24px 50px rgba(0,0,0,0.10)', // stejný stín u všech karet
+        boxShadow: '0 24px 50px rgba(0,0,0,0.10)',
         transition: 'transform .25s ease',
-        '&:hover': { transform: 'translateY(-12px)' }, // na hover jen nadzvednutí
+        '&:hover': { transform: 'translateY(-12px)' },
         '@media (prefers-reduced-motion: reduce)': {
           transition: 'none',
           '&:hover': { transform: 'none' },
@@ -86,7 +84,7 @@ export default function PricingCard({
     >
       <BoatTab color={t.tab} ship={t.ship} />
 
-      {/* Název + cena + poznámka – vždy vycentrované přes celou šířku karty */}
+      {/* Název, cena a poznámka – vycentrované přes celou šířku */}
       <Typography sx={{ alignSelf: 'stretch', textAlign: 'center', fontWeight: 700, fontSize: 20, color: t.color, mb: 1 }}>{item.name}</Typography>
       <Typography
         sx={{ alignSelf: 'stretch', textAlign: 'center', fontWeight: 500, fontSize: 60, lineHeight: 1.05, color: t.color, letterSpacing: '-5.12px' }}
@@ -97,7 +95,7 @@ export default function PricingCard({
         {item.note}
       </Typography>
 
-      {/* Seznam vlastností – blok vycentrovaný (jako cena), řádky uvnitř zarovnané vlevo */}
+      {/* Seznam vlastností – blok vycentrovaný, řádky zarovnané vlevo */}
       <Stack spacing={1.5} sx={{ alignSelf: 'center', alignItems: 'flex-start', mb: 5 }}>
         {item.features.map((f) => (
           <Stack key={f} direction="row" spacing={1.25} sx={{ alignItems: 'center' }}>
@@ -107,7 +105,7 @@ export default function PricingCard({
         ))}
       </Stack>
 
-      {/* CTA – pill tlačítko v barvě tarifu, přišpendlené dolů */}
+      {/* CTA – tlačítko v barvě tarifu, ukotvené dolů */}
       <Button
         variant="contained"
         href={REGISTER_URL}

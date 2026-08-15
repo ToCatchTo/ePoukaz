@@ -4,14 +4,7 @@ import { fluid } from '../../theme/fluid'
 import { PAGE_PX } from '../../theme/grid'
 
 // Sekce „Hlavní funkce" – nadpis + podtitul + mřížka dlaždic (ikonka + text).
-// Nahrazuje původní formulář (TryForFreeForm) na stránkách Ceník a Pro výdejny.
-// Není dělaná podle gridu, jen centrovaná; boční margin ≥ 1 sloupec přes PAGE_PX
-// (stejně jako měl formulář, včetně spodní mezery mb: fluid(120, 230)).
-//
-// Rozměry dle XD (desktop, viewport 1920):
-//   nadpis 90px (variant h1) · podtitul 26px · titulek dlaždice Bold 26px
-//   ikonka ~52×60px · rozteč sloupců 414px (gap ≈ 116) · rozteč řádků 140px (gap ≈ 80)
-//   mezera ikonka↔text ≈ 31px · šířka titulku dlaždice do 215px
+// Není podle gridu, jen centrovaná; boční margin ≥ 1 sloupec přes PAGE_PX.
 export default function MainFeatures() {
   return (
     <Box sx={{ px: PAGE_PX }}>
@@ -22,8 +15,8 @@ export default function MainFeatures() {
           dangerouslySetInnerHTML={{ __html: MAIN_FEATURES.subtitle }}
         />
 
-        {/* Mřížka: desktop 3 sloupce, tablet 2, mobil 1 – vždy vycentrovaná.
-            Dlaždice mají šířku podle obsahu (max-content), takže mezery sedí na XD rozteče. */}
+        {/* Mřížka: desktop 3 sloupce, tablet 2, mobil 1 – vycentrovaná.
+            Dlaždice mají šířku podle obsahu (max-content). */}
         <Box
           sx={{
             display: 'grid',

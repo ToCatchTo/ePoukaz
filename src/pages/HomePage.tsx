@@ -10,9 +10,9 @@ import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { SEARCH } from '../data/content'
 import { fluid } from '../theme/fluid'
 
-// Úvodní stránka – vyhledávání provozoven. Prázdný dotaz nezobrazuje panel (dle Desktop_1).
+// Úvodní stránka – vyhledávání provozoven. Prázdný dotaz nezobrazuje panel výsledků.
 export default function HomePage() {
-  useDocumentTitle() // domovská = jen brand „ePoukaz online"
+  useDocumentTitle() // domovská = jen brand
   const [query, setQuery] = useState('')
   const debounced = useDebouncedValue(query, 300)
   const { data, loading, error } = useCompaniesSearch(debounced)

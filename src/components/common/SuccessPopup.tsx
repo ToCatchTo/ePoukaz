@@ -6,15 +6,15 @@ import { Transition } from 'react-transition-group'
 
 const POPUP_DURATION = 450
 
-// Podle fáze: vjezd zprava (translateX) + fade-in, odchod = jen fade-out (zůstane na místě).
+// Podle fáze: vjezd zprava (translateX) a fade-in, odchod jen fade-out beze změny pozice.
 const POPUP_STATE_STYLES: Record<string, CSSProperties> = {
   entering: { transform: 'translateX(0)', opacity: 1 },
   entered: { transform: 'translateX(0)', opacity: 1 },
-  exiting: { transform: 'translateX(0)', opacity: 0 }, // fade out, beze změny pozice
+  exiting: { transform: 'translateX(0)', opacity: 0 }, // fade-out beze změny pozice
   exited: { transform: 'translateX(110%)', opacity: 0 }, // start mimo obrazovku vpravo
 }
 
-// Vlastní přechod pro Snackbar: „plynule vylítne zprava" a při zavření „fade outne".
+// Vlastní přechod pro Snackbar: vjezd zprava, při zavření fade-out.
 function PopupTransition(props: TransitionProps & { children: ReactElement<{ ref?: Ref<HTMLElement>; style?: CSSProperties }> }) {
   const { in: inProp, children, onEnter, onEntering, onEntered, onExit, onExiting, onExited } = props
   const nodeRef = useRef<HTMLElement>(null)
@@ -46,8 +46,7 @@ function PopupTransition(props: TransitionProps & { children: ReactElement<{ ref
   )
 }
 
-// Potvrzovací pop-up laděný do stylu stránky – vpravo nahoře, vyjede zprava a při zavření
-// se rozplyne (fade out). Bílá karta, tyrkysový kruh s bílou fajfkou, fialový nadpis.
+// Potvrzovací pop-up vpravo nahoře: vyjede zprava a při zavření se rozplyne.
 export default function SuccessPopup({
   open,
   onClose,
@@ -81,7 +80,7 @@ export default function SuccessPopup({
           gap: '20px',
         }}
       >
-        {/* Tyrkysový kruh s bílou fajfkou */}
+        {/* Kruh s fajfkou. */}
         <Box sx={{ flexShrink: 0, width: 48, height: 48, borderRadius: '50%', bgcolor: 'secondary.main', display: 'grid', placeItems: 'center' }}>
           <Box component="svg" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" sx={{ width: 24, height: 24 }}>
             <polyline points="20 6 9 17 4 12" />
@@ -93,7 +92,7 @@ export default function SuccessPopup({
           <Typography sx={{ fontSize: 14, color: 'text.secondary', lineHeight: 1.5, mt: 0.25 }}>{text}</Typography>
         </Box>
 
-        {/* Zavírací × */}
+        {/* Zavírací tlačítko. */}
         <Box
           component="button"
           type="button"

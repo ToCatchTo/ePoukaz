@@ -4,8 +4,8 @@ import { ThemeProvider, CssBaseline } from '@mui/material'
 import { theme } from './theme/theme'
 import './index.css'
 import App from './App.tsx'
-// Hlavní font Google Sans se načítá z Google Fonts (viz <link> v index.html).
-// Poppins zůstává jako lokální fallback, kdyby se web font nenačetl.
+// Google Sans se načítá z Google Fonts (<link> v index.html).
+// Poppins slouží jako lokální fallback, pokud se web font nenačte.
 import '@fontsource/poppins/300.css'
 import '@fontsource/poppins/400.css'
 import '@fontsource/poppins/500.css'

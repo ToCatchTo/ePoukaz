@@ -1,8 +1,6 @@
-// ⚠️ POZOR (pro backend kolegu): Token je zde JEN pro fázi testování a přes VITE_ se
-// zapéká do klientského bundle (je veřejně čitelný). V PRODUKCI:
-//   1) odstranit VITE_API_TOKEN a řešit hlavičku X-AUTH-TOKEN až na serveru/proxy,
-//   2) VITE_API_BASE_URL přepnout na vlastní proxy cestu (např. "/api").
-// Frontend se pak nemění – token vkládáme na jediném místě: authHeaders().
+// Token je dočasně v klientu (přes VITE_ se zapéká do bundle, je veřejně čitelný) –
+// jen pro fázi testování. V produkci řešit X-AUTH-TOKEN na proxy/serveru a
+// VITE_API_BASE_URL přepnout na proxy cestu. Frontend vkládá token na jediném místě: authHeaders().
 export const API_BASE_URL: string =
   import.meta.env.VITE_API_BASE_URL ?? 'https://api.epoukazonline.cz'
 

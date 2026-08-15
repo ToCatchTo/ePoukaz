@@ -3,13 +3,12 @@ import { TWO_MONTHS } from '../../data/content'
 import { fluid } from '../../theme/fluid'
 import GridSection from '../layout/GridSection'
 
-// Růžové pozadí banneru (dle XD)
+// Pozadí banneru (dle XD).
 const PINK = '#FDD6DF'
 
-// Růžový banner „2 měsíce ZDARMA" – vlevo podtržený nadpis + text, vpravo fotka ženy.
-// Fotka je PNG přes celou šířku banneru (poměr 3,41:1 = stejný jako banner):
-// levá část PNG je průhledná (prosvítá růžové pozadí), vpravo žena + zaoblený roh.
-// Zarovnaný na grid (variant „content" = margin ≥ 1 sloupec).
+// Banner „2 měsíce zdarma": vlevo podtržený nadpis a text, vpravo fotka ženy.
+// Fotka je PNG přes celou šířku (poměr 3,41:1, shodný s bannerem); levá část je
+// průhledná (prosvítá pozadí), vpravo žena se zaobleným rohem.
 export default function TwoMonthsFreeBanner() {
   return (
     <GridSection sx={{ mb: fluid(229, 180) }}>
@@ -20,9 +19,9 @@ export default function TwoMonthsFreeBanner() {
           display: { xs: 'flex', md: 'block' }, flexDirection: 'column',
         }}
       >
-        {/* Fotka jako pozadí přes celý banner – jen na desktopu (md+).
-            Maska s gradientem nechá levou hranu obrázku plynule naběhnout do růžového pozadí,
-            takže na rozhraní částí není ostrý svislý šev. */}
+        {/* Fotka jako pozadí přes celý banner, jen na desktopu (md+).
+            Gradientová maska nechá levou hranu plynule naběhnout do pozadí,
+            aby na rozhraní nevznikl ostrý svislý šev. */}
         <Box
           component="img" src="/images/two-months-banner.png" alt="" aria-hidden
           sx={{
@@ -33,7 +32,7 @@ export default function TwoMonthsFreeBanner() {
           }}
         />
 
-        {/* Text vlevo, svisle vycentrovaný, nad fotkou */}
+        {/* Text vlevo, svisle vycentrovaný, nad fotkou. */}
         <Box
           sx={{
             position: 'relative', height: { md: '100%' }, display: 'flex', alignItems: 'center',
@@ -45,7 +44,7 @@ export default function TwoMonthsFreeBanner() {
               sx={{
                 fontSize: fluid(40, 74), fontWeight: 700, lineHeight: '50px',
                 textDecoration: 'underline', textUnderlineOffset: '6px',
-                // nezalamovat na desktopu/tabletu (md+), na mobilu (svislá verze) ať se zalomí
+                // Na desktopu/tabletu (md+) nezalamovat, na mobilu (svislá verze) zalomit.
                 whiteSpace: { xs: 'normal', md: 'nowrap' },
               }}
             >
@@ -55,10 +54,10 @@ export default function TwoMonthsFreeBanner() {
           </Stack>
         </Box>
 
-        {/* Fotka ženy pod textem – jen na mobilu (dle XD Mobile).
+        {/* Fotka ženy pod textem, jen na mobilu (dle XD Mobile).
             background-image (ne <img>) kvůli kontrole měřítka: žena je menší a s růžovým
-            prostorem kolem (jako v návrhu). Horní hrana přes masku plynule naběhne do
-            růžové textové části = gradientový přechod bez ostrého švu. */}
+            prostorem kolem. Horní hrana přes gradientovou masku plynule naběhne do
+            textové části bez ostrého švu. */}
         <Box
           aria-hidden
           sx={{

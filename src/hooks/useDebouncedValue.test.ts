@@ -10,7 +10,7 @@ test('vrátí novou hodnotu až po uplynutí delay', () => {
   })
   expect(result.current).toBe('a')
   rerender({ v: 'ab' })
-  expect(result.current).toBe('a') // hned po změně ještě stará
+  expect(result.current).toBe('a') // ihned po změně stále stará hodnota
   act(() => { vi.advanceTimersByTime(300) })
   expect(result.current).toBe('ab')
 })

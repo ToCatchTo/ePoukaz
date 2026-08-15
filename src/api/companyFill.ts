@@ -13,8 +13,8 @@ export function fillPlaceholders(text: string, values: Record<string, string>): 
   return text.replace(/\{\{(\w+)\}\}/g, (_m, key: string) => values[key] ?? '')
 }
 
-// Obrázek provozovny + jeho druh. `logo` se vykresluje `contain` (celé, neořezané),
-// `photo` (exteriér/interiér) `cover` (vyplní rám).
+// Druh určuje vykreslení: `logo` jako `contain` (celé, neořezané),
+// `photo` (exteriér/interiér) jako `cover` (vyplní rám).
 export type CompanyImage = { src: string; kind: 'logo' | 'photo' }
 
 export function companyImages(company: Company): CompanyImage[] {

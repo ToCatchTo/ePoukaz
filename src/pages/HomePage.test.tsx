@@ -10,7 +10,7 @@ test('úvodní stránka má hero nadpis a vyhledávací pole, bez panelu', () =>
   wrap()
   expect(screen.getByText(/Najděte svou výdejnu/)).toBeInTheDocument()
   expect(screen.getByPlaceholderText(/Hledejte svou výdejnu/)).toBeInTheDocument()
-  // prázdný dotaz → žádný panel (ani „Nic jsme nenašli")
+  // Prázdný dotaz nezobrazí panel (ani „Nic jsme nenašli").
   expect(screen.queryByText('Nic jsme nenašli')).toBeNull()
 })
 

@@ -1,8 +1,7 @@
 import { Box, IconButton } from '@mui/material'
 
-// Kruhové bílé tlačítko hamburgeru dle XD (ikona public/icons/hamburger.svg –
-// bílý kruh se stínem a vlevo zarovnané „bars-sort" proužky s klesající délkou).
-// Otevírá mobilní menu; zavírací „×" v otevřeném menu řeší MenuToggle.
+// Kruhové bílé tlačítko hamburgeru (ikona public/icons/hamburger.svg). Otevírá mobilní menu;
+// zavírání v otevřeném menu řeší MenuToggle.
 export default function HamburgerButton({ open, onClick }: { open: boolean; onClick: () => void }) {
   return (
     <IconButton

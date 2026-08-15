@@ -16,7 +16,7 @@ test('po prokliku na jinou stránku posune okno na začátek', () => {
     </MemoryRouter>,
   )
 
-  // Počáteční scroll při mountu ignorujeme – testujeme chování při změně cesty.
+  // Počáteční scroll při mountu ignorujeme, testujeme chování při změně cesty.
   scrollSpy.mockClear()
 
   fireEvent.click(screen.getByText('Přejít na ceník'))

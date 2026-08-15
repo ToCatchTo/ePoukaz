@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material'
 import { theme } from './theme/theme'
 import { AppRoutes } from './App'
 
-// Pomocná funkce – renderuje appku na dané cestě
+// Vyrenderuje aplikaci na dané cestě
 function renderAt(path: string) {
   render(
     <ThemeProvider theme={theme}>

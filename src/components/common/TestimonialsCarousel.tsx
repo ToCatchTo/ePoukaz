@@ -3,28 +3,28 @@ import { Box, Stack, Typography } from '@mui/material'
 import { TESTIMONIALS } from '../../data/content'
 import { fluid } from '../../theme/fluid'
 
-// Mobilní varianta recenzí – vodorovný „swipe" carousel s tečkovým indikátorem.
-// (Na desktopu se recenze zobrazují jako plovoucí karty kolem ruky – viz HeroSection.)
-// V carouselu chceme jako první kartu „Gábina" (dle XD), zbytek v původním pořadí
+// Mobilní varianta recenzí: vodorovný swipe carousel s tečkovým indikátorem.
+// (Na desktopu jsou recenze plovoucí karty, viz HeroSection.)
+// První kartou má být „Gábina" (dle XD), zbytek v původním pořadí.
 const ORDERED = [...TESTIMONIALS].sort((a, b) =>
   a.name === 'Gábina' ? -1 : b.name === 'Gábina' ? 1 : 0,
 )
 
-// Nekonečná smyčka: seznam vykreslíme víckrát za sebou a scroll držíme v prostřední kopii.
-// Repozici (posun o celé sady zpět do středu) děláme AŽ když scroll zastaví – během
-// setrvačného „flingu" bychom se prali s momentum-scrollem a snapem → cukání.
+// Nekonečná smyčka: seznam vykreslíme víckrát a scroll držíme v prostřední kopii.
+// Repozici (posun o celé sady zpět do středu) provádíme až po zastavení scrollu;
+// během setrvačného flingu by kolize s momentum-scrollem a snapem způsobila cukání.
 const N = ORDERED.length
-const COPIES = 5 // lichý počet, aby existovala prostřední kopie s bufferem na obě strany
-const MID = Math.floor(COPIES / 2) // index prostřední kopie (0-based)
+const COPIES = 5 // lichý počet kvůli prostřední kopii s bufferem na obě strany
+const MID = Math.floor(COPIES / 2) // index prostřední kopie
 const LOOP = Array.from({ length: COPIES }, () => ORDERED).flat()
 
 export default function TestimonialsCarousel() {
   const ref = useRef<HTMLDivElement>(null)
   const settleTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-  // aktivní = index v rámci celého LOOPu; tečka se počítá jako active % N
+  // active = index v rámci celého LOOPu; tečka odpovídá active % N
   const [active, setActive] = useState(MID * N)
 
-  // index karty nejblíž středu viewportu
+  // Index karty nejblíž středu viewportu.
   const nearest = () => {
     const el = ref.current
     if (!el) return MID * N
@@ -43,7 +43,7 @@ export default function TestimonialsCarousel() {
     return best
   }
 
-  // šířka jedné sady (od začátku 1. karty po začátek stejné karty v další kopii)
+  // Šířka jedné sady (od začátku 1. karty po tutéž kartu v další kopii).
   const setWidth = () => {
     const el = ref.current
     if (!el) return 0
@@ -58,7 +58,7 @@ export default function TestimonialsCarousel() {
     return child.offsetLeft - (el.clientWidth - child.clientWidth) / 2
   }
 
-  // start v prostřední kopii (bez animace)
+  // Start v prostřední kopii, bez animace.
   useLayoutEffect(() => {
     const el = ref.current
     const child = el?.children[MID * N] as HTMLElement | undefined
@@ -66,8 +66,8 @@ export default function TestimonialsCarousel() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Po zastavení scrollu vrátíme pozici zpět do prostřední kopie – bez momentum je posun
-  // o celé sady (identický layout) vizuálně neviditelný, jen se obnoví „zásoba" karet.
+  // Po zastavení scrollu vrátíme pozici do prostřední kopie. Posun o celé sady je
+  // při identickém layoutu vizuálně neviditelný a jen obnoví zásobu karet.
   const normalize = () => {
     const el = ref.current
     if (!el) return
@@ -87,13 +87,13 @@ export default function TestimonialsCarousel() {
   }
 
   const onScroll = () => {
-    // tečky a překryv (zIndex) aktualizujeme hned; repozici až po zastavení
+    // Tečky a překryv (zIndex) aktualizujeme hned, repozici až po zastavení.
     setActive(nearest())
     clearTimeout(settleTimer.current)
     settleTimer.current = setTimeout(normalize, 140)
   }
 
-  // klik na tečku i → nejbližší instance karty i ve stejné kopii, kde právě jsme
+  // Klik na tečku i scrolluje na instanci karty i v aktuální kopii.
   const goTo = (i: number) => {
     const el = ref.current
     if (!el) return
@@ -125,8 +125,8 @@ export default function TestimonialsCarousel() {
               flex: '0 0 78%',
               minWidth: 260,
               scrollSnapAlign: 'center',
-              // Karty se lehce překrývají (dle XD); aktivní je navrchu.
-              // Ve smyčce překrýváme uniformně, aby přechod mezi kopiemi byl bezešvý.
+              // Karty se lehce překrývají (dle XD), aktivní je navrchu.
+              // Uniformní překryv zajišťuje bezešvý přechod mezi kopiemi.
               mr: '-22px',
               position: 'relative',
               zIndex: i === active ? 3 : 1,
@@ -134,7 +134,7 @@ export default function TestimonialsCarousel() {
               borderRadius: '56px',
               p: 3,
               textAlign: 'center',
-              // Stín po stranách (záporný spread ho drží u hran), aby se překrývající karty neslévaly
+              // Boční stín (záporný spread ho drží u hran) brání slití překrývajících se karet.
               boxShadow: '12px 0 16px -8px rgba(0,0,0,0.22), -12px 0 16px -8px rgba(0,0,0,0.22)',
             }}
           >
@@ -151,7 +151,7 @@ export default function TestimonialsCarousel() {
         ))}
       </Box>
 
-      {/* Tečkový indikátor – jemné světlé tečky dle XD (aktivní o něco výraznější) */}
+      {/* Tečkový indikátor: světlé tečky, aktivní je výraznější. */}
       <Stack direction="row" sx={{ justifyContent: 'center', mt: 1, gap: '20px' }}>
         {ORDERED.map((t, i) => (
           <Box

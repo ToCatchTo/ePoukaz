@@ -5,21 +5,20 @@ import { CONTACT } from '../../data/content'
 import { fluid } from '../../theme/fluid'
 import SuccessPopup from './SuccessPopup'
 
-// Společný styl šedých polí formuláře – nápověda (placeholder) černě, plně krytá
+// Společný styl šedých polí formuláře; placeholder černě a plně krytý.
 const FIELD = {
   bgcolor: '#F5F5F5', px: 4.5, py: 4.5, fontSize: fluid(14, 20), color: '#000', width: '100%',
   '& input::placeholder, & textarea::placeholder': { color: '#000', opacity: 1 },
 } as const
 
-// Jednoduchá kontrola formátu e-mailu (základní validace, ne RFC-přesná)
+// Základní kontrola formátu e-mailu, ne RFC-přesná.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-// Chybová barva – čitelná červená na šedém poli
+// Chybová barva čitelná na šedém poli.
 const ERR = '#D14343'
 
-// Chybová hláška pod polem – plynule se rozbalí/sbalí (Collapse animuje výšku),
-// takže layout „neposkočí". Text si drží i během zavírací animace, aby nezmizel
-// dřív, než se stihne sbalit výška.
+// Chybová hláška pod polem se plynule rozbalí/sbalí (Collapse animuje výšku), aby
+// layout neposkočil. Text drží i během zavírací animace, aby nezmizel před sbalením výšky.
 function FieldError({ message }: { message?: string }) {
   const [shown, setShown] = useState(message)
   useEffect(() => { if (message) setShown(message) }, [message])
@@ -30,16 +29,16 @@ function FieldError({ message }: { message?: string }) {
   )
 }
 
-// Kontaktní blok – vlevo e-mail a telefon (černá kolečka s ikonou, klikací mailto:/tel:),
-// vpravo formulář zprávy s tyrkysovým odesílacím tlačítkem. Formulář má základní validaci
-// (e-mail povinný + formát, zpráva povinná) a po odeslání ukáže potvrzovací pop-up (SuccessPopup).
+// Kontaktní blok: vlevo e-mail a telefon (mailto:/tel:), vpravo formulář zprávy.
+// Validace (e-mail povinný a ve správném formátu, zpráva povinná); po odeslání
+// se zobrazí potvrzovací pop-up (SuccessPopup).
 export default function ContactBlock() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
   const [errors, setErrors] = useState<{ email?: string; message?: string }>({})
   const [sent, setSent] = useState(false)
 
-  // tel: bez mezer a formátovacích znaků (necháme jen číslice a úvodní +)
+  // tel: jen číslice a úvodní +, bez mezer a formátovacích znaků.
   const telHref = `tel:${CONTACT.phone.replace(/[^\d+]/g, '')}`
 
   function handleSubmit(e: FormEvent) {
@@ -50,7 +49,7 @@ export default function ContactBlock() {
     if (!message.trim()) next.message = 'Napište nám zprávu.'
     setErrors(next)
     if (Object.keys(next).length > 0) return
-    // (jen vizuál – bez skutečného odeslání) potvrdíme a pole vyčistíme
+    // Zatím jen vizuál bez skutečného odeslání: potvrdíme a vyčistíme pole.
     setSent(true)
     setEmail('')
     setMessage('')
@@ -58,7 +57,7 @@ export default function ContactBlock() {
 
   return (
     <Grid container spacing={{ xs: 8, lg: 2 }} columns={10} sx={{ alignItems: 'center' }}>
-      {/* Kontaktní údaje */}
+      {/* Kontaktní údaje. */}
       <Grid offset={{ xs: 0, lg: 1 }} size={{ xs: 10, lg: 4 }}>
         <Stack spacing={3} sx={{ ml: { sm: '0px', xs: '32px' } }}>
           <Stack direction="row" spacing={{ xs: '10px', md: 3 }} sx={{ alignItems: 'center' }}>
@@ -79,7 +78,7 @@ export default function ContactBlock() {
         </Stack>
       </Grid>
 
-      {/* Formulář zprávy */}
+      {/* Formulář zprávy. */}
       <Grid size={{ xs: 10, lg: 4 }}>
         <Stack component="form" onSubmit={handleSubmit} noValidate spacing={2.5}>
           <Typography sx={{ fontSize: fluid(18, 20), fontWeight: 700, color: '#000', ml: { sm: '24px !important', xs: '0px' }, textAlign: { sm: 'left', xs: 'center' } }}>{CONTACT.formHeading}</Typography>
@@ -106,7 +105,7 @@ export default function ContactBlock() {
                 inputProps={{ 'aria-label': 'Zpráva', 'aria-invalid': errors.message ? true : undefined }}
                 sx={{ ...FIELD, borderRadius: '53px', alignItems: 'flex-start', pr: 10, minHeight: '210px', '& textarea': { maxWidth: '300px' }, boxShadow: errors.message ? `inset 0 0 0 2px ${ERR}` : 'inset 0 0 0 0 transparent', transition: 'box-shadow .2s ease' }}
               />
-              {/* Odesílací tlačítko – hotové SVG (tyrkysové kolečko + bílá šipka) */}
+              {/* Odesílací tlačítko (SVG s kolečkem a šipkou). */}
               <IconButton
                 type="submit"
                 aria-label="Odeslat zprávu"
@@ -120,7 +119,7 @@ export default function ContactBlock() {
         </Stack>
       </Grid>
 
-      {/* Potvrzení odeslání – laděné do stylu stránky */}
+      {/* Potvrzení odeslání. */}
       <SuccessPopup
         open={sent}
         onClose={() => setSent(false)}

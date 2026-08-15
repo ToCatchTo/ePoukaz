@@ -16,7 +16,7 @@ test('zobrazuje všech 8 nadpisů kroků', () => {
 test('ve výchozím stavu je otevřený první krok (jeho text je vidět)', () => {
   render(wrap(<HowItWorks />))
   expect(screen.getByText(HOW_STEPS[0].text)).toBeInTheDocument()
-  // text druhého kroku zatím není v DOM (Collapse s unmountOnExit)
+  // text druhého kroku není v DOM (Collapse s unmountOnExit)
   expect(screen.queryByText(HOW_STEPS[1].text)).not.toBeInTheDocument()
 })
 
@@ -25,9 +25,9 @@ test('klik na jiný nadpis zavře předchozí a otevře nový', async () => {
 
   fireEvent.click(screen.getByText(HOW_STEPS[1].title))
 
-  // nový krok je hned otevřený
+  // nový krok je otevřený ihned
   expect(screen.getByText(HOW_STEPS[1].text)).toBeInTheDocument()
-  // předchozí se zavře (Collapse odmountuje text až po animaci)
+  // předchozí se zavře (Collapse odmountuje text po animaci)
   await waitFor(() => {
     expect(screen.queryByText(HOW_STEPS[0].text)).not.toBeInTheDocument()
   })

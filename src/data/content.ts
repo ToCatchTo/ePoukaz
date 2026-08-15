@@ -1,26 +1,25 @@
 import { PASTELS } from '../theme/theme'
 
-// Cílový odkaz pro všechny CTA tlačítka „vyzkoušet / 30 dní zdarma / registrace"
+// Cílový odkaz pro CTA tlačítka (vyzkoušet / registrace)
 export const REGISTER_URL = 'https://admin.epoukazonline.cz/register'
 
-// Odkaz na stažení mobilní aplikace (CTA v zákaznické/pacientské navigaci).
-// TODO: doplnit reálný odkaz (App Store / Google Play / landing).
+// TODO: doplnit reálný odkaz na stažení aplikace (App Store / Google Play)
 export const APP_DOWNLOAD_URL = 'https://epoukazonline.cz/aplikace'
 
-// Kontextové navigační sady (Header vybírá podle aktuální cesty)
+// Navigační sady; Header vybírá podle aktuální cesty
 export const NAV_MAIN = [
   { label: 'Jak to funguje?', to: '/jak-to-funguje' },
   { label: 'Vše o ePoukazu', to: '/vse-o-epoukazu' },
   { label: 'Pro výdejny', to: '/pro-vydejny' },
 ]
 export const NAV_VYDEJNY = [
-  // Label „Jak to funguje?" (dle přání), ale slug zůstává /pro-vydejny (prodejní stránka).
+  // Label „Jak to funguje?", ale slug zůstává /pro-vydejny (prodejní stránka)
   { label: 'Jak to funguje?', to: '/pro-vydejny' },
   { label: 'Ceník', to: '/cenik' },
   { label: 'Kontakt', to: '/kontakt' },
 ]
 
-// Patička na zákaznických stránkách (/, /jak-to-funguje, /vse-o-epoukazu) – CTA „Jste výdejna ePoukazů?" (XD §1.2)
+// CTA v patičce zákaznických stránek (/, /jak-to-funguje, /vse-o-epoukazu)
 export const VYDEJNA_CTA = {
   title: 'Jste výdejna ePoukazů?',
   perexBold: 'Nabídněte svým klientům moderní způsob uplatnění ePoukazu online',
@@ -31,7 +30,7 @@ export const VYDEJNA_CTA = {
   provider: 'Provozovatel: epoukazonline s.r.o., IČ: 29645387',
 }
 
-// Nová úvodní stránka – vyhledávání provozoven
+// Vyhledávání provozoven na úvodní stránce
 export const SEARCH = {
   h1: 'Najděte svou výdejnu a uplatněte ePoukaz online',
   perex:
@@ -39,7 +38,7 @@ export const SEARCH = {
     'nahrajte ePoukaz online a vyčkejte — výdejna se vám sama ozve s dalšími kroky. ' +
     'Jednoduché, rychlé a dostupné kdykoliv, 24 hodin denně, 7 dní v týdnu.',
   placeholder: 'Hledejte svou výdejnu dle názvu nebo města…',
-  placeholderShort: 'Název nebo město…', // mobil (dlouhý text se do úzkého pole nevejde)
+  placeholderShort: 'Název nebo město…', // mobil (dlouhý placeholder se do úzkého pole nevejde)
   selectLabel: 'Vybrat',
   emptyTitle: 'Nic jsme nenašli',
   notFoundTitle: 'Vaši výdejnu jsme nenašli?',
@@ -49,7 +48,7 @@ export const SEARCH = {
     'to bude příště pro vás i ostatní pacienty.',
 }
 
-// Podstránka „Jak to funguje?" (6 kroků pacienta). Těla jsou DRAFT – dodá klient.
+// Podstránka „Jak to funguje?" (6 kroků pacienta); těla označená /* draft */ dodá klient
 export const JAK_TO_FUNGUJE = {
   title: 'Jak to funguje?',
   items: [
@@ -62,7 +61,7 @@ export const JAK_TO_FUNGUJE = {
   ],
 }
 
-// Podstránka „Vše o ePoukazu". Položka 1 = reálný text ze specu; zbytek DRAFT.
+// Podstránka „Vše o ePoukazu"; položka 1 je finální text ze specu, zbytek /* draft */
 export const VSE_O_EPOUKAZU = {
   title: 'Vše o ePoukazu',
   items: [
@@ -82,7 +81,7 @@ export const VSE_O_EPOUKAZU = {
   ],
 }
 
-// HERO sekce homepage
+// Hero sekce homepage
 export const HERO = {
   title: 'Šetřete čas sobě i pacientům',
   paragraph:
@@ -92,7 +91,7 @@ export const HERO = {
   cta: 'Vyzkoušejte',
 }
 
-// Recenzní bublinky v hero
+// Recenzní bublinky v hero sekci
 export const TESTIMONIALS = [
   {
     name: 'Eliška', role: 'dcera seniora',
@@ -108,7 +107,7 @@ export const TESTIMONIALS = [
   },
 ]
 
-// 8 kroků „Jak to funguje" (texty z PDF)
+// 8 kroků „Jak to funguje"
 export const HOW_STEPS = [
   {
     title: 'Nastavení za pár minut',
@@ -144,7 +143,7 @@ export const HOW_STEPS = [
   },
 ]
 
-// 6 karet „problémů" (pořadí a barvy dle mřížky 3×2 v XD)
+// 6 karet „problémů"; pořadí a barvy dle mřížky 3×2 (XD)
 export const PROBLEMS = [
   {
     title: 'Ušetříte čas', color: PASTELS.teal,
@@ -172,9 +171,8 @@ export const PROBLEMS = [
   },
 ]
 
-// Sekce „Hlavní funkce" – nadpis + podtitul (dle XD) + mřížka 9 dlaždic.
-// Obsah je zatím PLACEHOLDER (stejně jako v XD): všude stopky + „Šetři čas a peníze".
-// Reálné texty/ikonky se doplní později (stačí přepsat `items`).
+// Sekce „Hlavní funkce": nadpis, podtitul a mřížka 9 dlaždic.
+// items jsou placeholder (stopky + „Šetři čas a peníze"); reálné texty a ikony se doplní později.
 export const MAIN_FEATURES = {
   title: 'Hlavní funkce',
   subtitle:
@@ -190,7 +188,7 @@ export const CTA_BANNER = {
   button: 'Vyzkoušejte',
 }
 
-// Růžový banner „2 měsíce ZDARMA"
+// Banner „2 měsíce ZDARMA"
 export const TWO_MONTHS = {
   title: '2 měsíce ZDARMA',
   text: 'Zvolte si roční platbu a získejte tak 2 měsíce naší služby ePoukazonline, která vám šetří čas a stres ZDARMA.',
@@ -224,7 +222,7 @@ export const PRICING = [
   },
 ]
 
-// Srovnávací tabulka „Nástroje". POZOR: rozložení fajfek ověř proti _navrh/ (960px render).
+// Srovnávací tabulka „Nástroje"; rozložení fajfek odpovídá renderu _navrh/ (960px)
 export const COMPARE_ROWS = [
   { label: 'Klientské rozhraní', start: true, pro: true, premium: true },
   { label: 'Administrátorské rozhraní', start: true, pro: true, premium: true },
@@ -251,7 +249,7 @@ export const SMS_NOTE =
   'je účtována samostatně dle skutečného počtu odeslaných zpráv a aktuálního ceníku poskytovatele. ' +
   'Náklady na tyto SMS budou připočteny k pravidelnému měsíčnímu vyúčtování služby.'
 
-// Nadpis a podtitul ceníku (opraven překlep „prefenrencí" → „preferencí")
+// Nadpis a podtitul ceníku
 export const CENIK_HEAD = {
   title: 'Vyberte si svůj tarif dle vašich preferencí a potřeb',
   subtitle:
@@ -268,7 +266,7 @@ export const FOOTER = {
     'Společnost zapsána pod značkou',
     'C 450020/MSPH Městským soudem v Praze',
   ],
-  // Pozn.: sloupce „Obecné" a „Doplňkové služby" mají dle XD návrhu shodné odkazy (záměr, ne překlep).
+  // Shodné odkazy ve sloupcích „Obecné" a „Doplňkové služby" jsou záměr dle XD, ne překlep
   columns: [
     { title: 'Jak na to?', links: ['Jak implementovat', 'Jak to funguje?', 'Video tutorial', 'FAQ'] },
     { title: 'Obecné', links: ['Obchodní podmínky', 'Ochrana osobních údajů', 'Zpracovatelská smlouva', 'Informace k nezákonnému obsahu', 'Newslettery'] },
@@ -278,9 +276,8 @@ export const FOOTER = {
   credit: 'Tvoříme weby s radostí',
 }
 
-// Univerzální podstránka (obchodní podmínky – varianta B, zkráceno na úvodní odstavce)
-// Univerzální podstránka (Desktop_UNI) – nadpis + obchodní podmínky (varianta B).
-// Řetězce psané VELKÝMI písmeny jsou mezinadpisy (ContentPage je vysází tučně).
+// Univerzální podstránka (Desktop_UNI): nadpis a obchodní podmínky (varianta B, úvodní odstavce).
+// Řetězce psané velkými písmeny jsou mezinadpisy, které ContentPage vysází tučně.
 export const UNI = {
   title: 'Nadpis univerzální podstránky, může být až dvouřádkový',
   paragraphs: [

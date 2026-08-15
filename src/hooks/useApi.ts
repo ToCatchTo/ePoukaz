@@ -4,7 +4,7 @@ import type { Company } from '../api/types'
 
 export type ApiState<T> = { data: T | null; loading: boolean; error: Error | null }
 
-// Generický datový hook: řeší loading/error i rušení zastaralých odpovědí.
+// Generický datový hook: řeší loading/error a ruší zastaralé odpovědi.
 export function useApi<T>(
   fetcher: (signal: AbortSignal) => Promise<T>,
   deps: unknown[],
@@ -23,7 +23,7 @@ export function useApi<T>(
         setState({ data: null, loading: false, error: err as Error })
       })
     return () => controller.abort()
-    // deps řídí volající; fetcher se mezi rendery mění, proto není v poli závislostí
+    // deps řídí volající; fetcher není v závislostech, mění se mezi rendery
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 
