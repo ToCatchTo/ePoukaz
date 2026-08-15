@@ -1,0 +1,14 @@
+# SPA fallback pro React Router (BrowserRouter).
+# Když požadovaná cesta není reálný soubor ani složka, pošli index.html –
+# ten nastartuje React Router, který podle URL vykreslí správnou stránku.
+# Bez tohohle vrací Apache 404 při refreshi/přímém otevření cest jako /pro-vydejny.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  # Reálné soubory a složky servíruj přímo (assety, favicon, ...).
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  # Vše ostatní → index.html.
+  RewriteRule ^ index.html [L]
+</IfModule>
