@@ -31,6 +31,6 @@ test('používá lodičku a fajfku odpovídající tarifu', () => {
   const { container } = render(wrap(<PricingCard item={ITEM} tier="premium" />))
   // dekorativní ikony jsou aria-hidden <img>, ověřují se přes src
   const imgs = Array.from(container.querySelectorAll('img')).map((i) => i.getAttribute('src'))
-  expect(imgs).toContain('/icons/pricing-ship-premium.svg')
-  expect(imgs).toContain('/icons/pricing-check-premium.svg')
+  expect(imgs).toContain('/static-icons/pricing-ship-premium.svg')
+  expect(imgs).toContain('/static-icons/pricing-check-premium.svg')
 })

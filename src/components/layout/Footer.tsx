@@ -60,7 +60,7 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
                     href={REGISTER_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    endIcon={<Box component="img" src="/icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 40), height: fluid(30, 40) }} />}
+                    endIcon={<Box component="img" src="/static-icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 40), height: fluid(30, 40) }} />}
                     sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), mt: `${fluid(28, 50)} !important`, '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500, height: fluid(60, 70) }}
                   >
                     {CTA_BANNER.button}

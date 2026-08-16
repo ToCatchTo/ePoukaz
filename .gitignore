@@ -15,6 +15,7 @@ dist-ssr
 .env.local
 docs
 API.md
+DOCUMENTATION.md
 
 # Project-specific
 .superpowers/

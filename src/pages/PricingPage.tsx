@@ -27,9 +27,9 @@ const ACCENT: Record<string, string> = { black: '#000000', purple: '#4200D8', te
 
 // Fajfky ve srovnávací tabulce – plné kolečko s bílou fajfkou (Start černá, Pro fialová, Premium tyrkysová)
 const TABLE_CHECK = {
-  start: '/icons/pricing-check-start-table.svg',
-  pro: '/icons/pricing-check-pro.svg',
-  premium: '/icons/pricing-check-premium.svg',
+  start: '/static-icons/pricing-check-start-table.svg',
+  pro: '/static-icons/pricing-check-pro.svg',
+  premium: '/static-icons/pricing-check-premium.svg',
 } as const
 
 // Fajfka tabulky – zarovnaná vlevo pod hlavičkou sloupce

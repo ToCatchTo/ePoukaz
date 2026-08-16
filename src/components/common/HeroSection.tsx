@@ -74,7 +74,7 @@ function ReviewCard({ name, delay, pos }: { name: string; delay: string; pos: ob
     >
       <Box
         component="img"
-        src="/icons/stars.svg"
+        src="/static-icons/stars.svg"
         alt="Hodnocení 5 z 5 hvězdiček"
         sx={{ display: 'block', height: 18, width: 'auto', mb: 0.75 }}
       />
@@ -171,7 +171,7 @@ export default function HeroSection() {
             href={REGISTER_URL}
             target="_blank"
             rel="noopener noreferrer"
-            endIcon={<Box component="img" src="/icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 40), height: fluid(30, 40) }} />}
+            endIcon={<Box component="img" src="/static-icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 40), height: fluid(30, 40) }} />}
             sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), '& .MuiButton-endIcon': { ml: '20px', mr: 0 }, fontWeight: 500, height: fluid(60, 70) }}
           >
             {HERO.cta}

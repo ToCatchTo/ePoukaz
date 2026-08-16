@@ -33,7 +33,7 @@ export default function InfoAccordion({ items }: { items: Item[] }) {
                       onClick={() => setOpen(i)}
                       sx={{ display: { xs: 'none', lg: 'inline-flex' }, opacity: isOpen ? 0 : 1, pointerEvents: isOpen ? 'none' : 'auto', transition: 'opacity 0.25s ease' }}
                     />
-                    <CircleArrowButton onClick={() => setOpen(i)} src="/icons/arrow-down.svg" rotate={isOpen ? 180 : 0} size={{ xs: 28, sm: 36 }} sx={{ display: { xs: 'inline-flex', lg: 'none' } }} />
+                    <CircleArrowButton onClick={() => setOpen(i)} src="/static-icons/arrow-down.svg" rotate={isOpen ? 180 : 0} size={{ xs: 28, sm: 36 }} sx={{ display: { xs: 'inline-flex', lg: 'none' } }} />
                   </Stack>
                   {/* Tělo inline jen na mobilu/tabletu – rozbalí se (Collapse) a text se prolne (fade-in) */}
                   <Box sx={{ display: { lg: 'none' } }}>

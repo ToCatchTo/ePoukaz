@@ -52,7 +52,7 @@ export default function HowItWorks() {
                     {/* Mobil + tablet: šipka dolů u zavřených, nahoru u otevřených */}
                     <CircleArrowButton
                       onClick={() => setOpen(i)}
-                      src="/icons/arrow-down.svg"
+                      src="/static-icons/arrow-down.svg"
                       rotate={isOpen ? 180 : 0}
                       size={{ xs: 28, sm: 36 }}
                       sx={{ display: { xs: 'inline-flex', lg: 'none' } }}

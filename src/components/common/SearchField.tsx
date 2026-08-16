@@ -23,7 +23,7 @@ export default function SearchField({ value, onChange, placeholder, placeholderS
         px: fluid(20, 34), height: fluid(64, 100), width: '100%',
       }}
     >
-      <Box component="img" src="/icons/search.svg" alt="" aria-hidden sx={{ width: fluid(28, 44), flexShrink: 0 }} />
+      <Box component="img" src="/static-icons/search.svg" alt="" aria-hidden sx={{ width: fluid(28, 44), flexShrink: 0 }} />
       <InputBase
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -40,7 +40,7 @@ export default function SearchField({ value, onChange, placeholder, placeholderS
           onClick={() => onChange('')}
           sx={{ border: 0, bgcolor: 'transparent', cursor: 'pointer', p: 0, flexShrink: 0, display: 'inline-flex' }}
         >
-          <Box component="img" src="/icons/Menu_closed.svg" alt="" aria-hidden sx={{ width: fluid(36, 60) }} />
+          <Box component="img" src="/static-icons/Menu_closed.svg" alt="" aria-hidden sx={{ width: fluid(36, 60) }} />
         </Box>
       )}
     </Box>

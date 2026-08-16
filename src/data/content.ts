@@ -178,7 +178,7 @@ export const MAIN_FEATURES = {
   subtitle:
     '<span style="font-weight: 600; font-family: Google Sans;">Zadejte pár údajů a my se vám ozveme s bezplatným přístupem na 30 dní.</span><span style="font-family: Poppins; font-weight: 300;"> Žádný závazek, žádná platební ' +
     'karta – jen zjistíte, kolik času vám a vašemu týmu ePoukaz online ušetří.',
-  items: Array.from({ length: 9 }, () => ({ icon: '/icons/stopwatch.svg', title: 'Šetři čas a peníze' })),
+  items: Array.from({ length: 9 }, () => ({ icon: '/static-icons/stopwatch.svg', title: 'Šetři čas a peníze' })),
 }
 
 // Spodní CTA banner

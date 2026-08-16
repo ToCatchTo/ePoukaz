@@ -7,7 +7,7 @@ import type { SxProps, Theme } from '@mui/material'
 // sx – přenáší se na IconButton (typicky responzivní display)
 export default function CircleArrowButton({
   onClick,
-  src = '/icons/arrow-step.svg',
+  src = '/static-icons/arrow-step.svg',
   rotate = 0,
   size = 42,
   sx,

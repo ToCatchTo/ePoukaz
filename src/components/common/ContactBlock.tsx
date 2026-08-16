@@ -61,13 +61,13 @@ export default function ContactBlock() {
       <Grid offset={{ xs: 0, lg: 1 }} size={{ xs: 10, lg: 4 }}>
         <Stack spacing={3} sx={{ ml: { sm: '0px', xs: '32px' } }}>
           <Stack direction="row" spacing={{ xs: '10px', md: 3 }} sx={{ alignItems: 'center' }}>
-            <Box component="img" src="/icons/contact-mail.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
+            <Box component="img" src="/static-icons/contact-mail.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
             <MuiLink href={`mailto:${CONTACT.email}`} underline="hover" sx={{ minWidth: 0, color: 'inherit' }}>
               <Typography variant="h4" sx={{ minWidth: 0, fontSize: { xs: 18, sm: fluid(21, 30) }, overflowWrap: 'anywhere' }}>{CONTACT.email}</Typography>
             </MuiLink>
           </Stack>
           <Stack direction="row" spacing={{ xs: '10px', md: 3 }} sx={{ alignItems: 'center' }}>
-            <Box component="img" src="/icons/contact-phone.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
+            <Box component="img" src="/static-icons/contact-phone.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
             <Box sx={{ minWidth: 0 }}>
               <MuiLink href={telHref} underline="hover" sx={{ color: 'inherit' }}>
                 <Typography variant="h4" sx={{ fontSize: { xs: 18, sm: fluid(21, 30) } }}>{CONTACT.phone}</Typography>
@@ -111,7 +111,7 @@ export default function ContactBlock() {
                 aria-label="Odeslat zprávu"
                 sx={{ position: 'absolute', right: 28, bottom: 28, p: 0, '&:hover': { opacity: 0.9 } }}
               >
-                <Box component="img" src="/icons/contact-send.svg" alt="" aria-hidden sx={{ width: fluid(38, 54), height: fluid(38, 54), display: 'block' }} />
+                <Box component="img" src="/static-icons/contact-send.svg" alt="" aria-hidden sx={{ width: fluid(38, 54), height: fluid(38, 54), display: 'block' }} />
               </IconButton>
             </Box>
             <FieldError message={errors.message} />

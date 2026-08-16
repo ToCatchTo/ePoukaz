@@ -1,6 +1,6 @@
 import { Box, IconButton } from '@mui/material'
 
-// Kruhové bílé tlačítko hamburgeru (ikona public/icons/hamburger.svg). Otevírá mobilní menu;
+// Kruhové bílé tlačítko hamburgeru (ikona public/static-icons/hamburger.svg). Otevírá mobilní menu;
 // zavírání v otevřeném menu řeší MenuToggle.
 export default function HamburgerButton({ open, onClick }: { open: boolean; onClick: () => void }) {
   return (
@@ -12,7 +12,7 @@ export default function HamburgerButton({ open, onClick }: { open: boolean; onCl
     >
       <Box
         component="img"
-        src="/icons/hamburger.svg"
+        src="/static-icons/hamburger.svg"
         alt=""
         sx={{ width: 73, height: 73, display: 'block' }}
       />

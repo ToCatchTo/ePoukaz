@@ -140,7 +140,7 @@ export default function TestimonialsCarousel() {
           >
             <Box
               component="img"
-              src="/icons/stars.svg"
+              src="/static-icons/stars.svg"
               alt="Hodnocení 5 z 5 hvězdiček"
               sx={{ display: 'block', height: 20, width: 'auto', mx: 'auto', mb: 1 }}
             />

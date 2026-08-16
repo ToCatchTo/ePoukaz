@@ -18,17 +18,17 @@ export type PricingItem = {
 const TIERS: Record<Tier, { color: string; button: string; check: string; ship: string; tab: string }> = {
   start: {
     color: '#000000', button: '#939393',
-    check: '/icons/pricing-check-start.svg', ship: '/icons/pricing-ship-start.svg',
+    check: '/static-icons/pricing-check-start.svg', ship: '/static-icons/pricing-ship-start.svg',
     tab: '#EAEAEF',
   },
   pro: {
     color: '#4200D8', button: '#4200D8',
-    check: '/icons/pricing-check-pro.svg', ship: '/icons/pricing-ship-pro.svg',
+    check: '/static-icons/pricing-check-pro.svg', ship: '/static-icons/pricing-ship-pro.svg',
     tab: '#E1D6F7',
   },
   premium: {
     color: '#00C7BF', button: '#00C7BF',
-    check: '/icons/pricing-check-premium.svg', ship: '/icons/pricing-ship-premium.svg',
+    check: '/static-icons/pricing-check-premium.svg', ship: '/static-icons/pricing-ship-premium.svg',
     tab: '#D2F3F0',
   },
 }
