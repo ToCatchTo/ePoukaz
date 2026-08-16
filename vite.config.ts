@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv, type Plugin } from 'vite'
-import { writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { writeFileSync, readFileSync, existsSync } from 'node:fs'
+import { resolve, join } from 'node:path'
 import react from '@vitejs/plugin-react'
 import prerender from '@prerenderer/rollup-plugin'
 
@@ -20,18 +20,72 @@ export default defineConfig(({ mode }) => {
   // Obejito bez zásahu do app kódu: zachytíme vyrenderované HTML pro "/" v
   // postProcess a dopíšeme ho na disk sami po dokončení zápisu bundlu.
   let homeHtml: string | undefined
+
+  // SPA fallback shell. index.html je PŘEDrenderovaná homepage, takže když ho server
+  // naservíruje jako fallback pro jinou routu (dynamické /provozovna, /stranka; nebo
+  // host, který neresolvuje /cenik → /cenik/index.html), prohlížeč vykreslí celou HP,
+  // než React přepne na správnou stránku – „problik" homepage. Proto vygenerujeme
+  // prázdný shell (index.html s prázdným #root, ale se správnými asset tagy) do
+  // dist/app.html a fallbackujeme na něj (viz public/.htaccess) – fallback tak neukáže
+  // žádný cizí obsah, jen se rovnou vyrenderuje cílová stránka.
+  let shellHtml: string | undefined
+  const captureShellPlugin: Plugin = {
+    name: 'capture-spa-shell',
+    apply: 'build',
+    transformIndexHtml: {
+      // 'post' = až po injektnutí bundle asset tagů Vitem; #root je stále prázdný.
+      order: 'post',
+      handler(html) {
+        shellHtml = html
+      },
+    },
+  }
+
   const writeHomeHtmlPlugin: Plugin = {
     name: 'write-prerendered-home-html',
     apply: 'build',
     closeBundle() {
-      if (!homeHtml) return
-      writeFileSync(resolve(process.cwd(), 'dist/index.html'), homeHtml)
+      if (homeHtml) {
+        writeFileSync(resolve(process.cwd(), 'dist/index.html'), homeHtml)
+      }
+      if (shellHtml) {
+        writeFileSync(resolve(process.cwd(), 'dist/app.html'), shellHtml)
+      }
+    },
+  }
+
+  // Preview server (npm run preview) má vestavěný SPA fallback natvrdo na index.html
+  // (= předrenderovaná HP). Tímto middlewarem ho napodobíme chování Apache z .htaccess:
+  // reálný soubor / adresář s index.html naservírujeme přímo (statické předrenderované
+  // routy), vše ostatní → prázdný app.html shell. Bez tohohle by preview u /cenik apod.
+  // ukazoval problik HP a nešel by ověřit produkční stav.
+  const previewLikeApachePlugin: Plugin = {
+    name: 'preview-spa-fallback-shell',
+    configurePreviewServer(server) {
+      const dist = resolve(process.cwd(), 'dist')
+      server.middlewares.use((req, res, next) => {
+        if (!req.url || req.method !== 'GET') return next()
+        const url = req.url.split('?')[0]
+        // Assety a soubory s příponou nech na standardním statickém servírování.
+        if (url.startsWith('/assets/') || /\.[a-z0-9]+$/i.test(url)) return next()
+        // Předrenderovaná routa má vlastní <route>/index.html – naservíruj ji.
+        const routeIndex = join(dist, url, 'index.html')
+        const file = existsSync(routeIndex) ? routeIndex : join(dist, 'app.html')
+        if (existsSync(file)) {
+          res.setHeader('Content-Type', 'text/html')
+          res.end(readFileSync(file))
+          return
+        }
+        next()
+      })
     },
   }
 
   return {
     plugins: [
       react(),
+      captureShellPlugin,
+      previewLikeApachePlugin,
       // Po buildu naservíruje dist/ a headless Chromem projede statické routy,
       // aby uložil vyrenderované HTML (SEO + rychlejší first paint). Appka se
       // nemění – snímá se reálný DOM včetně React 19 meta tagů ze <Seo>.

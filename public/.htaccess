@@ -1,14 +1,22 @@
 # SPA fallback pro React Router (BrowserRouter).
-# Když požadovaná cesta není reálný soubor ani složka, pošli index.html –
-# ten nastartuje React Router, který podle URL vykreslí správnou stránku.
+# Když požadovaná cesta není reálný soubor ani složka, pošli app.html – prázdný shell,
+# který nastartuje React Router a ten podle URL vykreslí správnou stránku.
 # Bez tohohle vrací Apache 404 při refreshi/přímém otevření cest jako /pro-vydejny.
+#
+# POZOR: fallback míří na app.html, NE na index.html. index.html je předrenderovaná
+# homepage; kdyby se servírovala jako fallback pro jinou routu, prohlížeč by na okamžik
+# vykreslil celou HP, než React přepne – „problik" homepage. app.html je prázdný shell,
+# takže fallback neukáže žádný cizí obsah.
+#   /            → adresář docroot (-d) → DirectoryIndex naservíruje index.html (HP prerender)
+#   /cenik, ...  → adresář <route>/ (-d) → DirectoryIndex naservíruje <route>/index.html (prerender)
+#   /provozovna/…, /stranka/… a neznámé → app.html (prázdný shell, CSR)
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  # Reálné soubory a složky servíruj přímo (assety, favicon, ...).
+  # Reálné soubory a složky servíruj přímo (assety, favicon, předrenderované routy, ...).
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
-  # Vše ostatní → index.html.
-  RewriteRule ^ index.html [L]
+  # Vše ostatní → prázdný SPA shell.
+  RewriteRule ^ app.html [L]
 </IfModule>
