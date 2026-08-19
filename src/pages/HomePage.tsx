@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import SearchField from '../components/common/SearchField'
 import SearchResults from '../components/common/SearchResults'
-import VydejnaCtaFooter from '../components/common/VydejnaCtaFooter'
+import DistributorCtaFooter from '../components/common/DistributorCtaFooter'
 import GridSection from '../components/layout/GridSection'
 import { Seo } from '../components/common/Seo'
 import { JsonLd } from '../components/common/JsonLd'
@@ -29,7 +29,7 @@ export default function HomePage() {
         logo: 'https://epoukazonline.cz/images/logo-epoukaz.svg',
       }} />
       <GridSection>
-        <Stack sx={{ alignItems: 'center', textAlign: 'center', mt: fluid(60, 139) }}>
+        <Stack sx={{ alignItems: { xs: 'flex-start', sm: 'center' }, textAlign: { xs: 'left', sm: 'center' }, mt: fluid(60, 139) }}>
           <Typography variant="h1" sx={{ color: '#fff', maxWidth: 720, fontSize: { xs: 30, sm: 36, md: 42 }, lineHeight: 1.2 }}>{SEARCH.h1}</Typography>
           <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), maxWidth: 812, mt: '20px' }}>{SEARCH.perex}</Typography>
           <Box sx={{ width: '100%', maxWidth: 1088, mt: '50px' }}>
@@ -44,7 +44,7 @@ export default function HomePage() {
       </GridSection>
 
       <Box sx={{ mt: fluid(200, 936) }}>
-        <VydejnaCtaFooter />
+        <DistributorCtaFooter />
       </Box>
     </Box>
   )

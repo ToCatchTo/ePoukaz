@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Box, Button, Link as MuiLink } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
-import { NAV_MAIN, NAV_VYDEJNY, REGISTER_URL, APP_DOWNLOAD_URL } from '../../data/content'
+import { NAV_MAIN, NAV_DISTRIBUTORS, REGISTER_URL } from '../../data/content'
 import { scrollToHashOnClick } from '../../utils/scrollToHash'
 import { fluid } from '../../theme/fluid'
 import { usePages } from '../../hooks/useApi'
@@ -11,21 +11,19 @@ import MobileMenu from './MobileMenu'
 
 // Hlavička zarovnaná na grid. Desktop (lg+): plovoucí bílá pill s logem, navigací a CTA.
 // Mobil i tablet: kompaktní pill (logo + odznak) a kruhový hamburger pro celoobrazovkové menu.
-// Cesty výdejny clusteru zobrazují NAV_VYDEJNY, ostatní NAV_MAIN.
-const VYDEJNY_PATHS = new Set(['/pro-vydejny', '/cenik', '/kontakt'])
+// Cesty výdejny clusteru zobrazují NAV_DISTRIBUTORS, ostatní NAV_MAIN.
+const DISTRIBUTOR_PATHS = new Set(['/pro-vydejny', '/cenik', '/kontakt'])
 
 export default function Header() {
   const { pathname } = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
   const { data: pages } = usePages()
-  const isVydejny = VYDEJNY_PATHS.has(pathname)
-  const baseNav = isVydejny ? NAV_VYDEJNY : NAV_MAIN
-  const dynamicLinks = isVydejny ? [] : (pages ?? []).map((p) => ({ label: p.title, to: `/stranka/${p.slug}` }))
+  const isDistributor = DISTRIBUTOR_PATHS.has(pathname)
+  const baseNav = isDistributor ? NAV_DISTRIBUTORS : NAV_MAIN
+  const dynamicLinks = isDistributor ? [] : (pages ?? []).map((p) => ({ label: p.title, to: `/stranka/${p.slug}` }))
   const links = [...baseNav, ...dynamicLinks]
-  // CTA v pill: výdejny sekce → registrace, zákaznická → stažení aplikace.
-  const cta = isVydejny
-    ? { label: '30 dní ZDARMA', href: REGISTER_URL }
-    : { label: 'Stáhnout aplikaci', href: APP_DOWNLOAD_URL }
+  // CTA v pill: jen výdejny sekce → registrace. V pacientské sekci se tlačítko nezobrazuje.
+  const cta = isDistributor ? { label: '30 dní ZDARMA', href: REGISTER_URL } : null
 
   return (
     <GridSection
@@ -42,9 +40,11 @@ export default function Header() {
             // Mezery/odsazení škálují až od 1200 px (kde se objeví navigace), aby na úzkém
             // desktopu CTA nepřetékalo pill.
             gap: { xs: 1.25, lg: fluid(16, 72, 1200, 1920) },
-            py: { xs: 0.75, lg: fluid(20, 40, 1200, 1920) },
-            pl: { xs: 2.5, lg: fluid(28, 100, 1200, 1920) },
-            pr: { xs: 1, lg: fluid(24, 50, 1200, 1920) },
+            py: { xs: 0.75, lg: fluid(32, 40, 1200, 1920) },
+            pl: { xs: 2.5, lg: fluid(50, 100, 1200, 1920) },
+            // Pacientská sekce nemá CTA tlačítko → pravý padding srovnáme s levým.
+            // Výdejnová sekce má CTA (vlastní vnitřní padding), proto zůstává užší pr.
+            pr: { xs: 1, lg: isDistributor ? fluid(24, 50, 1200, 1920) : fluid(50, 100, 1200, 1920) },
           }}
         >
           {/* Logo: mr:auto na desktopu odtlačí navigaci a CTA doprava */}
@@ -74,10 +74,12 @@ export default function Header() {
             )
           })}
 
-          {/* CTA: jen desktop */}
-          <Button variant="contained" color="secondary" href={cta.href} target="_blank" rel="noopener noreferrer" sx={{ display: { xs: 'none', lg: 'inline-flex' }, color: '#fff', p: fluid(12, 18), fontSize: fluid(16, 20), whiteSpace: 'nowrap' }}>
-            {cta.label}
-          </Button>
+          {/* CTA: jen desktop, jen ve výdejnové sekci */}
+          {cta && (
+            <Button variant="contained" color="secondary" href={cta.href} target="_blank" rel="noopener noreferrer" sx={{ display: { xs: 'none', lg: 'inline-flex' }, color: '#fff', p: fluid(12, 18), fontSize: fluid(16, 20), whiteSpace: 'nowrap' }}>
+              {cta.label}
+            </Button>
+          )}
         </Box>
 
         {/* Hamburger: mobil i tablet */}

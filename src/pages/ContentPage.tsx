@@ -20,7 +20,7 @@ const isHeading = (s: string) => s === s.toUpperCase()
 
 // Univerzální šablona podstránky – nadpis a obchodní podmínky, banner „2 měsíce ZDARMA"
 // a kontakt spojený s patičkou do jedné karty.
-// Fallback obrázky galerie (3 v řadě); zatím 3× stejný vizuál.
+// Fallback obrázky galerie (3 v řadě) – stejný vizuál pro všechny tři pozice.
 const GALLERY_IMAGES = [
   '/images/uni-gallery.webp',
   '/images/uni-gallery.webp',

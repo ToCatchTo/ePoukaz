@@ -39,11 +39,10 @@ test('dynamické stránky z API se přidají do pacientské sady', () => {
   expect(oNas[0].closest('a')).toHaveAttribute('href', '/stranka/o-nas')
 })
 
-test('CTA v zákaznické sadě je „Stáhnout aplikaci"', () => {
+test('zákaznická sada nemá v pill CTA tlačítko', () => {
   renderAt('/')
-  expect(screen.getByText('Stáhnout aplikaci')).toBeInTheDocument()
-  // odznak „30 dní ZDARMA" se v pacientské sadě nezobrazuje
-  expect(screen.queryByText('30 dní ZDARMA')).toBeNull()
+  // V pacientské sekci se v pill nezobrazuje žádné CTA tlačítko (dříve „Stáhnout aplikaci")
+  expect(screen.queryByText('Stáhnout aplikaci')).toBeNull()
 })
 
 test('CTA ve výdejny sadě je „30 dní ZDARMA"', () => {

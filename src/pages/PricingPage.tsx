@@ -9,7 +9,7 @@ import Footer from '../components/layout/Footer'
 import GridSection from '../components/layout/GridSection'
 import { PAGE_PX } from '../theme/grid'
 import { fluid } from '../theme/fluid'
-import { CENIK_HEAD, PRICING, COMPARE_ROWS, SMS_NOTE } from '../data/content'
+import { PRICING_HEAD, PRICING, COMPARE_ROWS, SMS_NOTE } from '../data/content'
 import { useTariffs } from '../hooks/useApi'
 import { useImagesReady } from '../hooks/useImagesReady'
 import { Seo } from '../components/common/Seo'
@@ -61,7 +61,7 @@ function rowLabel(label: string) {
 
 // Tučná část podtitulu
 const SUB_BOLD = '30 dní ZDARMA'
-const [SUB_BEFORE, SUB_AFTER] = CENIK_HEAD.subtitle.split(SUB_BOLD)
+const [SUB_BEFORE, SUB_AFTER] = PRICING_HEAD.subtitle.split(SUB_BOLD)
 
 export default function PricingPage() {
   const { data: tariffs, loading } = useTariffs()
@@ -100,7 +100,7 @@ export default function PricingPage() {
           <SectionCard sx={{ bgcolor: '#F5F5F5', px: fluid(20, 100), pt: fluid(48, 85), pb: fluid(80, 150) }}>
             {/* Nadpis + podtitul */}
             <Stack sx={{ textAlign: 'center', mb: fluid(56, 95), alignItems: 'center', gap: fluid(20, 35) }}>
-              <Typography variant="h3" sx={{ maxWidth: 760 }}>{CENIK_HEAD.title}</Typography>
+              <Typography variant="h3" sx={{ maxWidth: 760 }}>{PRICING_HEAD.title}</Typography>
               <Typography sx={{ fontSize: fluid(15, 18), maxWidth: 590, color: 'text.primary', lineHeight: 1.6 }}>
                 {SUB_BEFORE}<b>{SUB_BOLD}</b>{SUB_AFTER}
               </Typography>

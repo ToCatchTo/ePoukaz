@@ -1,4 +1,4 @@
-// SEO texty jednotlivých rout (title bez brandu, description ~150 znaků). Draft.
+// SEO texty jednotlivých rout: title bez brandu, description cca 150 znaků.
 export type SeoMeta = { title?: string; description: string }
 
 export const SEO: Record<string, SeoMeta> = {

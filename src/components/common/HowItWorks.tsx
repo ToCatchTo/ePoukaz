@@ -5,7 +5,7 @@ import { fluid } from '../../theme/fluid'
 import GridSection from '../layout/GridSection'
 import { HOW_STEPS } from '../../data/content'
 
-// TODO: až budou dodány obrázky, každý krok dostane vlastní; zatím společný placeholder.
+// Společný obrázek pro všechny kroky (jedna položka na krok).
 const STEP_IMAGES = HOW_STEPS.map(() => '/images/howitworks-phone.webp')
 
 // Sekce „Jak to funguje" – vlevo accordion kroků (vždy právě jeden otevřený),

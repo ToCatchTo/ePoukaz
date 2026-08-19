@@ -1,11 +1,42 @@
 import { useState } from 'react'
 import { Box, Collapse, Divider, Stack, Typography } from '@mui/material'
+import type { SxProps, Theme } from '@mui/material'
 import CircleArrowButton from './CircleArrowButton'
 import GridSection from '../layout/GridSection'
 import { CARD_R } from '../../theme/layout'
 import { fluid } from '../../theme/fluid'
 
 type Item = { title: string; body: string }
+
+// Vykreslí tělo položky. Bloky oddělené prázdným řádkem (\n\n) jsou odstavce. Blok, jehož
+// řádky začínají „• ", je odrážkový seznam s předsazenou odrážkou – zalomí-li se text bodu
+// na víc řádků, další řádky se zarovnají pod text, ne pod puntík (hanging indent přes flex).
+function InfoBody({ body, sx }: { body: string; sx?: SxProps<Theme> }) {
+  const blocks = body.split('\n\n')
+  return (
+    <Box sx={sx}>
+      {blocks.map((block, bi) => {
+        const lines = block.split('\n')
+        const isBullets = lines.every((l) => l.startsWith('• '))
+        if (isBullets) {
+          return (
+            <Box component="ul" key={bi} sx={{ listStyle: 'none', m: 0, mt: bi ? '1em' : 0, p: 0 }}>
+              {lines.map((l, li) => (
+                <Box component="li" key={li} sx={{ display: 'flex', gap: '0.4em', mt: li ? '0.5em' : 0 }}>
+                  <Box component="span" aria-hidden="true" sx={{ flexShrink: 0 }}>•</Box>
+                  <Box component="span">{l.slice(2)}</Box>
+                </Box>
+              ))}
+            </Box>
+          )
+        }
+        return (
+          <Box component="p" key={bi} sx={{ m: 0, mt: bi ? '1em' : 0 }}>{block}</Box>
+        )
+      })}
+    </Box>
+  )
+}
 
 // Infobox accordion – vlevo nadpisy (aktivní teal + underline), vpravo (lg+) šedý panel
 // s tělem aktivní položky; na mobilu/tabletu se tělo rozbaluje inline.
@@ -26,28 +57,28 @@ export default function InfoAccordion({ items }: { items: Item[] }) {
                     <Typography className="info-title" variant="h5" sx={{ fontSize: fluid(18, 26), color: isOpen ? 'secondary.main' : '#000', textDecoration: isOpen ? 'underline' : 'none', transition: 'color 0.25s ease' }}>
                       {it.title}
                     </Typography>
-                    {/* Desktop: šipka je vždy přítomná (u aktivní zprůhledněná), drží stejné místo,
-                        takže se řádky nepřeskládají a levý seznam při přepnutí neposkočí.
+                    {/* Desktop: šipka je vždy přítomná; u aktivní položky zezelená (teal) místo
+                        černé, takže drží stejné místo a levý seznam při přepnutí neposkočí.
                         Mobil/tablet: šipka dolů/nahoru u každé položky. */}
                     <CircleArrowButton
                       onClick={() => setOpen(i)}
-                      sx={{ display: { xs: 'none', lg: 'inline-flex' }, opacity: isOpen ? 0 : 1, pointerEvents: isOpen ? 'none' : 'auto', transition: 'opacity 0.25s ease' }}
+                      color={isOpen ? 'secondary.main' : '#000'}
+                      sx={{ display: { xs: 'none', lg: 'inline-flex' } }}
                     />
                     <CircleArrowButton onClick={() => setOpen(i)} src="/static-icons/arrow-down.svg" rotate={isOpen ? 180 : 0} size={{ xs: 28, sm: 36 }} sx={{ display: { xs: 'inline-flex', lg: 'none' } }} />
                   </Stack>
                   {/* Tělo inline jen na mobilu/tabletu – rozbalí se (Collapse) a text se prolne (fade-in) */}
                   <Box sx={{ display: { lg: 'none' } }}>
                     <Collapse in={isOpen} unmountOnExit timeout={350} easing="cubic-bezier(0.4, 0, 0.2, 1)">
-                      <Typography
+                      <InfoBody
+                        body={it.body}
                         sx={{
-                          mt: 2, fontSize: 16, lineHeight: 1.7, whiteSpace: 'pre-line',
+                          mt: 2, fontSize: 16, lineHeight: 1.7,
                           animation: 'infoStepFadeIn 0.35s ease',
                           '@keyframes infoStepFadeIn': { from: { opacity: 0 }, to: { opacity: 1 } },
                           '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
                         }}
-                      >
-                        {it.body}
-                      </Typography>
+                      />
                     </Collapse>
                   </Box>
                 </Box>
@@ -71,7 +102,7 @@ export default function InfoAccordion({ items }: { items: Item[] }) {
             }}
           >
             <Typography variant="h5" sx={{ fontSize: 26, color: 'secondary.main', mb: fluid(40, 51) }}>{items[open].title}</Typography>
-            <Typography sx={{ fontSize: 18, lineHeight: 1.67, maxWidth: 392, whiteSpace: 'pre-line' }}>{items[open].body}</Typography>
+            <InfoBody body={items[open].body} sx={{ fontSize: 18, lineHeight: 1.67, maxWidth: 392 }} />
           </Box>
         </Box>
       </Box>

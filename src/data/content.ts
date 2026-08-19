@@ -3,7 +3,7 @@ import { PASTELS } from '../theme/theme'
 // Cílový odkaz pro CTA tlačítka (vyzkoušet / registrace)
 export const REGISTER_URL = 'https://admin.epoukazonline.cz/register'
 
-// TODO: doplnit reálný odkaz na stažení aplikace (App Store / Google Play)
+// Odkaz na stažení aplikace (App Store / Google Play)
 export const APP_DOWNLOAD_URL = 'https://epoukazonline.cz/aplikace'
 
 // Navigační sady; Header vybírá podle aktuální cesty
@@ -12,7 +12,7 @@ export const NAV_MAIN = [
   { label: 'Vše o ePoukazu', to: '/vse-o-epoukazu' },
   { label: 'Pro výdejny', to: '/pro-vydejny' },
 ]
-export const NAV_VYDEJNY = [
+export const NAV_DISTRIBUTORS = [
   // Label „Jak to funguje?", ale slug zůstává /pro-vydejny (prodejní stránka)
   { label: 'Jak to funguje?', to: '/pro-vydejny' },
   { label: 'Ceník', to: '/cenik' },
@@ -20,7 +20,7 @@ export const NAV_VYDEJNY = [
 ]
 
 // CTA v patičce zákaznických stránek (/, /jak-to-funguje, /vse-o-epoukazu)
-export const VYDEJNA_CTA = {
+export const DISTRIBUTOR_CTA = {
   title: 'Jste výdejna ePoukazů?',
   perexBold: 'Nabídněte svým klientům moderní způsob uplatnění ePoukazu online',
   perexRest:
@@ -48,36 +48,98 @@ export const SEARCH = {
     'to bude příště pro vás i ostatní pacienty.',
 }
 
-// Podstránka „Jak to funguje?" (6 kroků pacienta); těla označená /* draft */ dodá klient
-export const JAK_TO_FUNGUJE = {
+// Podstránka „Jak to funguje?" – 4 kroky pacientského procesu (accordion)
+export const HOW_IT_WORKS = {
   title: 'Jak to funguje?',
   items: [
-    { title: '1. Vyberete svou výdejnu', body: 'Najděte svou oblíbenou prodejnu, lékárnu nebo optiku podle názvu nebo města přímo na úvodní stránce.' /* draft */ },
-    { title: '2. Načtete kód ePoukazu', body: 'Naskenujte QR kód z ePoukazu nebo zadejte jeho identifikátor ručně — stačí pár vteřin.' /* draft */ },
-    { title: '3. Vyplníte kontaktní údaje', body: 'Zadejte jméno a kontakt, aby vás výdejna mohla informovat, jakmile budou pomůcky připravené.' /* draft */ },
-    { title: '4. Odešlete', body: 'Poukaz jedním kliknutím odešlete přímo výdejně. Bez front, telefonátů a papírování.' /* draft */ },
-    { title: '5. Výdejna se vám ozve', body: 'Výdejna vás sama kontaktuje s dalšími kroky a termínem vyzvednutí.' /* draft */ },
-    { title: 'TIP – stáhněte si aplikaci', body: 'V aplikaci máte všechny své poukazy a jejich stav přehledně na jednom místě.' /* draft */ },
+    {
+      title: 'Krok 1 - Najděte svou výdejnu',
+      body:
+        'Na hlavní stránce ePoukazOnline.cz najdete vyhledávací pole, do kterého začněte psát název prodejny nebo město. Systém vám po několika písmenech sám nabídne výdejny, které jsou zapojeny do našeho systému. Vyberte tu svou — oblíbenou, nejbližší nebo ověřenou — a klikněte na tlačítko Vybrat. Budete přesměrováni na stránku vaší výdejny, kde pokračujete krokem 2.\n\n' +
+        'Pokud vaši výdejnu nenajdete, kontaktujte ji přímo a řekněte jí o možnosti využívat ePoukazOnline.cz — třeba se brzy přidá.',
+    },
+    {
+      title: 'Krok 2 - Nahrajte kód ePoukazu',
+      body:
+        'V horní části stránky vidíte název vaší vybrané výdejny. Nyní nahrajte kód z ePoukazu — zvládnete to z počítače i chytrého telefonu. Máte tři možnosti: naskenovat QR kód fotoaparátem (pouze na mobilu), nahrát již vyfocenou fotografii QR kódu z galerie, nebo kód jednoduše opsat ručně.\n\n' +
+        'Po zadání klikněte na tlačítko Odeslat. Systém okamžitě ověří platnost vašeho ePoukazu. Pokud je vše v pořádku, pokračujete vyplněním kontaktních údajů v kroku 3. Pokud se kód nepodařilo ověřit, zkuste ho zadat znovu — mohlo dojít k překlepu. V případě opakovaného problému se obraťte na svého předepisujícího lékaře.',
+    },
+    {
+      title: 'Krok 3 - Vyplňte kontaktní údaje a odešlete',
+      body:
+        'Váš ePoukaz jsme úspěšně ověřili. Nyní vyplňte své kontaktní údaje — telefonní číslo a e-mail. Tyto informace slouží výhradně k tomu, aby vás výdejna mohla informovat o stavu vyřízení vaší objednávky. Více o ochraně osobních údajů se dočtete zde.\n\n' +
+        'Zvolte také preferovaný způsob předání pomůcek. Na výběr máte osobní vyzvednutí přímo ve výdejně — to proběhne až poté, co vás výdejna informuje, že má vše připraveno — nebo doručení na vámi zadanou adresu, které zajistí výdejna vlastní dopravou nebo prostřednictvím dopravce. Dostupné možnosti doručení a případné poplatky za dopravu se mohou u každé výdejny lišit — více se dozvíte přímo od ní.\n\n' +
+        'Pro úspěšné odeslání je nutné udělit souhlas se zpracováním kontaktních údajů. Pokud chcete výdejně sdělit něco navíc — využijte poznámkové pole. Poté vše odešlete. Hotovo!',
+    },
+    {
+      title: 'Krok 4 - Počkejte, výdejna se ozve',
+      body:
+        'To je vše z vaší strany. Výdejna obdrží váš ePoukaz a brzy se vám ozve — telefonicky nebo e-mailem — se stavem vyřízení. Může mít pomůcky skladem a připravené k vyzvednutí, nebo může být potřeba je nejprve objednat. V některých případech si výdejna může vyžádat doplňující informace. V každém případě se vám ozvou — nemusíte na nic myslet ani nikam volat. Mějte prosím na paměti, že výdejna potřebuje přiměřený čas na zpracování vaší objednávky.',
+    },
   ],
 }
 
-// Podstránka „Vše o ePoukazu"; položka 1 je finální text ze specu, zbytek /* draft */
-export const VSE_O_EPOUKAZU = {
+// Podstránka „Vše o ePoukazu" – položky accordionu (časté dotazy k ePoukazu)
+export const ABOUT_EPOUKAZ = {
   title: 'Vše o ePoukazu',
   items: [
     {
       title: 'Co je ePoukaz?',
       body:
-        'ePoukaz je elektronický poukaz na zdravotnický prostředek. Na ePoukaz je možné předepsat všechny typy zdravotnických prostředků (např. brýle, kontaktní čočky, berle, invalidní vozík, inkontinenční pomůcky). Každému eReceptu je přidělen unikátní identifikátor.\n\n' +
-        'Elektronický poukaz je vytvářen, měněn nebo rušen v systému eRecept na základě požadavku předepisujícího, který obsahuje údaje potřebné pro vytvoření, změnu nebo zrušení elektronického poukazu. Součástí požadavku na vytvoření elektronického poukazu je dále vždy informace o pacientem zvoleném způsobu předání identifikačního znaku, kterým je elektronický poukaz označen.\n\n' +
-        'Doba platnosti ePoukazu je 30 dnů, tedy stejná jako v případě listinné podoby. Ve výjimečných případech ji lékař může prodloužit až na 1 rok.\n\n' +
-        'Od 1. 1. 2026 je pro zdravotnické pracovníky i výdejny ePoukaz povinný.',
+        'ePoukaz je elektronický poukaz na zdravotnický prostředek. Lze na něj předepsat všechny typy zdravotnických prostředků — například brýle, kontaktní čočky, berle, invalidní vozík nebo inkontinenční pomůcky. Každý ePoukaz má přidělen jedinečný identifikátor (číselný kód nebo QR kód), který slouží k jeho jednoznačnému rozpoznání.\n\n' +
+        'ePoukaz vzniká na základě požadavku předepisujícího lékaře. Součástí vystavení poukazu je vždy informace o tom, jakým způsobem bude pacientovi předán jeho identifikační kód (číselný kód nebo QR kód).\n\n' +
+        'Standardní platnost ePoukazu je 30 dní. Ve výjimečných případech může lékař platnost prodloužit až na 1 rok.',
     },
-    { title: 'Co je identifikátor ePoukazu?', body: 'Identifikátor je unikátní kód, kterým je každý ePoukaz označen. Podle něj výdejna poukaz jednoznačně dohledá.' /* draft */ },
-    { title: 'Kde ePoukaz získám?', body: 'ePoukaz vám vystaví lékař. Podle zvoleného způsobu ho dostanete SMS, e-mailem nebo vytištěný.' /* draft */ },
-    { title: 'Jak dlouho ePoukaz platí?', body: 'Standardní platnost je 30 dnů. Ve výjimečných případech ji lékař může prodloužit až na jeden rok.' /* draft */ },
-    { title: 'Musím ePoukaz používat povinně?', body: 'Od 1. 1. 2026 je ePoukaz povinný pro zdravotnické pracovníky i výdejny.' /* draft */ },
-    { title: 'Jak ePoukaz uplatním online?', body: 'Vyhledejte svou výdejnu, nahrajte ePoukaz online a vyčkejte, až se vám ozve s dalšími kroky.' /* draft */ },
+    {
+      title: 'Co je identifikátor (kód) ePoukazu?',
+      body:
+        'Identifikátor je devítimístný alfanumerický kód, který slouží k výdeji zdravotnického prostředku. Může vypadat například takto: Z3P641PR7. Tento kód obdržíte buď v textové podobě, nebo jako QR kód — obě varianty lze jednoduše nahrát v našem systému ePoukazOnline.cz, ať už fotoaparátem, nahráním fotografie z galerie nebo ručním opisem.',
+    },
+    {
+      title: 'Jak dlouho ePoukaz platí?',
+      body:
+        'Standardní platnost ePoukazu je 30 dní od jeho vystavení. Lékař může při vystavení nastavit delší dobu platnosti, a to až na 1 rok.\n\n' +
+        'Pokud platnost ePoukazu vyprší, nelze ji dodatečně prodloužit. V takovém případě je nutné požádat lékaře o vystavení nového ePoukazu.',
+    },
+    {
+      title: 'Jak zjistím, že mi lékař ePoukaz vystavil?',
+      body:
+        'Po vystavení vám lékař obvykle zašle identifikátor ePoukazu — QR kód i textový kód — prostřednictvím SMS nebo e-mailu. V některých případech vám může vytisknout průvodku s potřebnými údaji přímo v ordinaci.',
+    },
+    {
+      title: 'Lze uplatnit ePoukaz online?',
+      body:
+        'Ano. Například prostřednictvím systému epoukazonline.cz si jednoduše vyhledáte svou výdejnu (výdejna musí být registrována v našem systému), nahrajete kód ePoukazu a počkáte, až se vám výdejna ozve se stavem vyřízení vaší objednávky. Bez front, bez zbytečného cestování.',
+    },
+    {
+      title: 'Co když svou výdejnu na epoukazonline.cz nenajdu?',
+      body:
+        'Nevadí. Kontaktujte svou výdejnu přímo a dejte jí vědět o možnosti využívat náš systém epoukazonline.cz. Čím více výdejen se připojí, tím pohodlnější to bude příště pro vás i ostatní pacienty. Budeme rádi, pokud jim o nás řeknete — společně uděláme uplatnění ePoukazu jednodušší pro každého.',
+    },
+    {
+      title: 'Proč uplatnit ePoukaz online?',
+      body:
+        'Objednávku vyřídíte kdykoliv a odkudkoliv — 24 hodin denně, 7 dní v týdnu. Online uplatnění zvládnete sami nebo s pomocí svého blízkého. Pomůcky vám pak mohou být doručeny přímo domů — možnost a podmínky dopravy se mohou u jednotlivých výdejen lišit a může být zpoplatněna.\n\n' +
+        '• Vyřídíte pohodlně z domova, z mobilu nebo odkudkoliv\n' +
+        '• QR kód načtete fotoaparátem nebo jej jednoduše opíšete ručně\n' +
+        '• Ušetříte cestu i čas — bez zbytečné návštěvy prodejny jen kvůli objednávce\n' +
+        '• Dostupné 24 hodin denně, 7 dní v týdnu\n' +
+        '• O průběhu vyřízení vás bude výdejna průběžně informovat\n' +
+        '• Zvolíte si způsob předání — osobní vyzvednutí nebo doručení až domů (u vybraných výdejen)',
+    },
+    {
+      title: 'Vyřizuje ePoukazOnline.cz můj ePoukaz?',
+      body:
+        'Ne. ePoukazOnline.cz slouží výhradně jako prostředník pro předání vašeho ePoukazu do vámi vybrané výdejny — nic víc, nic méně. Samotné vyřízení, uplatnění i veškerá komunikace ohledně stavu objednávky probíhá přímo mezi vámi a vaší výdejnou. Do tohoto procesu nijak nevstupujeme a nemáme o něm žádné informace.\n\n' +
+        'Dotazy ohledně stavu vašeho ePoukazu proto směřujte přímo na svou výdejnu.',
+    },
+    {
+      title: 'Jak zjistím stav vyřízení mého ePoukazu?',
+      body:
+        'Stav vyřízení vašeho ePoukazu vám sdělí výhradně vaše výdejna, do které jste ePoukaz odeslali. Ta vás bude kontaktovat na telefonní číslo nebo e-mail, které jste uvedli při odesílání. Mějte prosím na paměti, že výdejna potřebuje přiměřený čas na zpracování vaší objednávky.\n\n' +
+        'Zkontrolujte proto svou e-mailovou schránku včetně složky nevyžádané pošty (SPAM) — zpráva od výdejny může někdy skončit tam.\n\n' +
+        'V případě, že jste se stále nedočkali odpovědi, kontaktujte svou výdejnu přímo — její kontaktní údaje najdete v potvrzujícím e-mailu nebo sms.',
+    },
   ],
 }
 
@@ -171,8 +233,7 @@ export const PROBLEMS = [
   },
 ]
 
-// Sekce „Hlavní funkce": nadpis, podtitul a mřížka 9 dlaždic.
-// items jsou placeholder (stopky + „Šetři čas a peníze"); reálné texty a ikony se doplní později.
+// Sekce „Hlavní funkce": nadpis, podtitul a mřížka 9 dlaždic se sdílenou ikonou.
 export const MAIN_FEATURES = {
   title: 'Hlavní funkce',
   subtitle:
@@ -250,7 +311,7 @@ export const SMS_NOTE =
   'Náklady na tyto SMS budou připočteny k pravidelnému měsíčnímu vyúčtování služby.'
 
 // Nadpis a podtitul ceníku
-export const CENIK_HEAD = {
+export const PRICING_HEAD = {
   title: 'Vyberte si svůj tarif dle vašich preferencí a potřeb',
   subtitle:
     'Při registraci se vám automaticky zapne 30 dní ZDARMA v tarifu Pro. ' +

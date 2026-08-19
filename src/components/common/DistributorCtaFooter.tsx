@@ -1,14 +1,14 @@
 import { Box, Button, Divider, Link as MuiLink, Stack, Typography } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import DecorLines from './DecorLines'
-import { VYDEJNA_CTA, FOOTER } from '../../data/content'
+import { DISTRIBUTOR_CTA, FOOTER } from '../../data/content'
 import { CARD_R } from '../../theme/layout'
 import { fluid } from '../../theme/fluid'
 import GridSection from '../layout/GridSection'
 
 // Zjednodušená patička pro zákaznické stránky (/, /jak-to-funguje, /vse-o-epoukazu).
 // CTA karta „Jste výdejna ePoukazů?" s provozovatelem, pod kartou kredit agentury.
-export default function VydejnaCtaFooter() {
+export default function DistributorCtaFooter() {
   return (
     <>
       <Box sx={{ position: 'relative' }}>
@@ -21,11 +21,11 @@ export default function VydejnaCtaFooter() {
                 variant="h2"
                 sx={{ color: 'primary.main', textDecoration: 'underline', textUnderlineOffset: '6px', maxWidth: 1088, fontSize: fluid(30, 50), lineHeight: 1.14 }}
               >
-                {VYDEJNA_CTA.title}
+                {DISTRIBUTOR_CTA.title}
               </Typography>
               <Typography sx={{ color: 'primary.main', fontSize: fluid(16, 26), maxWidth: 876, lineHeight: 1.4 }}>
-                <Box component="span" sx={{ fontWeight: 700 }}>{VYDEJNA_CTA.perexBold}</Box>
-                {VYDEJNA_CTA.perexRest}
+                <Box component="span" sx={{ fontWeight: 700 }}>{DISTRIBUTOR_CTA.perexBold}</Box>
+                {DISTRIBUTOR_CTA.perexRest}
               </Typography>
               <Button
                 variant="contained"
@@ -35,14 +35,14 @@ export default function VydejnaCtaFooter() {
                 endIcon={<Box component="img" src="/static-icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 43), height: fluid(30, 43) }} />}
                 sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), fontWeight: 500, height: fluid(60, 70), mt: `${fluid(20, 40)} !important`, '& .MuiButton-endIcon': { ml: '20px', mr: 0 } }}
               >
-                {VYDEJNA_CTA.button}
+                {DISTRIBUTOR_CTA.button}
               </Button>
             </Stack>
 
             <Divider sx={{ mt: fluid(50, 61), mb: fluid(36, 68), borderWidth: 1 }} />
 
             <Typography sx={{ textAlign: 'center', fontSize: 16, color: '#000' }}>
-              {VYDEJNA_CTA.provider}
+              {DISTRIBUTOR_CTA.provider}
             </Typography>
           </Box>
         </GridSection>

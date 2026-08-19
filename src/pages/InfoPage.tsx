@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import InfoAccordion from '../components/common/InfoAccordion'
 import DecorLines from '../components/common/DecorLines'
-import VydejnaCtaFooter from '../components/common/VydejnaCtaFooter'
+import DistributorCtaFooter from '../components/common/DistributorCtaFooter'
 import GridSection from '../components/layout/GridSection'
 import { Seo } from '../components/common/Seo'
 import { SEO } from '../data/seo'
@@ -31,7 +31,7 @@ export default function InfoPage({ data, path }: { data: InfoData; path?: string
       </Box>
 
       <Box sx={{ mt: fluid(120, 200) }}>
-        <VydejnaCtaFooter />
+        <DistributorCtaFooter />
       </Box>
     </Box>
   )

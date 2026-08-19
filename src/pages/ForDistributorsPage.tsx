@@ -13,7 +13,7 @@ import { SEO } from '../data/seo'
 
 // Stránka „Pro výdejny" – hero, jak to funguje, 6 problémů, hlavní funkce, CTA + patička.
 // Hero, „jak to funguje" a patička jsou zarovnané na grid; karty 6 problémů jsou pouze centrované (PAGE_PX).
-export default function ProVydejnyPage() {
+export default function ForDistributorsPage() {
   return (
     <Box data-testid="page-home">
       <Seo path="/pro-vydejny" title={SEO['/pro-vydejny'].title} description={SEO['/pro-vydejny'].description} />

@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { CircularProgress, Box } from '@mui/material'
 import PageLayout from './components/layout/PageLayout'
 import ScrollToTop from './components/common/ScrollToTop'
-import { JAK_TO_FUNGUJE, VSE_O_EPOUKAZU } from './data/content'
+import { HOW_IT_WORKS, ABOUT_EPOUKAZ } from './data/content'
 
 const HomePage = lazy(() => import('./pages/HomePage'))
-const ProVydejnyPage = lazy(() => import('./pages/ProVydejnyPage'))
+const ForDistributorsPage = lazy(() => import('./pages/ForDistributorsPage'))
 const PricingPage = lazy(() => import('./pages/PricingPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
 const ContentPage = lazy(() => import('./pages/ContentPage'))
@@ -20,15 +20,15 @@ export function AppRoutes() {
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/pro-vydejny" element={<ProVydejnyPage />} />
+          <Route path="/pro-vydejny" element={<ForDistributorsPage />} />
           <Route path="/cenik" element={<PricingPage />} />
           <Route path="/kontakt" element={<ContactPage />} />
           <Route path="/faq" element={<ContentPage title="Časté dotazy" />} />
           <Route path="/obchodni-podminky" element={<ContentPage title="Obchodní podmínky" />} />
           <Route path="/provozovna/:publicHash" element={<ContentPage />} />
           <Route path="/stranka/:slug" element={<DynamicPage />} />
-          <Route path="/jak-to-funguje" element={<InfoPage data={JAK_TO_FUNGUJE} path="/jak-to-funguje" />} />
-          <Route path="/vse-o-epoukazu" element={<InfoPage data={VSE_O_EPOUKAZU} path="/vse-o-epoukazu" />} />
+          <Route path="/jak-to-funguje" element={<InfoPage data={HOW_IT_WORKS} path="/jak-to-funguje" />} />
+          <Route path="/vse-o-epoukazu" element={<InfoPage data={ABOUT_EPOUKAZ} path="/vse-o-epoukazu" />} />
         </Route>
       </Routes>
     </Suspense>

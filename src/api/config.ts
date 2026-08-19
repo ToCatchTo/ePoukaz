@@ -1,6 +1,6 @@
-// Token je dočasně v klientu (přes VITE_ se zapéká do bundle, je veřejně čitelný) –
-// jen pro fázi testování. V produkci řešit X-AUTH-TOKEN na proxy/serveru a
-// VITE_API_BASE_URL přepnout na proxy cestu. Frontend vkládá token na jediném místě: authHeaders().
+// Token se přes VITE_ proměnnou zapéká do bundle, je tedy veřejně čitelný. Pro produkci patří
+// X-AUTH-TOKEN na proxy/server a VITE_API_BASE_URL na proxy cestu. Frontend token vkládá na
+// jediném místě: authHeaders().
 export const API_BASE_URL: string =
   import.meta.env.VITE_API_BASE_URL ?? 'https://api.epoukazonline.cz'
 

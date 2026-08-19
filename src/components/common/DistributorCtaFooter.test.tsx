@@ -2,12 +2,12 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { theme } from '../../theme/theme'
-import VydejnaCtaFooter from './VydejnaCtaFooter'
+import DistributorCtaFooter from './DistributorCtaFooter'
 
 const wrap = () =>
   render(
     <ThemeProvider theme={theme}>
-      <MemoryRouter><VydejnaCtaFooter /></MemoryRouter>
+      <MemoryRouter><DistributorCtaFooter /></MemoryRouter>
     </ThemeProvider>,
   )
 

@@ -49,7 +49,7 @@ export default function ContactBlock() {
     if (!message.trim()) next.message = 'Napište nám zprávu.'
     setErrors(next)
     if (Object.keys(next).length > 0) return
-    // Zatím jen vizuál bez skutečného odeslání: potvrdíme a vyčistíme pole.
+    // Bez backendového odeslání: po validaci potvrdíme a vyčistíme pole.
     setSent(true)
     setEmail('')
     setMessage('')
