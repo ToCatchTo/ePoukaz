@@ -130,7 +130,7 @@ export default function HeroSection() {
   return (
     <GridSection>
       {/* zIndex 0 = vlastní stacking context: recenze se zIndex -1 zůstanou za rukou, ale ne za fialovým pozadím stránky */}
-      <Box component="section" sx={{ position: 'relative', zIndex: 0, pt: { xs: 2 }, [SPLIT_UP]: { pt: '125px', minHeight: 640 } }}>
+      <Box component="section" sx={{ position: 'relative', zIndex: 0, [SPLIT_UP]: { minHeight: 515 } }}>
         {/* Levý sloupec – text (nad vším). V režimu vedle sebe (≥ HERO_SPLIT) se pruh zúží (720→540),
             aby zmenšující se kompozice vpravo měla dost místa a nepřekrývala text. */}
         <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%' }, [SPLIT_UP]: { maxWidth: fluid(310, 730, HERO_SPLIT, 1920) }, [HERO_BAND]: { maxWidth: fluid(355, 415, 900, 1280) } }}>
@@ -220,7 +220,9 @@ export default function HeroSection() {
             // které z vw nejde získat dělením.
             transformOrigin: '100% 50%',
             transform: `translateX(${fluid(140, 0, HERO_SPLIT, 1920)}) scale(${fluidScale(0.72, 1, HERO_SPLIT, 1920)})`,
-            top: fluid(20, 0, HERO_SPLIT, 1920), // posun dolů při zmenšování
+            // Sekce už nemá horní padding; kompozici (ruka + recenze) i vlny posuneme o 125 px nahoru,
+            // aby ruka lícovala s nadpisem a zápěstí zůstalo schované ve vlnách (viz minHeight sekce −125).
+            top: fluid(-105, -125, HERO_SPLIT, 1920),
             // V pásmu 900–1280 je kompozice víc vlevo (malý posun), aby Gábina zasahovala
             // do textu a text ji mohl obtékat (varianta C); nad 1280 platí širší posun výše.
             [HERO_BAND]: {

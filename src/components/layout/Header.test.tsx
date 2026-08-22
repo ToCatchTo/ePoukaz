@@ -45,7 +45,8 @@ test('hamburger otevře a zavře mobilní menu', () => {
   renderAt('/pro-vydejny')
   fireEvent.click(screen.getByRole('button', { name: 'Otevřít menu' }))
   const dialog = screen.getByRole('dialog', { name: 'Menu' })
+  expect(dialog).not.toHaveAttribute('inert') // otevřené menu je interaktivní
   expect(within(dialog).getByText('Ceník')).toBeInTheDocument()
   fireEvent.click(within(dialog).getByRole('button', { name: 'Zavřít menu' }))
-  expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  expect(dialog).toHaveAttribute('inert') // zavřené menu je inertní (skryté pro AT, bez focusu)
 })

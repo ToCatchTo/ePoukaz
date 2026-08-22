@@ -54,7 +54,9 @@ export default function MobileMenu({
         role="dialog"
         aria-modal="true"
         aria-label="Menu"
-        aria-hidden={!open}
+        // Zavřený panel zůstává v DOM kvůli animaci; `inert` ho skryje pro asistivní technologie
+        // a hlavně z něj odsune focus (na rozdíl od aria-hidden, které při zaostřeném potomkovi hlásí chybu).
+        inert={!open}
         sx={{
           position: 'fixed',
           top: 0,

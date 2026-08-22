@@ -274,11 +274,10 @@ export const TWO_MONTHS = {
 
 // Kontaktní blok
 export const CONTACT = {
-  formHeading: 'Zeptejte se na cokoliv',
+  heading: 'Máte dotaz?\nOzvěte se nám.',
   email: 'info@epoukazonline.cz',
   phone: '+420 800 000 000',
   phoneNote: 'Volejte Po-Pá 9.00-15.00',
-  messageLabel: 'Zanechte nám zprávu a my se vám z pravidla do druhého pracovního dne ozveme',
 }
 
 // Ceník – 3 tarify
