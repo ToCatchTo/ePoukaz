@@ -239,10 +239,11 @@ export const PROBLEMS = [
 export const MAIN_FEATURES = {
   title: 'Vše co váš provoz potřebuje',
   subtitle:
-    '<span style="font-weight: 700;">Představte si přehlednou správu všech ePoukazů na jednom místě</span> — žádné hledání, žádné omyly, ' +
+    '<span style="font-weight: 700;">Představte si přehlednou správu všech ePoukazů na jednom místě</span>' +
+    '<span style="font-family: Poppins; font-weight: 300;"> — žádné hledání, žádné omyly, ' +
     'žádný chaos u přepážky. Automatické notifikace, kompletní přehled klientů, přístup z počítače i ' +
     'telefonu kdykoliv a odkudkoliv. Systém, který pracuje za vás — i když vy už dávno jdete domů. ' +
-    'Jednou se přihlásíte a řeknete si: proč to ještě nemám?',
+    'Jednou se přihlásíte a řeknete si: proč to ještě nemám?</span>',
   items: [
     // řádek 1 (vrcholy sloupců)
     { icon: '/static-icons/stopwatch-light-full.svg', title: 'Šetříte</br> čas sobě' },
