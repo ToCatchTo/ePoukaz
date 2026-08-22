@@ -4,13 +4,25 @@ import { ThemeProvider } from '@mui/material'
 import { theme } from '../../theme/theme'
 import ContactBlock from './ContactBlock'
 import MainFeatures from './MainFeatures'
+import { MAIN_FEATURES } from '../../data/content'
 
 const wrap = (ui: ReactNode) => <ThemeProvider theme={theme}>{ui}</ThemeProvider>
 
-test('sekce Hlavní funkce má nadpis a 9 dlaždic', () => {
+// Titulky dlaždic obsahují HTML (např. „</br>"), renderují se přes dangerouslySetInnerHTML –
+// pro porovnání s DOM z nich odstraníme značky a sjednotíme mezery.
+const plain = (s: string) => s.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+
+test('sekce Vše co váš provoz potřebuje má nadpis a 9 dlaždic', () => {
   render(wrap(<MainFeatures />))
-  expect(screen.getByRole('heading', { name: 'Hlavní funkce' })).toBeInTheDocument()
-  expect(screen.getAllByText('Šetři čas a peníze')).toHaveLength(9)
+  expect(screen.getByRole('heading', { name: 'Vše co váš provoz potřebuje' })).toBeInTheDocument()
+  expect(MAIN_FEATURES.items).toHaveLength(9)
+  for (const it of MAIN_FEATURES.items) {
+    const want = plain(it.title)
+    const tiles = screen.getAllByText(
+      (_, el) => el?.tagName === 'P' && plain(el.textContent ?? '') === want,
+    )
+    expect(tiles.length).toBeGreaterThan(0)
+  }
 })
 
 test('kontaktní blok ukazuje e-mail a má mailto:/tel: odkazy', () => {

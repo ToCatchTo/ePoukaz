@@ -3,7 +3,6 @@ import { MemoryRouter } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { theme } from '../../theme/theme'
 import Header from './Header'
-import * as useApi from '../../hooks/useApi'
 
 const renderAt = (path: string) =>
   render(
@@ -11,8 +10,6 @@ const renderAt = (path: string) =>
       <MemoryRouter initialEntries={[path]}><Header /></MemoryRouter>
     </ThemeProvider>,
   )
-
-beforeEach(() => vi.spyOn(useApi, 'usePages').mockReturnValue({ data: null, loading: true, error: null }))
 
 test('na / ukáže pacientskou sadu', () => {
   renderAt('/')
@@ -30,13 +27,6 @@ test('na /pro-vydejny ukáže výdejny sadu (Ceník, Kontakt)', () => {
 test('na /cenik ukáže výdejny sadu', () => {
   renderAt('/cenik')
   expect(screen.getAllByText('Kontakt').length).toBeGreaterThan(0)
-})
-
-test('dynamické stránky z API se přidají do pacientské sady', () => {
-  vi.spyOn(useApi, 'usePages').mockReturnValue({ data: [{ title: 'O nás', slug: 'o-nas' }], loading: false, error: null })
-  renderAt('/')
-  const oNas = screen.getAllByText('O nás')
-  expect(oNas[0].closest('a')).toHaveAttribute('href', '/stranka/o-nas')
 })
 
 test('zákaznická sada nemá v pill CTA tlačítko', () => {

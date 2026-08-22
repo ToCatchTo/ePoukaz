@@ -30,7 +30,7 @@ export default function ForDistributorsPage() {
       {/* Jak to funguje – vytažené nahoru přes dekorační pás (zIndex 2), aby pás prosvítal jen za okraji.
           Na desktopu (≥ HERO_SPLIT) záporný margin překryje horní část pásu; pod HERO_SPLIT je pás skrytý. */}
       <Box sx={{ position: 'relative', zIndex: 2, mt: { xs: '80px', md: '-5px' }, [SPLIT_UP]: { mt: fluid(100, 220, HERO_SPLIT, 1920) }, mb: fluid(120, 200) }}>
-        <DecorLines sx={{ top: fluid(-100, -120, HERO_SPLIT, 1920), zIndex: -1, display: 'none', '@media (min-width:900px)': { display: 'unset' } }} />
+        <DecorLines sx={{ top: fluid(-70, -120, HERO_SPLIT, 1920), zIndex: -1, display: 'none', '@media (min-width:900px)': { display: 'unset' } }} />
         <HowItWorks />
       </Box>
 

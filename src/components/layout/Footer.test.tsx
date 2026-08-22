@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { theme } from '../../theme/theme'
@@ -8,35 +8,40 @@ import * as useApi from '../../hooks/useApi'
 const renderFooter = (props?: { withCta?: boolean }) =>
   render(<ThemeProvider theme={theme}><MemoryRouter><Footer {...props} /></MemoryRouter></ThemeProvider>)
 
-const company = {
-  name: 'Lékárna Pod Věží',
-  billingIco: '87654321',
-  address: { street: 'Hlavní 42', city: 'Praha', zip: '11000' },
-  logo: null,
-  photos: { exterior: null, interior: null },
-  publicHash: '0698b3c8bfc2',
-}
-
 beforeEach(() => {
-  vi.spyOn(useApi, 'useCompanies').mockReturnValue({ data: null, loading: true, error: null })
   vi.spyOn(useApi, 'usePages').mockReturnValue({ data: null, loading: true, error: null })
 })
 
-test('Footer v „Jak na to?" vypíše podstránky z API jako odkazy na /stranka/{slug}', () => {
-  vi.spyOn(useApi, 'usePages').mockReturnValue({ data: [{ title: 'O nás', slug: 'o-nas' }], loading: false, error: null })
+// Obsah sloupce = nejbližší Grid item kolem jeho nadpisu.
+const column = (title: string) => within(screen.getByText(title).closest('.MuiGrid-root') as HTMLElement)
+
+test('Footer rozdělí podstránky z API do sloupců podle slugu', () => {
+  vi.spyOn(useApi, 'usePages').mockReturnValue({
+    data: [
+      { title: 'Jak nastavit SÚKL', slug: 'jak-nastavit-sukl' },
+      { title: 'Obchodní podmínky', slug: 'obchodni-podminky' },
+      { title: 'Cookies', slug: 'cookies' },
+      { title: 'Tvorba webu se SLEVOU', slug: 'tvorba-webu-se-slevou' },
+    ],
+    loading: false,
+    error: null,
+  })
   renderFooter()
-  const link = screen.getByText('O nás')
-  expect(link.closest('a')).toHaveAttribute('href', '/stranka/o-nas')
+
+  // „Jak na to?" → jen slug jak-*
+  const jak = column('Jak na to?').getByText('Jak nastavit SÚKL')
+  expect(jak.closest('a')).toHaveAttribute('href', '/stranka/jak-nastavit-sukl')
+
+  // „Obecné" → právní stránky (natvrdo dle slugu)
+  expect(column('Obecné').getByText('Obchodní podmínky')).toBeInTheDocument()
+  expect(column('Obecné').getByText('Cookies')).toBeInTheDocument()
+
+  // „Doplňkové služby" → všechny ostatní
+  const other = column('Doplňkové služby').getByText('Tvorba webu se SLEVOU')
+  expect(other.closest('a')).toHaveAttribute('href', '/stranka/tvorba-webu-se-slevou')
 })
 
-test('Footer vypíše provozovny jako odkazy na /provozovna/{hash}', () => {
-  vi.spyOn(useApi, 'useCompanies').mockReturnValue({ data: [company], loading: false, error: null })
-  renderFooter()
-  const link = screen.getByText('Lékárna Pod Věží')
-  expect(link.closest('a')).toHaveAttribute('href', '/provozovna/0698b3c8bfc2')
-})
-
-test('Footer bez provozoven ukáže statické odkazy Doplňkových služeb', () => {
+test('Footer bez dat z API ukáže statické odkazy Doplňkových služeb', () => {
   renderFooter()
   expect(screen.getByText('Tvorba webu se SLEVOU')).toBeInTheDocument()
 })
@@ -55,6 +60,6 @@ test('odkazy ve sloupcích vedou na podstránku', () => {
 
 test('s withCta zobrazuje patička i CTA blok', () => {
   renderFooter({ withCta: true })
-  expect(screen.getByText(/A to není vše/)).toBeInTheDocument()
+  expect(screen.getByText(/přesvědčte se sami/)).toBeInTheDocument()
   expect(screen.getByText('Vyzkoušejte')).toBeInTheDocument()
 })

@@ -25,24 +25,25 @@ export default function MainFeatures() {
               sm: 'repeat(2, max-content)',
               lg: 'repeat(3, max-content)',
             },
-            columnGap: fluid(40, 116),
+            columnGap: fluid(40, 175),
             rowGap: fluid(40, 80),
             justifyContent: 'center',
             mt: fluid(48, 76),
           }}
         >
           {MAIN_FEATURES.items.map((it, i) => (
-            <Stack key={i} direction="row" sx={{ alignItems: 'center', gap: fluid(16, 31), textAlign: 'left' }}>
+            <Stack key={i} direction="row" sx={{ alignItems: 'center', gap: '15px', textAlign: 'left' }}>
               <Box
                 component="img"
                 src={it.icon}
                 alt=""
                 aria-hidden
-                sx={{ width: fluid(36, 52), height: fluid(42, 60), flexShrink: 0 }}
+                // Ikony jsou různobarevné/duotone SVG; filtr je sjednotí na bílou (zachová i odstín duotone).
+                sx={{ width: fluid(36, 80), height: fluid(42, 80), flexShrink: 0, filter: 'brightness(0) invert(1)' }}
               />
-              <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: fluid(18, 26), lineHeight: 1.15, maxWidth: 240 }}>
-                {it.title}
-              </Typography>
+              <Typography sx={{ color: '#fff', fontWeight: 700, fontSize: fluid(18, 26), lineHeight: 1.15, maxWidth: 240 }}
+                dangerouslySetInnerHTML={{ __html: it.title }}
+              />
             </Stack>
           ))}
         </Box>

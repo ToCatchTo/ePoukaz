@@ -4,7 +4,6 @@ import { Link as RouterLink, useLocation } from 'react-router-dom'
 import { NAV_MAIN, NAV_DISTRIBUTORS, REGISTER_URL } from '../../data/content'
 import { scrollToHashOnClick } from '../../utils/scrollToHash'
 import { fluid } from '../../theme/fluid'
-import { usePages } from '../../hooks/useApi'
 import GridSection from './GridSection'
 import HamburgerButton from './HamburgerButton'
 import MobileMenu from './MobileMenu'
@@ -17,11 +16,9 @@ const DISTRIBUTOR_PATHS = new Set(['/pro-vydejny', '/cenik', '/kontakt'])
 export default function Header() {
   const { pathname } = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
-  const { data: pages } = usePages()
   const isDistributor = DISTRIBUTOR_PATHS.has(pathname)
-  const baseNav = isDistributor ? NAV_DISTRIBUTORS : NAV_MAIN
-  const dynamicLinks = isDistributor ? [] : (pages ?? []).map((p) => ({ label: p.title, to: `/stranka/${p.slug}` }))
-  const links = [...baseNav, ...dynamicLinks]
+  // Pevná navigace dle sekce; stránky z API (/stranka/*) do hlavního menu nepatří.
+  const links = isDistributor ? NAV_DISTRIBUTORS : NAV_MAIN
   // CTA v pill: jen výdejny sekce → registrace. V pacientské sekci se tlačítko nezobrazuje.
   const cta = isDistributor ? { label: '30 dní ZDARMA', href: REGISTER_URL } : null
 

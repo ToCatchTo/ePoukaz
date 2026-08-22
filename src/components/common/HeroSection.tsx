@@ -23,13 +23,13 @@ const REVIEWS = [
   // Gábina: telefon má right:5% a šířku 607 px (860 × 1284/1818), jeho levý okraj je calc(5% + 607px).
   // Karta ho překrývá o 103 px → right = calc(5% + 504px). Na 1920 odpovídá původnímu left 39 %,
   // ale na užších obrazovkách se už nezasouvá pod telefon.
-  { name: 'Gábina', delay: '0.15s', pos: { right: { md: 'calc(5% + 504px)' }, top: { md: 336 }, zIndex: -1 } },
-  { name: 'Eliška', delay: '0.4s', pos: { right: { md: '6%' }, top: { md: 110 }, zIndex: -1 } },
-  { name: 'Jarmila', delay: '0.65s', pos: { right: { md: '3.5%' }, top: { md: 430 }, zIndex: 2 } },
+  { name: 'Gábina', delay: '0.15s', pos: { right: { md: 'calc(5% + 504px)' }, top: { md: 394 }, zIndex: -1 } },
+  { name: 'Eliška', delay: '0.4s', pos: { right: { md: '6%' }, top: { md: 210 }, zIndex: -1 } },
+  { name: 'Jarmila', delay: '0.65s', pos: { right: { md: '3.5%' }, top: { md: 530 }, zIndex: 2 } },
 ] as const
 
-// Nadpis se zalomí až po slově „sobě": 1. řádek „Šetřete čas sobě", 2. řádek „i pacientům"
-const TITLE_BREAK_AFTER = 'sobě'
+// Nadpis se zalomí až po slově „přehledně,": 1. řádek „ePoukazy rychle, přehledně,", 2. řádek „bez stresu"
+const TITLE_BREAK_AFTER = 'přehledně,'
 const titleBreakIdx = HERO.title.indexOf(TITLE_BREAK_AFTER)
 const TITLE_LINE_1 =
   titleBreakIdx === -1 ? HERO.title : HERO.title.slice(0, titleBreakIdx + TITLE_BREAK_AFTER.length)
@@ -37,7 +37,7 @@ const TITLE_LINE_2 =
   titleBreakIdx === -1 ? '' : HERO.title.slice(titleBreakIdx + TITLE_BREAK_AFTER.length).trim()
 
 // Tučný úvod odstavce (odstavec začíná přesně touto větou)
-const BOLD_LEAD = 'Digitalizujte příjem a správu elektronických ePoukazů'
+const BOLD_LEAD = 'Ušetřete čas sobě i pacientům'
 const REST_PARAGRAPH = HERO.paragraph.startsWith(BOLD_LEAD)
   ? HERO.paragraph.slice(BOLD_LEAD.length)
   : HERO.paragraph
@@ -96,8 +96,9 @@ function HeroComposition({ gabinaLeft }: { gabinaLeft?: string }) {
     : REVIEWS
   return (
     <>
-      {/* Ruka s telefonem */}
-      <Box sx={{ position: 'absolute', right: '5%', top: 40, height: 860, zIndex: 0 }}>
+      {/* Ruka s telefonem – top posunutý níž, aby useknuté zápěstí zajelo pod vlnu/bílou sekci
+          a nebyl vidět ostrý řez přesně na hraně boxu pod herem. */}
+      <Box sx={{ position: 'absolute', right: '5%', top: 140, height: 860, zIndex: 0 }}>
         {/* Fotka ruky – obsah displeje je zapečený ve fotce; slot níže je pro dynamický obsah */}
         <Box
           component="img"
@@ -132,7 +133,7 @@ export default function HeroSection() {
       <Box component="section" sx={{ position: 'relative', zIndex: 0, pt: { xs: 2 }, [SPLIT_UP]: { pt: '125px', minHeight: 640 } }}>
         {/* Levý sloupec – text (nad vším). V režimu vedle sebe (≥ HERO_SPLIT) se pruh zúží (720→540),
             aby zmenšující se kompozice vpravo měla dost místa a nepřekrývala text. */}
-        <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%' }, [SPLIT_UP]: { maxWidth: fluid(310, 720, HERO_SPLIT, 1920) }, [HERO_BAND]: { maxWidth: fluid(355, 415, 900, 1280) } }}>
+        <Box sx={{ position: 'relative', zIndex: 3, maxWidth: { xs: '100%' }, [SPLIT_UP]: { maxWidth: fluid(310, 730, HERO_SPLIT, 1920) }, [HERO_BAND]: { maxWidth: fluid(355, 415, 900, 1280) } }}>
           {/* V režimu vedle sebe se nadpis zmenší (90→33), aby se 1. řádek vešel
               do zúženého pruhu a nezlomil se na osamocené „sobě". */}
           <Typography variant="h1" sx={{ color: '#fff', mb: fluid(24, 32), ml: '-1px', [SPLIT_UP]: { fontSize: fluid(33, 90, HERO_SPLIT, 1920) }, [HERO_BAND]: { fontSize: fluid(33, 44, 900, 1280) } }}>

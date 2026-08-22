@@ -6,26 +6,42 @@ import { FOOTER, CTA_BANNER, REGISTER_URL } from '../../data/content'
 import { CARD_R } from '../../theme/layout'
 import { fluid } from '../../theme/fluid'
 import GridSection from './GridSection'
-import { useCompanies, usePages } from '../../hooks/useApi'
+import { usePages } from '../../hooks/useApi'
 
 // Sdílený styl odkazů ve sloupcích patičky
 const footerLinkSx = { display: 'block', fontSize: fluid(14, 16), color: '#000', lineHeight: '36px', '&:hover': { color: 'primary.main' } } as const
+
+// Právní podstránky (dle slugu) patří do sloupce „Obecné"; pořadí určuje tento seznam.
+const LEGAL_SLUGS = ['obchodni-podminky', 'ochrana-osobnich-udaju', 'cookies']
 
 // Patička jako jedna bílá karta. Volitelně nahoře CTA blok nebo vlastní horní obsah
 // (`topContent`, např. kontaktní blok) oddělený vodorovnou čarou; níže firma + 3 sloupce
 // odkazů oddělené svislou čarou a centrovaný copyright. Pod kartou kredit agentury.
 export default function Footer({ withCta = false, topContent }: { withCta?: boolean; topContent?: ReactNode }) {
-  const { data: companies } = useCompanies()
   const { data: pages } = usePages()
 
-  // Odkazy sloupce: „Doplňkové služby" → provozovny z API, „Jak na to?" → podstránky z API;
-  // při chybějících datech fallback na statické odkazy.
+  // Podstránky z API se rozdělí do tří sloupců podle slugu:
+  //   „Jak na to?"       → slug začíná „jak-"
+  //   „Obecné"           → právní stránky (LEGAL_SLUGS, v tomto pořadí)
+  //   „Doplňkové služby" → všechny ostatní
+  // Při chybějících datech fallback na statické odkazy sloupce.
   const columnLinks = (col: (typeof FOOTER.columns)[number]) => {
-    if (col.title === 'Doplňkové služby' && companies && companies.length > 0) {
-      return companies.map((c) => ({ key: c.publicHash, to: `/provozovna/${c.publicHash}`, label: c.name }))
-    }
-    if (col.title === 'Jak na to?' && pages && pages.length > 0) {
-      return pages.map((p) => ({ key: p.slug, to: `/stranka/${p.slug}`, label: p.title }))
+    if (pages && pages.length > 0) {
+      const toLink = (p: (typeof pages)[number]) => ({ key: p.slug, to: `/stranka/${p.slug}`, label: p.title })
+      if (col.title === 'Jak na to?') {
+        return pages.filter((p) => p.slug.startsWith('jak-')).map(toLink)
+      }
+      if (col.title === 'Obecné') {
+        return LEGAL_SLUGS.flatMap((slug) => {
+          const p = pages.find((pg) => pg.slug === slug)
+          return p ? [toLink(p)] : []
+        })
+      }
+      if (col.title === 'Doplňkové služby') {
+        return pages
+          .filter((p) => !p.slug.startsWith('jak-') && !LEGAL_SLUGS.includes(p.slug))
+          .map(toLink)
+      }
     }
     return col.links.map((link) => ({ key: link, to: '/faq', label: link }))
   }

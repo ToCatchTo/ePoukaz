@@ -6,7 +6,7 @@ import ForDistributorsPage from './ForDistributorsPage'
 
 test('Pro výdejny má hero, kroky a karty problémů', () => {
   render(<ThemeProvider theme={theme}><MemoryRouter><ForDistributorsPage /></MemoryRouter></ThemeProvider>)
-  expect(screen.getByText(/Šetřete čas sobě/)).toBeInTheDocument()
+  expect(screen.getByText(/ePoukazy rychle/)).toBeInTheDocument()
   expect(screen.getByText('Nastavení za pár minut')).toBeInTheDocument()
   expect(screen.getByText('Ušetříte čas')).toBeInTheDocument()
 })

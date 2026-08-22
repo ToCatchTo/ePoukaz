@@ -145,11 +145,11 @@ export const ABOUT_EPOUKAZ = {
 
 // Hero sekce homepage
 export const HERO = {
-  title: 'Šetřete čas sobě i pacientům',
+  title: 'ePoukazy rychle, přehledně, bez stresu',
   paragraph:
-    'Digitalizujte příjem a správu elektronických ePoukazů ve svých zdravotnických potřebách, ' +
-    'lékárně nebo optice. Pacient odešle poukaz online, vy ho během vteřiny vidíte ve svém systému ' +
-    '– bez telefonátů, papírů a nepříjemných zmatků.',
+    'Ušetřete čas sobě i pacientům — zapomeňte na zbytečné telefonáty, papíry a zmatky na přepážce. ' +
+    'Pacient odešle ePoukaz online odkudkoliv, vy ho máte okamžitě ve svém systému a můžete se ' +
+    'věnovat tomu, co je skutečně důležité.',
   cta: 'Vyzkoušejte',
 }
 
@@ -173,23 +173,23 @@ export const TESTIMONIALS = [
 export const HOW_STEPS = [
   {
     title: 'Nastavení za pár minut',
-    text: 'Zaregistrujete se, nahrajete SÚKL a osobní certifikát a systém vám vygeneruje unikátní link. Ten jednoduše vložíte na svůj web a jste připraveni přijímat poukazy.'
+    text: 'Zaregistrujete se, nahrajete SÚKL a osobní certifikát a systém vám vygeneruje unikátní link. Ten jednoduše vložíte na svůj web a jste připraveni přijímat ePoukazy.'
   },
   {
-    title: 'Pacient nahraje poukaz sám',
+    title: 'Pacient nahraje ePoukaz sám',
     text: 'Pacient nebo jeho blízký přes váš web jednoduše načte QR kód nebo zadá kód ručně. Bez front, bez telefonátů, kdykoliv z pohodlí domova nebo přímo z ordinace. Načíst můžete i vy přímo v systému.'
   },
   {
     title: 'ePoukaz máte hned v systému',
-    text: 'Jakmile pacient poukaz odešle, okamžitě se zobrazí ve vašem administračním rozhraní i s načtenými SÚKL daty. Nic nepřepisujete a nic neověřujete ručně.'
+    text: 'Jakmile pacient ePoukaz odešle, okamžitě se zobrazí ve vašem administračním rozhraní i s načtenými SÚKL daty. Nic nepřepisujete a nic neověřujete ručně.'
   },
   {
     title: 'Přehledná správa stavů',
-    text: 'Každému poukazu můžete nastavit stav – od přijetí až po vyřízení. Váš tým má vždy jasno, co je potřeba udělat a co už je hotové.'
+    text: 'Každému ePoukazu můžete nastavit stav – od přijetí až po vyřízení. Váš tým má vždy jasno, co je potřeba udělat a co už je hotové.'
   },
   {
     title: 'Automatické upozornění pacienta',
-    text: 'Jakmile je poukaz připraven k vyzvednutí, pacientovi automaticky přijde notifikace. Pokud nechcete, nemusíte mu volat ani psát – systém to udělá za vás.'
+    text: 'Jakmile je ePoukaz připraven k vyzvednutí, pacientovi automaticky přijde notifikace. Pokud nechcete, nemusíte mu volat ani psát – systém to udělá za vás.'
   },
   {
     title: 'Klienti pod kontrolou',
@@ -201,7 +201,7 @@ export const HOW_STEPS = [
   },
   {
     title: 'Bezproblémové propojení se SÚKL',
-    text: 'Data ze SÚKL se načtou automaticky a zůstávají provázaná po celou dobu vyřizování. Výdej nebo částečný výdej provedete klidně ve svém účetním programu – stav se sám promítne i do naší aplikace a poukaz se automaticky označí jako vydaný nebo částečně vydaný.'
+    text: 'Data ze SÚKL se načtou automaticky a zůstávají provázaná po celou dobu vyřizování. Výdej nebo částečný výdej provedete klidně ve svém účetním programu – stav se sám promítne i do naší aplikace a ePoukaz se automaticky označí jako vydaný nebo částečně vydaný.'
   },
 ]
 
@@ -233,19 +233,36 @@ export const PROBLEMS = [
   },
 ]
 
-// Sekce „Hlavní funkce": nadpis, podtitul a mřížka 9 dlaždic se sdílenou ikonou.
+// Sekce „Vše co váš provoz potřebuje": nadpis, podtitul a mřížka 9 dlaždic.
+// Ikona je zatím placeholder (stopky) u všech; pořadí je „po sloupcích" – tři skupiny z PDF
+// tvoří tři svislé sloupce (mřížka se plní po řádcích, proto se zdroj prokládá po trojicích).
 export const MAIN_FEATURES = {
-  title: 'Hlavní funkce',
+  title: 'Vše co váš provoz potřebuje',
   subtitle:
-    '<span style="font-weight: 600; font-family: Google Sans;">Zadejte pár údajů a my se vám ozveme s bezplatným přístupem na 30 dní.</span><span style="font-family: Poppins; font-weight: 300;"> Žádný závazek, žádná platební ' +
-    'karta – jen zjistíte, kolik času vám a vašemu týmu ePoukaz online ušetří.',
-  items: Array.from({ length: 9 }, () => ({ icon: '/static-icons/stopwatch.svg', title: 'Šetři čas a peníze' })),
+    '<span style="font-weight: 700;">Představte si přehlednou správu všech ePoukazů na jednom místě</span> — žádné hledání, žádné omyly, ' +
+    'žádný chaos u přepážky. Automatické notifikace, kompletní přehled klientů, přístup z počítače i ' +
+    'telefonu kdykoliv a odkudkoliv. Systém, který pracuje za vás — i když vy už dávno jdete domů. ' +
+    'Jednou se přihlásíte a řeknete si: proč to ještě nemám?',
+  items: [
+    // řádek 1 (vrcholy sloupců)
+    { icon: '/static-icons/stopwatch-light-full.svg', title: 'Šetříte</br> čas sobě' },
+    { icon: '/static-icons/head-side-brain-light-full.svg', title: 'Konec</br> chaosu' },
+    { icon: '/static-icons/bell-light-full.svg', title: 'Automatické</br> notifikace' },
+    // řádek 2
+    { icon: '/static-icons/shoe-prints-duotone-solid-full.svg', title: 'Ušetříte kroky</br> pacientům' },
+    { icon: '/static-icons/clock-light-full.svg', title: 'Dostupné</br> 24/7' },
+    { icon: '/static-icons/wifi-duotone-light-full.svg', title: 'Stačí Wi-Fi</br> nebo data' },
+    // řádek 3
+    { icon: '/static-icons/face-smile-beam-light-full.svg', title: 'Šetříte</br> zaměstnance' },
+    { icon: '/static-icons/tree-palm-light-full.svg', title: 'Správa</br> odkudkoliv' },
+    { icon: '/static-icons/user-group-light-full.svg', title: 'Přehled</br> všech klientů' },
+  ],
 }
 
 // Spodní CTA banner
 export const CTA_BANNER = {
-  title: 'A to není vše! Přesvědčte se sami a vyzkoušejte na 30 dní ZDARMA',
-  titleMobile: 'Vyzkoušejte to sami – 30 dní zdarma',
+  title: 'Vyzkoušejte na 30 dní ZDARMA a přesvědčte se sami, co udělá s vaším provozem, časem i nervy.',
+  titleMobile: 'Vyzkoušejte na 30 dní ZDARMA – co udělá s vaším provozem, časem i nervy.',
   button: 'Vyzkoušejte',
 }
 
