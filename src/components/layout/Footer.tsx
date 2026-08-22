@@ -14,6 +14,9 @@ const footerLinkSx = { display: 'block', fontSize: fluid(14, 16), color: '#000',
 // Právní podstránky (dle slugu) patří do sloupce „Obecné"; pořadí určuje tento seznam.
 const LEGAL_SLUGS = ['obchodni-podminky', 'ochrana-osobnich-udaju', 'cookies']
 
+// Statický externí odkaz na konci sloupce „Obecné" – vstup do administrace výdejny.
+const VYDEJNA_LINK = { key: 'vydejna', href: 'https://app.epoukazonline.cz/admin', label: 'Vstup pro výdejnu' }
+
 // Patička jako jedna bílá karta. Volitelně nahoře CTA blok nebo vlastní horní obsah
 // (`topContent`, např. kontaktní blok) oddělený vodorovnou čarou; níže firma + 3 sloupce
 // odkazů oddělené svislou čarou a centrovaný copyright. Pod kartou kredit agentury.
@@ -25,17 +28,20 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
   //   „Obecné"           → právní stránky (LEGAL_SLUGS, v tomto pořadí)
   //   „Doplňkové služby" → všechny ostatní
   // Při chybějících datech fallback na statické odkazy sloupce.
-  const columnLinks = (col: (typeof FOOTER.columns)[number]) => {
+  const columnLinks = (col: (typeof FOOTER.columns)[number]): Array<{ key: string; label: string; to?: string; href?: string }> => {
     if (pages && pages.length > 0) {
       const toLink = (p: (typeof pages)[number]) => ({ key: p.slug, to: `/stranka/${p.slug}`, label: p.title })
       if (col.title === 'Jak na to?') {
         return pages.filter((p) => p.slug.startsWith('jak-')).map(toLink)
       }
       if (col.title === 'Obecné') {
-        return LEGAL_SLUGS.flatMap((slug) => {
-          const p = pages.find((pg) => pg.slug === slug)
-          return p ? [toLink(p)] : []
-        })
+        return [
+          ...LEGAL_SLUGS.flatMap((slug) => {
+            const p = pages.find((pg) => pg.slug === slug)
+            return p ? [toLink(p)] : []
+          }),
+          VYDEJNA_LINK,
+        ]
       }
       if (col.title === 'Doplňkové služby') {
         return pages
@@ -43,7 +49,8 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
           .map(toLink)
       }
     }
-    return col.links.map((link) => ({ key: link, to: '/faq', label: link }))
+    const links = col.links.map((link) => ({ key: link, to: '/faq', label: link }))
+    return col.title === 'Obecné' ? [...links, VYDEJNA_LINK] : links
   }
 
   return (
@@ -102,11 +109,17 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
               {FOOTER.columns.map((col) => (
                 <Grid size={{ xs: 10, lg: 2 }} key={col.title}>
                   <Typography sx={{ fontWeight: 700, fontSize: fluid(18, 20), mb: 0.5 }}>{col.title}</Typography>
-                  {columnLinks(col).map((l) => (
-                    <MuiLink key={l.key} component={RouterLink} to={l.to} underline="hover" sx={footerLinkSx}>
-                      {l.label}
-                    </MuiLink>
-                  ))}
+                  {columnLinks(col).map((l) =>
+                    l.href ? (
+                      <MuiLink key={l.key} href={l.href} target="_blank" rel="noopener noreferrer" underline="hover" sx={footerLinkSx}>
+                        {l.label}
+                      </MuiLink>
+                    ) : (
+                      <MuiLink key={l.key} component={RouterLink} to={l.to} underline="hover" sx={footerLinkSx}>
+                        {l.label}
+                      </MuiLink>
+                    ),
+                  )}
                 </Grid>
               ))}
             </Grid>

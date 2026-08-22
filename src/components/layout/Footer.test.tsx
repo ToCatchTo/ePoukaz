@@ -46,6 +46,13 @@ test('Footer bez dat z API ukáže statické odkazy Doplňkových služeb', () =
   expect(screen.getByText('Tvorba webu se SLEVOU')).toBeInTheDocument()
 })
 
+test('Obecné obsahuje externí odkaz Vstup pro výdejnu', () => {
+  renderFooter()
+  const link = column('Obecné').getByRole('link', { name: 'Vstup pro výdejnu' })
+  expect(link).toHaveAttribute('href', 'https://app.epoukazonline.cz/admin')
+  expect(link).toHaveAttribute('target', '_blank')
+})
+
 test('patička zobrazuje firmu a sloupce', () => {
   renderFooter()
   expect(screen.getByText('epoukazonline s.r.o.')).toBeInTheDocument()
