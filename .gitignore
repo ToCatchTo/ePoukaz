@@ -35,3 +35,6 @@ _scaffold/
 # Vercel
 .vercel
 .env*
+# …ale .env.production (jen prázdný VITE_API_BASE_URL, žádné tajemství) verzujeme,
+# aby Vercel build volal API same-origin přes proxy.
+!.env.production
