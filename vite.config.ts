@@ -91,7 +91,9 @@ export default defineConfig(({ mode }) => {
       // nemění – snímá se reálný DOM včetně React 19 meta tagů ze <Seo>.
       // Dynamické routy (/provozovna/:publicHash, /stranka/:slug) se záměrně
       // nepředrenderovávají, zůstávají CSR přes SPA fallback.
-      prerender({
+      // Na Vercelu (env VERCEL) prerender vynecháme – build tam nemá Chrome pro
+      // puppeteer, deploy poběží jako SPA. Klasický hosting prerender dělá dál (SEO).
+      ...(process.env.VERCEL ? [] : [prerender({
         routes: [
           '/', '/vydejna', '/cenik', '/kontakt',
           '/faq', '/obchodni-podminky', '/jak-to-funguje', '/vse-o-epoukazu',
@@ -120,7 +122,7 @@ export default defineConfig(({ mode }) => {
             homeHtml = renderedRoute.html
           }
         },
-      }),
+      })]),
       writeHomeHtmlPlugin,
     ],
     server: {
