@@ -31,3 +31,7 @@ _scaffold/
 *.njsproj
 *.sln
 *.sw?
+
+# Vercel
+.vercel
+.env*
