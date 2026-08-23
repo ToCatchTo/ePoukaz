@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "outputDirectory": "dist",
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/proxy?__p=$1" },
     { "source": "/((?!api/).*)", "destination": "/app.html" }
   ]
 }
