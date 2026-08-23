@@ -40,11 +40,12 @@ export default function Header() {
             // Mezery/odsazení škálují až od 1200 px (kde se objeví navigace), aby na úzkém
             // desktopu CTA nepřetékalo pill.
             gap: { xs: 1.25, lg: fluid(16, 72, 1200, 1920) },
-            py: { xs: 0.75, lg: fluid(32, 40, 1200, 1920) },
-            pl: { xs: 2.5, lg: fluid(50, 100, 1200, 1920) },
-            // Pacientská sekce nemá CTA tlačítko → pravý padding srovnáme s levým.
-            // Výdejnová sekce má CTA (vlastní vnitřní padding), proto zůstává užší pr.
-            pr: { xs: 1, lg: isDistributor ? fluid(24, 50, 1200, 1920) : fluid(50, 100, 1200, 1920) },
+            py: { xs: isDistributor ? 0.75 : 3, lg: fluid(32, 40, 1200, 1920) },
+            // Pacientská pill obepíná jen logo → na mobilu víc vodorovného prostoru, ať není úzká.
+            pl: { xs: isDistributor ? 2.5 : 4, lg: fluid(50, 100, 1200, 1920) },
+            // Pacientská sekce nemá CTA/odznak → pravý padding srovnáme s levým (i na mobilu).
+            // Výdejnová sekce má CTA/odznak (vlastní vnitřní padding), proto zůstává užší pr.
+            pr: { xs: isDistributor ? 1 : 4, lg: isDistributor ? fluid(24, 50, 1200, 1920) : fluid(50, 100, 1200, 1920) },
           }}
         >
           {/* Logo: mr:auto na desktopu odtlačí navigaci a CTA doprava */}
@@ -52,10 +53,13 @@ export default function Header() {
             <Box component="img" src="/images/logo-epoukaz.svg" alt="ePoukaz online" sx={{ height: { xs: 11, lg: 29 }, display: 'block' }} />
           </MuiLink>
 
-          {/* Odznak 30 dní ZDARMA: na mobilu i tabletu vedle loga */}
-          <Box sx={{ display: { xs: 'block', lg: 'none' }, flexShrink: 0, bgcolor: 'secondary.main', color: '#fff', borderRadius: 999, px: 2.5, py: '5px', fontWeight: 400, fontSize: 14, lineHeight: 1.2, textAlign: 'center' }}>
-            30 dní<br />ZDARMA
-          </Box>
+          {/* Odkaz 30 dní ZDARMA (registrace): mobil/tablet vedle loga, jen výdejnová sekce.
+              Na pacientských stránkách se nezobrazuje (stejně jako desktop CTA). */}
+          {isDistributor && (
+            <MuiLink href={REGISTER_URL} target="_blank" rel="noopener noreferrer" underline="none" sx={{ display: { xs: 'block', lg: 'none' }, flexShrink: 0, bgcolor: 'secondary.main', color: '#fff', borderRadius: 999, px: 2.5, py: '5px', fontWeight: 400, fontSize: 14, lineHeight: 1.2, textAlign: 'center' }}>
+              30 dní<br />ZDARMA
+            </MuiLink>
+          )}
 
           {/* Navigace: jen desktop */}
           {links.map((l) => {
@@ -88,7 +92,7 @@ export default function Header() {
           <HamburgerButton open={menuOpen} onClick={() => setMenuOpen(true)} />
         </Box>
 
-        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} />
+        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} cta={cta} />
       </Box>
     </GridSection>
   )

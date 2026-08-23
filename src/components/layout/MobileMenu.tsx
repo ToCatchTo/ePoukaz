@@ -10,8 +10,8 @@ import { PAGE_PX } from '../../theme/grid'
 // v DOM kvůli plynulé animaci oběma směry; v zavřeném stavu je mimo obrazovku a skrytý pro
 // asistivní technologie (aria-hidden).
 export default function MobileMenu({
-  open, onClose, links,
-}: { open: boolean; onClose: () => void; links: { label: string; to: string }[] }) {
+  open, onClose, links, cta,
+}: { open: boolean; onClose: () => void; links: { label: string; to: string }[]; cta?: { label: string; href: string } | null }) {
   const { pathname } = useLocation()
 
   // Zamknout scroll pozadí, dokud je menu otevřené
@@ -81,11 +81,15 @@ export default function MobileMenu({
         >
           {/* Horní lišta: pill s logem a odznakem, kruhové zavírací tlačítko na místě hamburgeru */}
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2 }}>
-            <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.25, bgcolor: '#fff', borderRadius: 999, py: 0.75, pl: 2.5, pr: 1, boxShadow: '0 4px 24px rgba(0,0,0,0.30)' }}>
+            {/* Padding jako v hlavičce: pacientská pill (bez odznaku) má víc prostoru kolem loga. */}
+            <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1.25, bgcolor: '#fff', borderRadius: 999, py: cta ? 0.75 : 3, pl: cta ? 2.5 : 4, pr: cta ? 1 : 4, boxShadow: '0 4px 24px rgba(0,0,0,0.30)' }}>
               <Box component="img" src="/images/logo-epoukaz.svg" alt="ePoukaz online" sx={{ height: 11, display: 'block' }} />
-              <Box sx={{ bgcolor: 'secondary.main', color: '#fff', borderRadius: 999, px: 2.5, py: 1, fontWeight: 700, fontSize: 14, lineHeight: 1.2, textAlign: 'center' }}>
-                30 dní<br />ZDARMA
-              </Box>
+              {/* 30 dní ZDARMA (registrace): jen výdejnová sekce; na pacientech se nezobrazuje. */}
+              {cta && (
+                <MuiLink href={cta.href} target="_blank" rel="noopener noreferrer" underline="none" sx={{ bgcolor: 'secondary.main', color: '#fff', borderRadius: 999, px: 2.5, py: 1, fontWeight: 700, fontSize: 14, lineHeight: 1.2, textAlign: 'center' }}>
+                  30 dní<br />ZDARMA
+                </MuiLink>
+              )}
             </Box>
             <Box sx={{ borderRadius: '50%', boxShadow: '0 4px 24px rgba(0,0,0,0.30)' }}>
               <MenuToggle open onClick={onClose} />
