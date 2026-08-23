@@ -110,10 +110,11 @@ function HeroComposition({ gabinaLeft }: { gabinaLeft?: string }) {
           fetchPriority="high"
           sx={{ height: '100%', width: 'auto', display: 'block' }}
         />
-        {/* Slot na displej – animovaný WebP jako smyčkované video.
-            Pro skutečné video stačí místo <img> vložit <Box component="video" ... />. */}
+        {/* Slot na displej – prozatím statický obrázek app-screen.webp.
+            Pro skutečné video stačí místo <img> vložit <Box component="video" ... />
+            (dřív tu byl animovaný /videos/hero-screen.webp). */}
         <Box sx={{ position: 'absolute', left: '14.5%', top: '8.6%', width: '41%', height: '62.8%', borderRadius: '38px', overflow: 'hidden' }}>
-          <Box component="img" src="/videos/hero-screen.webp" alt="" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <Box component="img" src="/images/app-screen.webp" alt="" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
         </Box>
       </Box>
       {/* Recenze – plovoucí kolem ruky, postupný fade-in */}
@@ -145,7 +146,7 @@ export default function HeroSection() {
               </>
             )}
           </Typography>
-          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), lineHeight: 1.6, maxWidth: fluid(270, 470, HERO_SPLIT, 1920), [HERO_BAND]: { maxWidth: fluid(355, 415, 900, 1280) }, mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
+          <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), lineHeight: 1.6, maxWidth: fluid(250, 470, HERO_SPLIT, 1920), [HERO_BAND]: { maxWidth: fluid(355, 415, 900, 1280) }, mb: fluid(40, 48), fontWeight: 300, fontFamily: 'Poppins' }}>
             {/* Varianta C – obtékání: neviditelný plovoucí zub (jen 900–1280) rezervuje pás,
                 kde zpoza telefonu vyčnívá karta Gábina. Řádky nad Gábinou jdou širší,
                 řádky v jejím pásu kratší. shape-outside inset(top …) nechá horní pás volný. */}
@@ -219,7 +220,7 @@ export default function HeroSection() {
             // fluidScale používá trik tan(atan2()), protože scale() potřebuje bezrozměrné číslo,
             // které z vw nejde získat dělením.
             transformOrigin: '100% 50%',
-            transform: `translateX(${fluid(140, 0, HERO_SPLIT, 1920)}) scale(${fluidScale(0.72, 1, HERO_SPLIT, 1920)})`,
+            transform: `translateX(90px) scale(${fluidScale(0.85, 1.15, 1280, 1920)})`,
             // Sekce už nemá horní padding; kompozici (ruka + recenze) i vlny posuneme o 125 px nahoru,
             // aby ruka lícovala s nadpisem a zápěstí zůstalo schované ve vlnách (viz minHeight sekce −125).
             top: fluid(-105, -125, HERO_SPLIT, 1920),
