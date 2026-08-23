@@ -1,14 +1,18 @@
 // Serverless proxy pro /api/* na Vercelu – náhrada dev Vite proxy v produkci.
 // Přepošle požadavek na reálné API a doplní tajný X-AUTH-TOKEN (Vercel env
 // API_TOKEN), takže token nikdy neopustí server a odpadá CORS (server-to-server).
-// Frontend volá same-origin /api/web/* (VITE_API_BASE_URL je prázdné).
+//
+// Rewrite v vercel.json přepisuje /api/<cesta> → /api/proxy?__p=<cesta> a Vercel
+// k tomu připojí původní query. Původní cestu tu skládáme zpět.
 const BACKEND = 'https://api.epoukazonline.cz'
 
 export default async function handler(req, res) {
   const token = process.env.API_TOKEN
-  // req.url je původní cesta včetně query, např. /api/web/tariffs?code=...
-  // Backend očekává /api/... (dev proxy cestu nestripovala), takže URL neupravujeme.
-  const target = BACKEND + req.url
+  const u = new URL(req.url, 'http://internal')
+  const path = u.searchParams.get('__p') || ''
+  u.searchParams.delete('__p')
+  const rest = u.searchParams.toString()
+  const target = `${BACKEND}/api/${path}${rest ? '?' + rest : ''}`
 
   try {
     const upstream = await fetch(target, {
