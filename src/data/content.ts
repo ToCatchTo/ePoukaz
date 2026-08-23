@@ -1,7 +1,7 @@
 import { PASTELS } from '../theme/theme'
 
 // Cílový odkaz pro CTA tlačítka (vyzkoušet / registrace)
-export const REGISTER_URL = 'https://admin.epoukazonline.cz/register'
+export const REGISTER_URL = 'https://app.epoukazonline.cz/admin/register'
 
 // Odkaz na stažení aplikace (App Store / Google Play)
 export const APP_DOWNLOAD_URL = 'https://epoukazonline.cz/aplikace'
@@ -13,8 +13,9 @@ export const NAV_MAIN = [
   { label: 'Pro výdejny', to: '/pro-vydejny' },
 ]
 export const NAV_DISTRIBUTORS = [
-  // Label „Jak to funguje?", ale slug zůstává /pro-vydejny (prodejní stránka)
-  { label: 'Jak to funguje?', to: '/pro-vydejny' },
+  // „Jak to funguje?" míří na prodejní stránku /pro-vydejny, ale rovnou na kotvu
+  // sekce s 9 kroky a fotkami (id="jak-to-funguje"), ne na začátek stránky.
+  { label: 'Jak to funguje?', to: '/pro-vydejny#jak-to-funguje' },
   { label: 'Ceník', to: '/cenik' },
   { label: 'Kontakt', to: '/kontakt' },
 ]
@@ -212,7 +213,7 @@ export const HOW_STEPS = [
     img: '/images/howitworks-sukl.webp'
   },
   {
-    title: 'Mějte správu ePoukázů vždy po ruce',
+    title: 'Mějte správu ePoukazů vždy po ruce',
     text: 'Náš administrátorský systém můžete přidat přímo na plochu svého telefonu jako aplikaci — stačí otevřít web v prohlížeči a přidat stránku na plochu. Zapněte si také push notifikace a buďte okamžitě upozorněni na každý nový příchozí ePoukaz. Žádná zmeškaná objednávka, žádné zpoždění.',
     img: '/images/howitworks-mobile-app.webp'
   },

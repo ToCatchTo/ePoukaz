@@ -11,12 +11,15 @@ import MobileMenu from './MobileMenu'
 // Hlavička zarovnaná na grid. Desktop (lg+): plovoucí bílá pill s logem, navigací a CTA.
 // Mobil i tablet: kompaktní pill (logo + odznak) a kruhový hamburger pro celoobrazovkové menu.
 // Cesty výdejny clusteru zobrazují NAV_DISTRIBUTORS, ostatní NAV_MAIN.
-const DISTRIBUTOR_PATHS = new Set(['/pro-vydejny', '/cenik', '/kontakt'])
+// Podstránky odkazované z výdejnové patičky (FAQ, obchodní podmínky, dynamické
+// /stranka/* – např. cookies) patří také do výdejnové sekce, aby menu neskákalo
+// na pacientské.
+const DISTRIBUTOR_PATHS = new Set(['/pro-vydejny', '/cenik', '/kontakt', '/faq', '/obchodni-podminky'])
 
 export default function Header() {
   const { pathname } = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
-  const isDistributor = DISTRIBUTOR_PATHS.has(pathname)
+  const isDistributor = DISTRIBUTOR_PATHS.has(pathname) || pathname.startsWith('/stranka/')
   // Pevná navigace dle sekce; stránky z API (/stranka/*) do hlavního menu nepatří.
   const links = isDistributor ? NAV_DISTRIBUTORS : NAV_MAIN
   // CTA v pill: jen výdejny sekce → registrace. V pacientské sekci se tlačítko nezobrazuje.
@@ -56,7 +59,8 @@ export default function Header() {
 
           {/* Navigace: jen desktop */}
           {links.map((l) => {
-            const active = l.to === pathname
+            // Aktivní i pro odkaz s kotvou (např. /pro-vydejny#jak-to-funguje).
+            const active = l.to.split('#')[0] === pathname
             return (
               <MuiLink
                 key={l.label}

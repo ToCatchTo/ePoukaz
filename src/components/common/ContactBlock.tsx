@@ -2,6 +2,10 @@ import { Box, Grid, Link as MuiLink, Stack, Typography } from '@mui/material'
 import { CONTACT } from '../../data/content'
 import { fluid } from '../../theme/fluid'
 
+// Dočasně skrytý telefon: číslo ještě není zřízené. Až bude, přepni na true –
+// veškerý markup (ikona, tel: odkaz, poznámka) je připravený níže.
+const SHOW_PHONE = false
+
 // Kontaktní blok: vlevo nadpis, vpravo e-mail a telefon (mailto:/tel:).
 export default function ContactBlock() {
   // tel: jen číslice a úvodní +, bez mezer a formátovacích znaků.
@@ -25,15 +29,17 @@ export default function ContactBlock() {
               <Typography variant="h4" sx={{ minWidth: 0, fontSize: { xs: 18, sm: fluid(21, 30) }, overflowWrap: 'anywhere' }}>{CONTACT.email}</Typography>
             </MuiLink>
           </Stack>
-          <Stack direction="row" spacing={{ xs: '10px', md: 3 }} sx={{ alignItems: 'center' }}>
-            <Box component="img" src="/static-icons/contact-phone.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
-            <Box sx={{ minWidth: 0 }}>
-              <MuiLink href={telHref} underline="hover" sx={{ color: 'inherit' }}>
-                <Typography variant="h4" sx={{ fontSize: { xs: 18, sm: fluid(21, 30) } }}>{CONTACT.phone}</Typography>
-              </MuiLink>
-              <Typography sx={{ fontSize: { xs: 14, md: 20 }, color: '#000' }}>{CONTACT.phoneNote}</Typography>
-            </Box>
-          </Stack>
+          {SHOW_PHONE && (
+            <Stack direction="row" spacing={{ xs: '10px', md: 3 }} sx={{ alignItems: 'center' }}>
+              <Box component="img" src="/static-icons/contact-phone.svg" alt="" aria-hidden sx={{ width: { xs: 40, md: 50 }, height: { xs: 40, md: 50 }, flexShrink: 0, display: 'block' }} />
+              <Box sx={{ minWidth: 0 }}>
+                <MuiLink href={telHref} underline="hover" sx={{ color: 'inherit' }}>
+                  <Typography variant="h4" sx={{ fontSize: { xs: 18, sm: fluid(21, 30) } }}>{CONTACT.phone}</Typography>
+                </MuiLink>
+                <Typography sx={{ fontSize: { xs: 14, md: 20 }, color: '#000' }}>{CONTACT.phoneNote}</Typography>
+              </Box>
+            </Stack>
+          )}
         </Stack>
       </Grid>
     </Grid>

@@ -25,11 +25,12 @@ test('sekce Vše co váš provoz potřebuje má nadpis a 9 dlaždic', () => {
   }
 })
 
-test('kontaktní blok ukazuje nadpis, e-mail a má mailto:/tel: odkazy', () => {
+test('kontaktní blok ukazuje nadpis a e-mail; telefon je dočasně skrytý', () => {
   render(wrap(<ContactBlock />))
   expect(screen.getByRole('heading', { name: /Máte dotaz\?/ })).toBeInTheDocument()
   expect(screen.getByRole('link', { name: 'info@epoukazonline.cz' })).toHaveAttribute('href', 'mailto:info@epoukazonline.cz')
-  expect(screen.getByRole('link', { name: '+420 800 000 000' })).toHaveAttribute('href', 'tel:+420800000000')
+  // Telefon je zatím skrytý (SHOW_PHONE=false), dokud nebude číslo zřízené.
+  expect(screen.queryByRole('link', { name: '+420 800 000 000' })).toBeNull()
 })
 
 test('kontaktní blok už neobsahuje formulář zprávy', () => {

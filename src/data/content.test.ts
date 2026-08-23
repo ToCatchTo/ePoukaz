@@ -23,9 +23,9 @@ test('3 recenze a 3 sloupce patičky', () => {
 
 test('nav sady', () => {
   expect(NAV_MAIN.map((l) => l.to)).toEqual(['/jak-to-funguje', '/vse-o-epoukazu', '/pro-vydejny'])
-  expect(NAV_DISTRIBUTORS.map((l) => l.to)).toEqual(['/pro-vydejny', '/cenik', '/kontakt'])
-  // První položka má label „Jak to funguje?", ale slug zůstává /pro-vydejny
-  expect(NAV_DISTRIBUTORS[0]).toEqual({ label: 'Jak to funguje?', to: '/pro-vydejny' })
+  expect(NAV_DISTRIBUTORS.map((l) => l.to)).toEqual(['/pro-vydejny#jak-to-funguje', '/cenik', '/kontakt'])
+  // První položka má label „Jak to funguje?", míří na kotvu sekce na /pro-vydejny
+  expect(NAV_DISTRIBUTORS[0]).toEqual({ label: 'Jak to funguje?', to: '/pro-vydejny#jak-to-funguje' })
 })
 
 test('CTA patičky pro zákaznické stránky', () => {

@@ -95,7 +95,8 @@ export default function MobileMenu({
           {/* Navigace */}
           <Stack spacing={5.5} sx={{ mt: '94px', pl: 4 }}>
             {links.map((l) => {
-              const active = l.to === pathname
+              // Aktivní i pro odkaz s kotvou (např. /pro-vydejny#jak-to-funguje).
+              const active = l.to.split('#')[0] === pathname
               return (
                 <MuiLink
                   key={l.label}

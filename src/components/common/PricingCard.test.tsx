@@ -21,7 +21,7 @@ test('zobrazuje název, cenu, poznámku, CTA a všechny vlastnosti', () => {
   expect(screen.getByText('MĚSÍČNÍ BALÍČEK BEZ DPH')).toBeInTheDocument()
   // CTA je odkaz na registraci (MUI Button s href renderuje <a role="link">)
   const cta = screen.getByRole('link', { name: 'Začněte zdarma' })
-  expect(cta).toHaveAttribute('href', 'https://admin.epoukazonline.cz/register')
+  expect(cta).toHaveAttribute('href', 'https://app.epoukazonline.cz/admin/register')
   for (const f of ITEM.features) {
     expect(screen.getByText(f)).toBeInTheDocument()
   }
