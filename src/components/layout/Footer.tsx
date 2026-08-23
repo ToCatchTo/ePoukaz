@@ -110,12 +110,12 @@ export default function Footer({ withCta = false, topContent }: { withCta?: bool
                 <Grid size={{ xs: 10, lg: 2 }} key={col.title}>
                   <Typography sx={{ fontWeight: 700, fontSize: fluid(18, 20), mb: 0.5 }}>{col.title}</Typography>
                   {columnLinks(col).map((l) =>
-                    l.href ? (
-                      <MuiLink key={l.key} href={l.href} target="_blank" rel="noopener noreferrer" underline="hover" sx={footerLinkSx}>
+                    l.to ? (
+                      <MuiLink key={l.key} component={RouterLink} to={l.to} underline="hover" sx={footerLinkSx}>
                         {l.label}
                       </MuiLink>
                     ) : (
-                      <MuiLink key={l.key} component={RouterLink} to={l.to} underline="hover" sx={footerLinkSx}>
+                      <MuiLink key={l.key} href={l.href} target="_blank" rel="noopener noreferrer" underline="hover" sx={footerLinkSx}>
                         {l.label}
                       </MuiLink>
                     ),
