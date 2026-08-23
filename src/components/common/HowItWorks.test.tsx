@@ -6,7 +6,7 @@ import { HOW_STEPS } from '../../data/content'
 
 const wrap = (ui: React.ReactNode) => <ThemeProvider theme={theme}>{ui}</ThemeProvider>
 
-test('zobrazuje všech 8 nadpisů kroků', () => {
+test('zobrazuje všech 9 nadpisů kroků', () => {
   render(wrap(<HowItWorks />))
   for (const s of HOW_STEPS) {
     expect(screen.getByText(s.title)).toBeInTheDocument()

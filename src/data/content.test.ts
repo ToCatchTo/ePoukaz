@@ -1,7 +1,7 @@
 import { HOW_STEPS, PROBLEMS, PRICING, COMPARE_ROWS, TESTIMONIALS, FOOTER, NAV_MAIN, NAV_DISTRIBUTORS, SEARCH, HOW_IT_WORKS, ABOUT_EPOUKAZ, DISTRIBUTOR_CTA } from './content'
 
-test('8 kroků jak to funguje', () => {
-  expect(HOW_STEPS).toHaveLength(8)
+test('9 kroků jak to funguje', () => {
+  expect(HOW_STEPS).toHaveLength(9)
   expect(HOW_STEPS[0].title).toBe('Nastavení za pár minut')
 })
 

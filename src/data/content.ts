@@ -173,35 +173,48 @@ export const TESTIMONIALS = [
 export const HOW_STEPS = [
   {
     title: 'Nastavení za pár minut',
-    text: 'Zaregistrujete se, nahrajete SÚKL a osobní certifikát a systém vám vygeneruje unikátní link. Ten jednoduše vložíte na svůj web a jste připraveni přijímat ePoukazy.'
+    text: 'Zaregistrujete se, nahrajete SÚKL a osobní certifikát a systém vám vygeneruje unikátní link. Ten jednoduše vložíte na svůj web a jste připraveni přijímat ePoukazy.',
+    img: '/images/howitworks-setup.webp'
   },
   {
     title: 'Pacient nahraje ePoukaz sám',
-    text: 'Pacient nebo jeho blízký přes váš web jednoduše načte QR kód nebo zadá kód ručně. Bez front, bez telefonátů, kdykoliv z pohodlí domova nebo přímo z ordinace. Načíst můžete i vy přímo v systému.'
+    text: 'Pacient nebo jeho blízký přes váš web jednoduše načte QR kód nebo zadá kód ručně. Bez front, bez telefonátů, kdykoliv z pohodlí domova nebo přímo z ordinace. Načíst můžete i vy přímo v systému.',
+    img: '/images/howitworks-patient-upload.webp'
   },
   {
     title: 'ePoukaz máte hned v systému',
-    text: 'Jakmile pacient ePoukaz odešle, okamžitě se zobrazí ve vašem administračním rozhraní i s načtenými SÚKL daty. Nic nepřepisujete a nic neověřujete ručně.'
+    text: 'Jakmile pacient ePoukaz odešle, okamžitě se zobrazí ve vašem administračním rozhraní i s načtenými SÚKL daty. Nic nepřepisujete a nic neověřujete ručně.',
+    img: '/images/howitworks-in-system.webp'
   },
   {
     title: 'Přehledná správa stavů',
-    text: 'Každému ePoukazu můžete nastavit stav – od přijetí až po vyřízení. Váš tým má vždy jasno, co je potřeba udělat a co už je hotové.'
+    text: 'Každému ePoukazu můžete nastavit stav – od přijetí až po vyřízení. Váš tým má vždy jasno, co je potřeba udělat a co už je hotové.',
+    img: '/images/howitworks-status-management.webp'
   },
   {
     title: 'Automatické upozornění pacienta',
-    text: 'Jakmile je ePoukaz připraven k vyzvednutí, pacientovi automaticky přijde notifikace. Pokud nechcete, nemusíte mu volat ani psát – systém to udělá za vás.'
+    text: 'Jakmile je ePoukaz připraven k vyzvednutí, pacientovi automaticky přijde notifikace. Pokud nechcete, nemusíte mu volat ani psát – systém to udělá za vás.',
+    img: '/images/howitworks-notification.webp'
   },
   {
     title: 'Klienti pod kontrolou',
-    text: 'Ke každému pacientovi vidíte historii objednávek a můžete ho snadno kontaktovat. Vše přehledně na jednom místě.'
+    text: 'Ke každému pacientovi vidíte historii objednávek a můžete ho snadno kontaktovat. Vše přehledně na jednom místě.',
+    img: '/images/howitworks-clients.webp'
   },
   {
     title: 'Kategorie a upomínky na míru',
-    text: 'Stálým klientům přiřadíte kategorie podle toho, co objednávají, a nastavíte si upomínky na docházející pomůcky. Ozvete se jim přesně ve chvíli, kdy vás budou potřebovat.'
+    text: 'Stálým klientům přiřadíte kategorie podle toho, co objednávají, a nastavíte si upomínky na docházející pomůcky. Ozvete se jim přesně ve chvíli, kdy vás budou potřebovat.',
+    img: '/images/howitworks-categories-reminders.webp'
   },
   {
     title: 'Bezproblémové propojení se SÚKL',
-    text: 'Data ze SÚKL se načtou automaticky a zůstávají provázaná po celou dobu vyřizování. Výdej nebo částečný výdej provedete klidně ve svém účetním programu – stav se sám promítne i do naší aplikace a ePoukaz se automaticky označí jako vydaný nebo částečně vydaný.'
+    text: 'Data ze SÚKL se načtou automaticky a zůstávají provázaná po celou dobu vyřizování. Výdej nebo částečný výdej provedete ve svém účetním programu – stav se sám promítne i do naší aplikace a ePoukaz se automaticky označí jako vydaný nebo částečně vydaný.',
+    img: '/images/howitworks-sukl.webp'
+  },
+  {
+    title: 'Mějte správu ePoukázů vždy po ruce',
+    text: 'Náš administrátorský systém můžete přidat přímo na plochu svého telefonu jako aplikaci — stačí otevřít web v prohlížeči a přidat stránku na plochu. Zapněte si také push notifikace a buďte okamžitě upozorněni na každý nový příchozí ePoukaz. Žádná zmeškaná objednávka, žádné zpoždění.',
+    img: '/images/howitworks-mobile-app.webp'
   },
 ]
 

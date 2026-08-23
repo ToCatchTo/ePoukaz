@@ -5,8 +5,8 @@ import { fluid } from '../../theme/fluid'
 import GridSection from '../layout/GridSection'
 import { HOW_STEPS } from '../../data/content'
 
-// Společný obrázek pro všechny kroky (jedna položka na krok).
-const STEP_IMAGES = HOW_STEPS.map(() => '/images/howitworks-phone.webp')
+// Obrázek pro každý krok (mění se podle otevřeného kroku).
+const STEP_IMAGES = HOW_STEPS.map((s) => s.img)
 
 // Sekce „Jak to funguje" – vlevo accordion kroků (vždy právě jeden otevřený),
 // vpravo obrázek přes celou výšku karty, měnící se podle otevřeného kroku.
@@ -86,6 +86,7 @@ export default function HowItWorks() {
         <Box sx={{ display: { xs: 'none', lg: 'block' }, flexBasis: { xs: 'auto', lg: '50%' }, maxWidth: { xs: '100%', lg: '50%' }, minWidth: 0, flexGrow: 1, flexShrink: 1, position: 'relative', bgcolor: '#F3EEF9', minHeight: { xs: 360, lg: 'auto' } }}>
           <Box
             component="img"
+            key={open}
             src={STEP_IMAGES[open]}
             alt="Ukázka aplikace ePoukaz online v telefonu"
             width={814}
@@ -99,6 +100,10 @@ export default function HowItWorks() {
               objectFit: 'cover',
               objectPosition: 'center',
               display: 'block',
+              // jemný fade-in při přepnutí kroku (key={open} obrázek remountuje)
+              animation: 'howImgFadeIn 0.45s ease',
+              '@keyframes howImgFadeIn': { from: { opacity: 0 }, to: { opacity: 1 } },
+              '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
             }}
           />
         </Box>
