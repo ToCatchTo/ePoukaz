@@ -16,8 +16,8 @@ test('zobrazuje všech 9 nadpisů kroků', () => {
 test('ve výchozím stavu je otevřený první krok (jeho text je vidět)', () => {
   render(wrap(<HowItWorks />))
   expect(screen.getByText(HOW_STEPS[0].text)).toBeInTheDocument()
-  // text druhého kroku není v DOM (Collapse s unmountOnExit)
-  expect(screen.queryByText(HOW_STEPS[1].text)).not.toBeInTheDocument()
+  // druhý krok není v DOM (Collapse s unmountOnExit) – jeho odkaz na epoukazonline.cz tedy chybí
+  expect(screen.queryByRole('link', { name: 'epoukazonline.cz' })).not.toBeInTheDocument()
 })
 
 test('klik na jiný nadpis zavře předchozí a otevře nový', async () => {
@@ -25,8 +25,11 @@ test('klik na jiný nadpis zavře předchozí a otevře nový', async () => {
 
   fireEvent.click(screen.getByText(HOW_STEPS[1].title))
 
-  // nový krok je otevřený ihned
-  expect(screen.getByText(HOW_STEPS[1].text)).toBeInTheDocument()
+  // nový krok je otevřený ihned – jeho text obsahuje klikatelný odkaz na epoukazonline.cz
+  expect(screen.getByRole('link', { name: 'epoukazonline.cz' })).toHaveAttribute(
+    'href',
+    'https://epoukazonline.cz',
+  )
   // předchozí se zavře (Collapse odmountuje text po animaci)
   await waitFor(() => {
     expect(screen.queryByText(HOW_STEPS[0].text)).not.toBeInTheDocument()
