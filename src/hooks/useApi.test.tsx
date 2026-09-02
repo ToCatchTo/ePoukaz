@@ -30,7 +30,7 @@ test('useApi: refetch při změně deps', async () => {
   await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(2))
 })
 
-import { useCompaniesSearch } from './useApi'
+import { useCompaniesSearch, useCompany } from './useApi'
 
 test('useCompaniesSearch: prázdný dotaz nevolá fetch', async () => {
   const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => [] })
@@ -47,4 +47,21 @@ test('useCompaniesSearch: neprázdný dotaz volá /companies?search=', async () 
   const { result } = renderHook(() => useCompaniesSearch('Brno'))
   await waitFor(() => expect(result.current.loading).toBe(false))
   expect(fetchMock.mock.calls[0][0]).toContain('?search=Brno')
+})
+
+test('useCompany: prázdný hash nevolá fetch a vrátí null', async () => {
+  const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({}) })
+  vi.stubGlobal('fetch', fetchMock)
+  const { result } = renderHook(() => useCompany(undefined))
+  await waitFor(() => expect(result.current.loading).toBe(false))
+  expect(fetchMock).not.toHaveBeenCalled()
+  expect(result.current.data).toBeNull()
+})
+
+test('useCompany: hash volá detail endpoint /companies/{hash}', async () => {
+  const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200, json: async () => ({ publicHash: 'abc' }) })
+  vi.stubGlobal('fetch', fetchMock)
+  const { result } = renderHook(() => useCompany('abc'))
+  await waitFor(() => expect(result.current.loading).toBe(false))
+  expect(fetchMock.mock.calls[0][0]).toBe('https://api.epoukazonline.cz/api/web/companies/abc')
 })

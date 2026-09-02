@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { getCompanies, getTariffs, getPages, getPage } from '../api/endpoints'
-import type { Company } from '../api/types'
+import { getCompanies, getCompany, getTariffs, getPages, getPage } from '../api/endpoints'
+import type { Company, CompanyDetail } from '../api/types'
 
 export type ApiState<T> = { data: T | null; loading: boolean; error: Error | null }
 
@@ -34,6 +34,15 @@ export const useCompanies = () => useApi((signal) => getCompanies(undefined, sig
 export const useTariffs = () => useApi((signal) => getTariffs(signal), [])
 export const usePages = () => useApi((signal) => getPages(signal), [])
 export const usePage = (slug: string) => useApi((signal) => getPage(slug, signal), [slug])
+
+// Detail jedné provozovny. Bez hashe (podstránky /faq, /obchodni-podminky bez
+// provozovny) fetch nevoláme a vracíme null – kvůli pravidlům hooků voláme hook vždy.
+export function useCompany(hash?: string): ApiState<CompanyDetail | null> {
+  return useApi<CompanyDetail | null>(
+    (signal) => (hash ? getCompany(hash, signal) : Promise.resolve(null)),
+    [hash],
+  )
+}
 
 export function useCompaniesSearch(query: string): ApiState<Company[]> {
   const q = query.trim()

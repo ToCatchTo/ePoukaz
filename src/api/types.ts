@@ -7,6 +7,27 @@ export type Company = {
   publicHash: string
 }
 
+// Jedna rozvozová oblast v rámci doručení provozovny.
+export type DeliveryRadius = { id: string; name: string; price: string; note: string }
+
+// Nastavení doručení provozovny (může chybět, pokud provozovna rozvoz nenabízí).
+export type CompanyDelivery = {
+  enabled: boolean
+  fee: string
+  radiuses: DeliveryRadius[]
+  note: string
+}
+
+// Detail provozovny z GET /api/web/companies/{hash} – stejný tvar jako položka
+// výpisu, navíc kontakty a doručení. Pole jsou volitelná/nullable, protože je
+// provozovna nemusí mít vyplněná. Zatím se nikde nevykreslují (jen připraveno).
+export type CompanyDetail = Company & {
+  publicPhone: string | null
+  publicPhones: string[]
+  publicEmail: string | null
+  delivery: CompanyDelivery | null
+}
+
 export type Tariff = {
   code: string
   label: string

@@ -1,4 +1,5 @@
-import { Box, Button, CircularProgress, Divider, Stack, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Divider, Link as MuiLink, Stack, Typography } from '@mui/material'
+import { Link as RouterLink } from 'react-router-dom'
 import type { Company } from '../../api/types'
 import { formatAddress, orderUrl } from '../../api/companyFill'
 import { SEARCH } from '../../data/content'
@@ -38,6 +39,15 @@ export default function SearchResults({ loading, error, companies }: Props) {
               <Typography sx={{ fontSize: fluid(16, 20) }}>
                 <Box component="span" sx={{ fontWeight: 700 }}>{c.name}</Box>
                 {formatAddress(c.address) && <Box component="span">{`, ${formatAddress(c.address)}`}</Box>}
+                {' '}
+                <MuiLink
+                  component={RouterLink}
+                  to={`/provozovna/${c.publicHash}`}
+                  underline="always"
+                  sx={{ color: 'primary.main', whiteSpace: 'nowrap' }}
+                >
+                  {SEARCH.detailLabel}
+                </MuiLink>
               </Typography>
               <Button
                 variant="contained"

@@ -9,7 +9,7 @@ import Footer from '../components/layout/Footer'
 import GridSection from '../components/layout/GridSection'
 import { fluid } from '../theme/fluid'
 import { UNI } from '../data/content'
-import { useCompanies } from '../hooks/useApi'
+import { useCompany } from '../hooks/useApi'
 import { useImagesReady } from '../hooks/useImagesReady'
 import { Seo } from '../components/common/Seo'
 import { SEO } from '../data/seo'
@@ -31,8 +31,10 @@ const GALLERY_IMAGES = [
 export default function ContentPage({ title }: { title?: string }) {
   const { publicHash } = useParams()
   const location = useLocation()
-  const { data: companies, loading } = useCompanies()
-  const company = publicHash ? companies?.find((c) => c.publicHash === publicHash) : undefined
+  // Detail provozovny z /api/web/companies/{hash}; bez hashe (holé /faq, /obchodni-podminky)
+  // hook fetch nevolá a vrací null. 404 → error (provozovna neexistuje/neaktivní).
+  const { data: company, loading, error } = useCompany(publicHash)
+  const notFound = Boolean(publicHash) && Boolean(error)
   const pageTitle = company?.name ?? title
 
   // Hodnoty do šablony – prázdné, když provozovna není (holé /faq, /obchodni-podminky).
@@ -68,6 +70,14 @@ export default function ContentPage({ title }: { title?: string }) {
         <DecorLines sx={{ top: 110 }} />
         <GridSection sx={{ position: 'relative', zIndex: 1 }}>
           <SectionCard sx={{ bgcolor: '#F5F5F5', px: fluid(20, 64), pt: fluid(80, 85), pb: fluid(96, 180) }}>
+            {notFound ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 240 }}>
+                <Typography sx={{ textAlign: 'center', fontSize: fluid(16, 20) }}>
+                  Provozovnu se nepodařilo načíst.
+                </Typography>
+              </Box>
+            ) : (
+            <>
             {!ready && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 240 }}>
                 <CircularProgress aria-label="Načítání" />
@@ -127,6 +137,8 @@ export default function ContentPage({ title }: { title?: string }) {
               </Grid>
             </Grid>
             </Box>
+            </>
+            )}
           </SectionCard>
         </GridSection>
       </Box>

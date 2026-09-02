@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { CircularProgress, Box } from '@mui/material'
 import PageLayout from './components/layout/PageLayout'
 import ScrollToTop from './components/common/ScrollToTop'
@@ -20,7 +20,9 @@ export function AppRoutes() {
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/pro-vydejny" element={<ForDistributorsPage />} />
+          <Route path="/vydejna" element={<ForDistributorsPage />} />
+          {/* Původní URL – přesměruje na kanonickou /vydejna (žádný duplicitní obsah, proto se ani neprerenderuje). */}
+          <Route path="/pro-vydejny" element={<Navigate to="/vydejna" replace />} />
           <Route path="/cenik" element={<PricingPage />} />
           <Route path="/kontakt" element={<ContactPage />} />
           <Route path="/faq" element={<ContentPage title="Časté dotazy" />} />

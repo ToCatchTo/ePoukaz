@@ -18,8 +18,8 @@ test('na / ukáže pacientskou sadu', () => {
   expect(screen.queryByText('Ceník')).toBeNull()
 })
 
-test('na /pro-vydejny ukáže výdejny sadu (Ceník, Kontakt)', () => {
-  renderAt('/pro-vydejny')
+test('na /vydejna ukáže výdejny sadu (Ceník, Kontakt)', () => {
+  renderAt('/vydejna')
   expect(screen.getAllByText('Ceník').length).toBeGreaterThan(0)
   expect(screen.getAllByText('Kontakt').length).toBeGreaterThan(0)
 })
@@ -36,13 +36,13 @@ test('zákaznická sada nemá v pill CTA tlačítko', () => {
 })
 
 test('CTA ve výdejny sadě je „30 dní ZDARMA"', () => {
-  renderAt('/pro-vydejny')
+  renderAt('/vydejna')
   expect(screen.getByText('30 dní ZDARMA')).toBeInTheDocument()
   expect(screen.queryByText('Stáhnout aplikaci')).toBeNull()
 })
 
 test('hamburger otevře a zavře mobilní menu', () => {
-  renderAt('/pro-vydejny')
+  renderAt('/vydejna')
   fireEvent.click(screen.getByRole('button', { name: 'Otevřít menu' }))
   const dialog = screen.getByRole('dialog', { name: 'Menu' })
   expect(dialog).not.toHaveAttribute('inert') // otevřené menu je interaktivní

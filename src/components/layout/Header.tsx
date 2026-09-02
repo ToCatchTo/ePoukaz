@@ -14,7 +14,7 @@ import MobileMenu from './MobileMenu'
 // Podstránky odkazované z výdejnové patičky (FAQ, obchodní podmínky, dynamické
 // /stranka/* – např. cookies) patří také do výdejnové sekce, aby menu neskákalo
 // na pacientské.
-const DISTRIBUTOR_PATHS = new Set(['/pro-vydejny', '/cenik', '/kontakt', '/faq', '/obchodni-podminky'])
+const DISTRIBUTOR_PATHS = new Set(['/vydejna', '/cenik', '/kontakt', '/faq', '/obchodni-podminky'])
 
 export default function Header() {
   const { pathname } = useLocation()
