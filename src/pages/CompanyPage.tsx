@@ -1,5 +1,4 @@
 import { Box, Button, CircularProgress, Grid, Link, Stack, Typography } from '@mui/material'
-import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import SectionCard from '../components/common/SectionCard'
 import GridSection from '../components/layout/GridSection'
@@ -9,7 +8,7 @@ import { useCompany } from '../hooks/useApi'
 import { useImagesReady } from '../hooks/useImagesReady'
 import { Seo } from '../components/common/Seo'
 import { SEO } from '../data/seo'
-import { companyImages, formatZip } from '../api/companyFill'
+import { companyImages, formatZip, orderUrl } from '../api/companyFill'
 
 // Poloměr zaoblení fotek a mapy dle XD (desktop 110 px, na mobilu jemnější).
 const MEDIA_R = fluid(28, 110)
@@ -51,7 +50,7 @@ export default function CompanyPage() {
 
   // Svislá fialová dělící linka mezi sloupci hlavičky – 200 px, opacity 10 %, jen desktop.
   const divider = (
-    <Box aria-hidden sx={{ display: { xs: 'none', md: 'block' }, flexShrink: 0, width: '2px', height: '200px', bgcolor: 'primary.main', opacity: 0.1, mx: fluid(24, 44) }} />
+    <Box aria-hidden sx={{ display: { xs: 'none', md: 'block' }, flexShrink: 0, width: '2px', height: '200px', bgcolor: 'primary.main', opacity: 0.1, ml: fluid(24, 44), mr: fluid(24, 75) }} />
   )
 
   return (
@@ -85,18 +84,34 @@ export default function CompanyPage() {
                     aria-hidden={ready ? undefined : true}
                     sx={ready ? undefined : { position: 'absolute', left: -99999, top: 0, width: '100%', opacity: 0, pointerEvents: 'none' }}
                   >
-                    {/* Zpět – tyrkysový pill s bílou kolečkovou šipkou (uvnitř karty vlevo nahoře) */}
-                    <Button
-                      onClick={() => navigate(-1)}
-                      color="secondary"
-                      variant="contained"
-                      startIcon={
-                        <Box component="img" alt="Zpět" src="/static-icons/arrow-right.svg" sx={{ width: { xs: 34, md: 43 }, height: { xs: 34, md: 43 }, borderRadius: '50%', display: 'grid', placeItems: 'center', rotate: '180deg', mr: { xs: '18px', md: '30px' } }} />
-                      }
-                      sx={{ color: '#fff', mb: fluid(28, 60), p: { xs: '5px 30px 5px 8px', md: '7px 45px 7px 12px' }, fontSize: { xs: '15px', md: fluid(16, 18) }, fontWeight: 500 }}
-                    >
-                      Zpět
-                    </Button>
+                    {/* Zpět + Uplatnit ePoukaz – tyrkysové pilly (šipka vlevo / vpravo), vedle sebe */}
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: { xs: '12px', md: '20px' }, mb: fluid(28, 60) }}>
+                      <Button
+                        onClick={() => navigate(-1)}
+                        color="secondary"
+                        variant="contained"
+                        startIcon={
+                          <Box component="img" alt="Zpět" src="/static-icons/arrow-right.svg" sx={{ width: { xs: 34, md: 43 }, height: { xs: 34, md: 43 }, borderRadius: '50%', display: 'grid', placeItems: 'center', rotate: '180deg', mr: { xs: '18px', md: '30px' } }} />
+                        }
+                        sx={{ color: '#fff', p: { xs: '5px 30px 5px 8px', md: '7px 45px 7px 12px' }, fontSize: { xs: '15px', md: fluid(16, 18) }, fontWeight: 500 }}
+                      >
+                        Zpět
+                      </Button>
+                      {publicHash && (
+                        <Button
+                          component="a"
+                          href={orderUrl(publicHash)}
+                          color="secondary"
+                          variant="contained"
+                          endIcon={
+                            <Box component="img" alt="" aria-hidden src="/static-icons/arrow-right.svg" sx={{ width: { xs: 34, md: 43 }, height: { xs: 34, md: 43 }, borderRadius: '50%', display: 'grid', placeItems: 'center', ml: { xs: '8px', md: '20px' } }} />
+                          }
+                          sx={{ color: '#fff', p: { xs: '5px 8px 5px 20px', md: '7px 12px 7px 35px' }, fontSize: { xs: '15px', md: fluid(16, 18) }, fontWeight: 500 }}
+                        >
+                          Uplatnit ePoukaz
+                        </Button>
+                      )}
+                    </Box>
 
                     {/* Hlavička: logo | adresa | kontakt. Desktop 3 sloupce se svislými fialovými
                         linkami, na mobilu se skládají pod sebe. */}
@@ -129,9 +144,16 @@ export default function CompanyPage() {
                         )}
                         {phones.map((phone) => (
                           <Typography key={phone} sx={{ fontSize: fluid(15, 20), color: '#000', lineHeight: '30px' }}>
-                            <Link href={`tel:${phone.replace(/\s+/g, '')}`} underline="hover" color="inherit">{phone}</Link>
+                            <Link href={`tel:${phone.replace(/\s+/g, '')}`} underline="hover" color="inherit"> {phone}</Link>
                           </Typography>
                         ))}
+                        {company?.website && (
+                          <Typography sx={{ fontSize: fluid(15, 20), color: '#000', lineHeight: '30px', overflowWrap: 'anywhere' }}>
+                            <Link href={`https://${company.website}`} target="_blank" rel="noopener noreferrer" underline="hover" color="inherit">
+                              {company.website}
+                            </Link>
+                          </Typography>
+                        )}
                       </Box>
                     </Box>
 

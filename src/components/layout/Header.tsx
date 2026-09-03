@@ -45,7 +45,7 @@ export default function Header() {
             pl: { xs: isDistributor ? 2.5 : 4, lg: fluid(50, 100, 1200, 1920) },
             // Pacientská sekce nemá CTA/odznak → pravý padding srovnáme s levým (i na mobilu).
             // Výdejnová sekce má CTA/odznak (vlastní vnitřní padding), proto zůstává užší pr.
-            pr: { xs: isDistributor ? 1 : 4, lg: isDistributor ? fluid(24, 50, 1200, 1920) : fluid(50, 100, 1200, 1920) },
+            pr: { xs: isDistributor ? 1 : 4, lg: isDistributor ? fluid(24, 50, 1200, 1920) : fluid(50, 100, 1200, 1920) }, maxHeight: '128px'
           }}
         >
           {/* Logo: mr:auto na desktopu odtlačí navigaci a CTA doprava */}

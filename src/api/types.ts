@@ -25,6 +25,7 @@ export type CompanyDetail = Company & {
   publicPhone: string | null
   publicPhones: string[]
   publicEmail: string | null
+  website: string | null
   delivery: CompanyDelivery | null
 }
 
