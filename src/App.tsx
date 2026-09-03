@@ -10,6 +10,7 @@ const ForDistributorsPage = lazy(() => import('./pages/ForDistributorsPage'))
 const PricingPage = lazy(() => import('./pages/PricingPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
 const ContentPage = lazy(() => import('./pages/ContentPage'))
+const CompanyPage = lazy(() => import('./pages/CompanyPage'))
 const DynamicPage = lazy(() => import('./pages/DynamicPage'))
 const InfoPage = lazy(() => import('./pages/InfoPage'))
 
@@ -27,7 +28,7 @@ export function AppRoutes() {
           <Route path="/kontakt" element={<ContactPage />} />
           <Route path="/faq" element={<ContentPage title="Časté dotazy" />} />
           <Route path="/obchodni-podminky" element={<ContentPage title="Obchodní podmínky" />} />
-          <Route path="/provozovna/:publicHash" element={<ContentPage />} />
+          <Route path="/provozovna/:publicHash" element={<CompanyPage />} />
           <Route path="/stranka/:slug" element={<DynamicPage />} />
           <Route path="/jak-to-funguje" element={<InfoPage data={HOW_IT_WORKS} path="/jak-to-funguje" />} />
           <Route path="/vse-o-epoukazu" element={<InfoPage data={ABOUT_EPOUKAZ} path="/vse-o-epoukazu" />} />

@@ -1,5 +1,11 @@
 import type { Company } from './types'
 
+// PSČ do české podoby „XXX XX" (jen u pětimístného číselného kódu, jinak beze změny).
+export function formatZip(zip: string | null): string {
+  if (zip && /^\d{5}$/.test(zip)) return `${zip.slice(0, 3)} ${zip.slice(3)}`
+  return zip ?? ''
+}
+
 export function formatAddress(address: Company['address']): string {
   const cityZip = [address.city, address.zip].filter(Boolean).join(' ')
   return [address.street, cityZip].filter(Boolean).join(', ')
