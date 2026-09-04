@@ -17,6 +17,7 @@ const company = {
   publicPhone: '+420 777 888 999',
   publicPhones: ['+420 777 888 999', '+420 11 32 36 78'],
   publicEmail: 'info@prodejna.cz',
+  website: 'https://prodejna.cz',
   delivery: null,
 }
 

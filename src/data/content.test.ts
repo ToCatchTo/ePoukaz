@@ -10,10 +10,10 @@ test('6 barevných karet problémů', () => {
   expect(PROBLEMS[0].color).toBe('#C4FFFD')
 })
 
-test('3 tarify a 15 řádků srovnání', () => {
+test('3 tarify a 29 řádků srovnání', () => {
   expect(PRICING).toHaveLength(3)
   expect(PRICING[1].highlighted).toBe(true)
-  expect(COMPARE_ROWS).toHaveLength(15)
+  expect(COMPARE_ROWS).toHaveLength(29)
 })
 
 test('3 recenze a 3 sloupce patičky', () => {

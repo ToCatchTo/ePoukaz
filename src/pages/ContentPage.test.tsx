@@ -17,6 +17,7 @@ const company = {
   publicPhone: null,
   publicPhones: [],
   publicEmail: null,
+  website: null,
   delivery: null,
 }
 
