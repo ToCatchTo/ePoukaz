@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Collapse, Divider, Stack, Typography } from '@mui/material'
+import { Box, Collapse, Divider, Link, Stack, Typography } from '@mui/material'
 import CircleArrowButton from './CircleArrowButton'
 import { fluid } from '../../theme/fluid'
 import GridSection from '../layout/GridSection'
@@ -7,6 +7,30 @@ import { HOW_STEPS } from '../../data/content'
 
 // Obrázek pro každý krok (mění se podle otevřeného kroku).
 const STEP_IMAGES = HOW_STEPS.map((s) => s.img)
+
+// Text kroku je prostý řetězec (content.ts). Zmínku o epoukazonline.cz z něj
+// uděláme klikatelný odkaz, zbytek necháme jako text.
+const EPOUKAZ_DOMAIN = 'epoukazonline.cz'
+function renderStepText(text: string) {
+  const parts = text.split(EPOUKAZ_DOMAIN)
+  if (parts.length === 1) return text
+  return parts.flatMap((part, i) =>
+    i === 0
+      ? [part]
+      : [
+        <Link
+          key={i}
+          href={`https://${EPOUKAZ_DOMAIN}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{ color: 'primary.main', fontWeight: 500 }}
+        >
+          {EPOUKAZ_DOMAIN}
+        </Link>,
+        part,
+      ],
+  )
+}
 
 // Sekce „Jak to funguje" – vlevo accordion kroků (vždy právě jeden otevřený),
 // vpravo obrázek přes celou výšku karty, měnící se podle otevřeného kroku.
@@ -72,7 +96,7 @@ export default function HowItWorks() {
                         '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
                       }}
                     >
-                      {s.text}
+                      {renderStepText(s.text)}
                     </Typography>
                   </Collapse>
                 </Box>

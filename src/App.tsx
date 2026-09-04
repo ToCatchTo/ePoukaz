@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { CircularProgress, Box } from '@mui/material'
 import PageLayout from './components/layout/PageLayout'
 import ScrollToTop from './components/common/ScrollToTop'
@@ -10,6 +10,7 @@ const ForDistributorsPage = lazy(() => import('./pages/ForDistributorsPage'))
 const PricingPage = lazy(() => import('./pages/PricingPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
 const ContentPage = lazy(() => import('./pages/ContentPage'))
+const CompanyPage = lazy(() => import('./pages/CompanyPage'))
 const DynamicPage = lazy(() => import('./pages/DynamicPage'))
 const InfoPage = lazy(() => import('./pages/InfoPage'))
 
@@ -20,12 +21,14 @@ export function AppRoutes() {
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/pro-vydejny" element={<ForDistributorsPage />} />
+          <Route path="/vydejna" element={<ForDistributorsPage />} />
+          {/* Původní URL – přesměruje na kanonickou /vydejna (žádný duplicitní obsah, proto se ani neprerenderuje). */}
+          <Route path="/pro-vydejny" element={<Navigate to="/vydejna" replace />} />
           <Route path="/cenik" element={<PricingPage />} />
           <Route path="/kontakt" element={<ContactPage />} />
           <Route path="/faq" element={<ContentPage title="Časté dotazy" />} />
           <Route path="/obchodni-podminky" element={<ContentPage title="Obchodní podmínky" />} />
-          <Route path="/provozovna/:publicHash" element={<ContentPage />} />
+          <Route path="/provozovna/:publicHash" element={<CompanyPage />} />
           <Route path="/stranka/:slug" element={<DynamicPage />} />
           <Route path="/jak-to-funguje" element={<InfoPage data={HOW_IT_WORKS} path="/jak-to-funguje" />} />
           <Route path="/vse-o-epoukazu" element={<InfoPage data={ABOUT_EPOUKAZ} path="/vse-o-epoukazu" />} />

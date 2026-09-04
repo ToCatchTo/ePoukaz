@@ -31,7 +31,7 @@ export default function DistributorCtaFooter() {
                 variant="contained"
                 color="secondary"
                 component={RouterLink}
-                to="/pro-vydejny"
+                to="/vydejna"
                 endIcon={<Box component="img" src="/static-icons/arrow-right.svg" alt="" sx={{ width: fluid(30, 43), height: fluid(30, 43) }} />}
                 sx={{ color: '#fff', pl: '30px', pr: '15px', py: 1.5, fontSize: fluid(18, 24), fontWeight: 500, height: fluid(60, 70), mt: `${fluid(20, 40)} !important`, '& .MuiButton-endIcon': { ml: '20px', mr: 0 } }}
               >

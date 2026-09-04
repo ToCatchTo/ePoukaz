@@ -24,3 +24,14 @@ test('ceník se vyrenderuje', async () => {
   renderAt('/cenik')
   expect(await screen.findByTestId('page-cenik')).toBeInTheDocument()
 })
+
+test('/vydejna vyrenderuje stránku „Pro výdejny"', async () => {
+  renderAt('/vydejna')
+  expect(await screen.findByText('6 problémů, které s námi vyřešíte')).toBeInTheDocument()
+})
+
+test('/pro-vydejny přesměruje na /vydejna', async () => {
+  renderAt('/pro-vydejny')
+  // Po přesměrování se vyrenderuje kanonická stránka „Pro výdejny" s jejím distinktivním nadpisem.
+  expect(await screen.findByText('6 problémů, které s námi vyřešíte')).toBeInTheDocument()
+})

@@ -85,6 +85,31 @@ function ReviewCard({ name, delay, pos }: { name: string; delay: string; pos: ob
   )
 }
 
+// Ruka s telefonem + obsah displeje (app-screen.webp) přesně napozicovaný ve „slotu".
+// Sdílené desktopem i mobilem, aby telefon ukazoval na obou stejný screen
+// (fotka hero-phone.webp má vlastní displej zapečený – tímhle ho přeryjeme).
+function PhoneWithScreen({ imgSx, wrapperSx }: { imgSx?: object; wrapperSx?: object }) {
+  return (
+    <Box sx={{ position: 'relative', lineHeight: 0, ...wrapperSx }}>
+      <Box
+        component="img"
+        src="/images/hero-phone.webp"
+        alt="Aplikace ePoukaz online v telefonu"
+        width={1284}
+        height={1818}
+        loading="eager"
+        fetchPriority="high"
+        sx={{ display: 'block', ...imgSx }}
+      />
+      {/* Slot na displej – statický obrázek app-screen.webp.
+          Pro skutečné video stačí místo <img> vložit <Box component="video" ... />. */}
+      <Box sx={{ position: 'absolute', left: '14.5%', top: '8.6%', width: '41%', height: '62.8%', borderRadius: '38px', overflow: 'hidden' }}>
+        <Box component="img" src="/images/app-screen.webp" alt="" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+      </Box>
+    </Box>
+  )
+}
+
 // Kompozice: ruka s telefonem + tři plovoucí recenze.
 // Prvky jsou position:absolute vůči nejbližšímu pozicovanému rodiči (wrapper níže).
 // gabinaLeft přepíše pozici karty Gábina (potřebuje víc vlevo, aby nezmizela za telefonem).
@@ -98,25 +123,10 @@ function HeroComposition({ gabinaLeft }: { gabinaLeft?: string }) {
     <>
       {/* Ruka s telefonem – top posunutý níž, aby useknuté zápěstí zajelo pod vlnu/bílou sekci
           a nebyl vidět ostrý řez přesně na hraně boxu pod herem. */}
-      <Box sx={{ position: 'absolute', right: '5%', top: 140, height: 860, zIndex: 0 }}>
-        {/* Fotka ruky – obsah displeje je zapečený ve fotce; slot níže je pro dynamický obsah */}
-        <Box
-          component="img"
-          src="/images/hero-phone.webp"
-          alt="Aplikace ePoukaz online v telefonu"
-          width={1284}
-          height={1818}
-          loading="eager"
-          fetchPriority="high"
-          sx={{ height: '100%', width: 'auto', display: 'block' }}
-        />
-        {/* Slot na displej – prozatím statický obrázek app-screen.webp.
-            Pro skutečné video stačí místo <img> vložit <Box component="video" ... />
-            (dřív tu byl animovaný /videos/hero-screen.webp). */}
-        <Box sx={{ position: 'absolute', left: '14.5%', top: '8.6%', width: '41%', height: '62.8%', borderRadius: '38px', overflow: 'hidden' }}>
-          <Box component="img" src="/images/app-screen.webp" alt="" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-        </Box>
-      </Box>
+      <PhoneWithScreen
+        wrapperSx={{ position: 'absolute', right: '5%', top: 140, height: 860, zIndex: 0, display: 'inline-block' }}
+        imgSx={{ height: '100%', width: 'auto' }}
+      />
       {/* Recenze – plovoucí kolem ruky, postupný fade-in */}
       {reviews.map((r) => (
         <ReviewCard key={r.name} name={r.name} delay={r.delay} pos={r.pos} />
@@ -182,18 +192,13 @@ export default function HeroSection() {
 
         {/* Mobil (< 900) – ruka s telefonem na vlnitém pozadí + swipe recenze */}
         <Box sx={{ display: { xs: 'block', md: 'none' }, mt: -3 }}>
-          {/* Ruka s telefonem – vlny za ní; spodek ruky není useknutý, jen ho překryjí recenze */}
+          {/* Ruka s telefonem – vlny za ní; spodek ruky není useknutý, jen ho překryjí recenze.
+              Stejný slot na displej jako desktop, aby telefon ukazoval na mobilu i desktopu totéž. */}
           <Box sx={{ position: 'relative', zIndex: 0 }}>
             <DecorLines sx={{ top: '32%' }} />
-            <Box
-              component="img"
-              src="/images/hero-phone.webp"
-              alt="Aplikace ePoukaz online v telefonu"
-              width={1284}
-              height={1818}
-              loading="eager"
-              fetchPriority="high"
-              sx={{ position: 'relative', display: 'block', width: 'auto', height: 'auto', maxWidth: { xs: '143%', sm: 500 }, mx: 'auto', pt: '52px' }}
+            <PhoneWithScreen
+              wrapperSx={{ display: 'block', width: { xs: '143%', sm: 500 }, mx: 'auto', mt: '52px' }}
+              imgSx={{ width: '100%', height: 'auto' }}
             />
           </Box>
           {/* Recenze vytažené nahoru přes spodek ruky (zIndex 1 = nad rukou);

@@ -93,7 +93,7 @@ export default defineConfig(({ mode }) => {
       // nepředrenderovávají, zůstávají CSR přes SPA fallback.
       prerender({
         routes: [
-          '/', '/pro-vydejny', '/cenik', '/kontakt',
+          '/', '/vydejna', '/cenik', '/kontakt',
           '/faq', '/obchodni-podminky', '/jak-to-funguje', '/vse-o-epoukazu',
         ],
         renderer: '@prerenderer/renderer-puppeteer',

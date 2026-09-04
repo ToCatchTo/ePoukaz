@@ -11,10 +11,10 @@ const wrap = () =>
     </ThemeProvider>,
   )
 
-test('zobrazí CTA nadpis, provozovatele a tlačítko mířící na /pro-vydejny', () => {
+test('zobrazí CTA nadpis, provozovatele a tlačítko mířící na /vydejna', () => {
   wrap()
   expect(screen.getByText('Jste výdejna ePoukazů?')).toBeInTheDocument()
   expect(screen.getByText(/Provozovatel: epoukazonline s.r.o./)).toBeInTheDocument()
   const btn = screen.getByRole('link', { name: /Zóna pro výdejny/ })
-  expect(btn).toHaveAttribute('href', '/pro-vydejny')
+  expect(btn).toHaveAttribute('href', '/vydejna')
 })

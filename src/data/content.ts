@@ -10,12 +10,12 @@ export const APP_DOWNLOAD_URL = 'https://epoukazonline.cz/aplikace'
 export const NAV_MAIN = [
   { label: 'Jak to funguje?', to: '/jak-to-funguje' },
   { label: 'Vše o ePoukazu', to: '/vse-o-epoukazu' },
-  { label: 'Pro výdejny', to: '/pro-vydejny' },
+  { label: 'Pro výdejny', to: '/vydejna' },
 ]
 export const NAV_DISTRIBUTORS = [
-  // „Jak to funguje?" míří na prodejní stránku /pro-vydejny, ale rovnou na kotvu
+  // „Jak to funguje?" míří na prodejní stránku /vydejna, ale rovnou na kotvu
   // sekce s 9 kroky a fotkami (id="jak-to-funguje"), ne na začátek stránky.
-  { label: 'Jak to funguje?', to: '/pro-vydejny#jak-to-funguje' },
+  { label: 'Jak to funguje?', to: '/vydejna#jak-to-funguje' },
   { label: 'Ceník', to: '/cenik' },
   { label: 'Kontakt', to: '/kontakt' },
 ]
@@ -41,6 +41,7 @@ export const SEARCH = {
   placeholder: 'Hledejte svou výdejnu dle názvu nebo města…',
   placeholderShort: 'Název nebo město…', // mobil (dlouhý placeholder se do úzkého pole nevejde)
   selectLabel: 'Vybrat',
+  detailLabel: 'detail',
   emptyTitle: 'Nic jsme nenašli',
   notFoundTitle: 'Vaši výdejnu jsme nenašli?',
   notFoundText:
@@ -179,7 +180,7 @@ export const HOW_STEPS = [
   },
   {
     title: 'Pacient nahraje ePoukaz sám',
-    text: 'Pacient nebo jeho blízký přes váš web jednoduše načte QR kód nebo zadá kód ručně. Bez front, bez telefonátů, kdykoliv z pohodlí domova nebo přímo z ordinace. Načíst můžete i vy přímo v systému.',
+    text: 'Pacient nebo jeho blízký přes váš web nebo web epoukazonline.cz jednoduše načte QR kód nebo zadá kód ručně. Bez front, bez telefonátů, kdykoliv z pohodlí domova nebo přímo z ordinace. Načíst můžete i vy přímo v systému.',
     img: '/images/howitworks-patient-upload.webp'
   },
   {
