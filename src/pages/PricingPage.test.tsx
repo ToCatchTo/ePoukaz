@@ -23,7 +23,7 @@ test('ceník zobrazí tarify z API a statickou srovnávací tabulku', () => {
   expect(screen.getByText('Lite')).toBeInTheDocument()
   expect(screen.getByText('490 Kč')).toBeInTheDocument()
   expect(screen.getByText('Cena na dotaz')).toBeInTheDocument()
-  expect(screen.getByText('Klientské rozhraní')).toBeInTheDocument()
+  expect(screen.getByText('Administrátorské rozhraní')).toBeInTheDocument()
 })
 
 test('ceník padne zpět na statické tarify při chybě/načítání', () => {

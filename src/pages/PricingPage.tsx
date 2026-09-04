@@ -37,6 +37,12 @@ function TableCheck({ src }: { src: string }) {
   return <Box component="img" src={src} alt="" aria-hidden sx={{ width: { xs: 18, md: 22 }, height: { xs: 18, md: 22 }, display: 'block' }} />
 }
 
+// Buňka řádku tabulky – fajfka (boolean), textová hodnota (string, např. počet uživatelů), nebo prázdno
+function TableCell({ value, checkSrc }: { value: boolean | string; checkSrc: string }) {
+  if (typeof value === 'string') return <Typography sx={{ fontSize: fluid(13, 18), fontWeight: 500 }}>{value}</Typography>
+  return value ? <TableCheck src={checkSrc} /> : null
+}
+
 // Hlavička sloupce tarifu ve srovnávací tabulce – na mobilu zkrácená (S/P/Pr), na desktopu plný název.
 function TierHead({ full, abbr, color }: { full: string; abbr: string; color?: string }) {
   return (
@@ -152,9 +158,9 @@ export default function PricingPage() {
               {COMPARE_ROWS.map((r) => (
                 <Grid container key={r.label} sx={{ py: { xs: 1.25, lg: 2 }, alignItems: 'center' }}>
                   <Grid size={6}><Typography sx={{ color: 'text.secondary', fontSize: fluid(13, 18), pr: 2 }}>{rowLabel(r.label)}</Typography></Grid>
-                  <Grid size={2}>{r.start && <TableCheck src={TABLE_CHECK.start} />}</Grid>
-                  <Grid size={2}>{r.pro && <TableCheck src={TABLE_CHECK.pro} />}</Grid>
-                  <Grid size={2}>{r.premium && <TableCheck src={TABLE_CHECK.premium} />}</Grid>
+                  <Grid size={2}><TableCell value={r.start} checkSrc={TABLE_CHECK.start} /></Grid>
+                  <Grid size={2}><TableCell value={r.pro} checkSrc={TABLE_CHECK.pro} /></Grid>
+                  <Grid size={2}><TableCell value={r.premium} checkSrc={TABLE_CHECK.premium} /></Grid>
                 </Grid>
               ))}
             </Box>

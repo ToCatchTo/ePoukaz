@@ -316,22 +316,37 @@ export const PRICING = [
 ]
 
 // Srovnávací tabulka „Nástroje"; rozložení fajfek odpovídá renderu _navrh/ (960px)
+// start/pro/premium: boolean = fajfka/nic, string = textová hodnota (např. počet uživatelů)
 export const COMPARE_ROWS = [
-  { label: 'Klientské rozhraní', start: true, pro: true, premium: true },
   { label: 'Administrátorské rozhraní', start: true, pro: true, premium: true },
-  { label: 'Správa a změna stavu ePoukazů', start: true, pro: true, premium: true },
+  { label: 'Přístup přes telefon jako aplikace', start: true, pro: true, premium: true },
+  { label: 'Zabezpečení a GDPR', start: true, pro: true, premium: true },
+  { label: 'Správa a změna stavů ePoukazů', start: true, pro: true, premium: true },
   { label: 'Archivace ePoukazů', start: true, pro: true, premium: true },
-  { label: 'Security - GDPR a ochrana osobních údajů', start: true, pro: true, premium: true },
-  { label: 'Profil Mojí firmy', start: true, pro: true, premium: true },
+  { label: 'Propojení se systémem SÚKL', start: true, pro: true, premium: true },
+  { label: 'Zařazení do seznamu výdejen na ePoukazOnline.cz', start: true, pro: true, premium: true },
+  { label: 'Profil vaší provozovny', start: true, pro: true, premium: true },
+  { label: 'Okamžitá notifikace na nový příchozí ePoukaz', start: true, pro: true, premium: true },
+  { label: 'Vlastní poznámka v detailu ePoukazu', start: true, pro: true, premium: true },
+  { label: 'Upozornění na končící platnost ePoukazu', start: true, pro: true, premium: true },
+  { label: 'Možnost vlastní dopravy', start: true, pro: true, premium: true },
   { label: 'Notifikace zákazníka e-mailem', start: true, pro: true, premium: true },
+  { label: 'Ruční export dat pro účetní systém', start: true, pro: true, premium: true },
+  { label: 'Online podpora', start: true, pro: false, premium: false },
+  { label: 'Prioritní online podpora', start: false, pro: true, premium: true },
   { label: 'Notifikace zákazníka SMS*', start: false, pro: true, premium: true },
-  { label: 'Měsíční reporty', start: false, pro: true, premium: true },
-  { label: 'Profil, historie a interval objednávek klienta', start: false, pro: true, premium: true },
-  { label: 'Sleva 50% na tvorbu webu (detail)', start: false, pro: true, premium: true },
-  { label: 'Online platby', start: false, pro: false, premium: true },
-  { label: 'Více uživatelů a štítků', start: false, pro: false, premium: true },
-  { label: 'Export kontaktních údajů (csv, excel)', start: false, pro: false, premium: true },
-  { label: 'Napojení dopravní společnosti (DPD, PPL a další)', start: false, pro: false, premium: true },
+  { label: 'Přehledné statistiky vyřízených ePoukazů', start: false, pro: true, premium: true },
+  { label: 'Kompletní klientská databáze', start: false, pro: true, premium: true },
+  { label: 'Správa a kategorizace zákazníků', start: false, pro: true, premium: true },
+  { label: 'Ukládání stálých zákazníků s historií objednávek', start: false, pro: true, premium: true },
+  { label: 'Automatické upomínky k intervalu objednávek zákazníka', start: false, pro: true, premium: true },
+  { label: 'Automatická synchronizace dat SÚKL s účetním systémem každých 30 minut', start: false, pro: true, premium: false },
+  { label: 'Automatická synchronizace dat SÚKL v reálném čase', start: false, pro: false, premium: true },
+  { label: 'Napojení na dopravní společnosti', start: false, pro: false, premium: true },
+  { label: 'Vlastní branding SMS zpráv zákazníkům', start: false, pro: false, premium: true },
+  { label: 'Vlastní branding e-mailových šablon', start: false, pro: false, premium: true },
+  { label: 'Exporty a reporty v pdf', start: false, pro: false, premium: true },
+  { label: 'Počet uživatelů', start: '1', pro: '1–5', premium: '5–10' },
 ]
 
 // Poznámka k SMS pod tabulkou
