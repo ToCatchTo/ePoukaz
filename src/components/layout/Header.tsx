@@ -43,9 +43,10 @@ export default function Header() {
             py: { xs: isDistributor ? 0.75 : 3, lg: fluid(32, 40, 1200, 1920) },
             // Pacientská pill obepíná jen logo → na mobilu víc vodorovného prostoru, ať není úzká.
             pl: { xs: isDistributor ? 2.5 : 4, lg: fluid(50, 100, 1200, 1920) },
-            // Pacientská sekce nemá CTA/odznak → pravý padding srovnáme s levým (i na mobilu).
-            // Výdejnová sekce má CTA/odznak (vlastní vnitřní padding), proto zůstává užší pr.
-            pr: { xs: isDistributor ? 1 : 4, lg: isDistributor ? fluid(24, 50, 1200, 1920) : fluid(50, 100, 1200, 1920) }, maxHeight: '128px'
+            // Na desktopu je pravý padding stejný v obou sekcích (výdejnové desktop CTA je zatím skryté,
+            // takže užší pr už nedává smysl). Na mobilu/tabletu má výdejnová pill odznak s vlastním
+            // vnitřním paddingem, proto tam zůstává užší pravý padding.
+            pr: { xs: isDistributor ? 1 : 4, lg: fluid(50, 100, 1200, 1920) }, maxHeight: '128px'
           }}
         >
           {/* Logo: mr:auto na desktopu odtlačí navigaci a CTA doprava */}
