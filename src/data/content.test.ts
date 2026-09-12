@@ -22,10 +22,11 @@ test('3 recenze a 3 sloupce patičky', () => {
 })
 
 test('nav sady', () => {
-  expect(NAV_MAIN.map((l) => l.to)).toEqual(['/jak-to-funguje', '/vse-o-epoukazu', '/vydejna'])
-  expect(NAV_DISTRIBUTORS.map((l) => l.to)).toEqual(['/vydejna#jak-to-funguje', '/cenik', '/kontakt'])
-  // První položka má label „Jak to funguje?", míří na kotvu sekce na /vydejna
-  expect(NAV_DISTRIBUTORS[0]).toEqual({ label: 'Jak to funguje?', to: '/vydejna#jak-to-funguje' })
+  expect(NAV_MAIN.map((l) => l.to)).toEqual(['/', '/jak-to-funguje', '/vse-o-epoukazu', '/vydejna'])
+  expect(NAV_DISTRIBUTORS.map((l) => l.to)).toEqual(['/', '/vydejna#jak-to-funguje', '/cenik', '/kontakt'])
+  // První položka je „Uplatnit ePoukaz" → homepage s vyhledávacím barem provozoven
+  expect(NAV_MAIN[0]).toEqual({ label: 'Uplatnit ePoukaz', to: '/' })
+  expect(NAV_DISTRIBUTORS[0]).toEqual({ label: 'Uplatnit ePoukaz', to: '/' })
 })
 
 test('CTA patičky pro zákaznické stránky', () => {

@@ -29,21 +29,21 @@ export default function HomePage() {
         logo: 'https://epoukazonline.cz/images/logo-epoukaz.svg',
       }} />
       <GridSection>
-        <Stack sx={{ alignItems: { xs: 'flex-start', sm: 'center' }, textAlign: { xs: 'left', sm: 'center' }, mt: fluid(60, 139) }}>
+        <Stack sx={{ alignItems: { xs: 'flex-start', sm: 'center' }, textAlign: { xs: 'left', sm: 'center' }, mt: fluid(10, 89) }}>
           <Typography variant="h1" sx={{ color: '#fff', maxWidth: 720, fontSize: { xs: 30, sm: 36, md: 42 }, lineHeight: 1.2 }}>{SEARCH.h1}</Typography>
           <Typography sx={{ color: '#fff', fontSize: fluid(16, 20), maxWidth: 812, mt: '20px' }}>{SEARCH.perex}</Typography>
           <Box sx={{ width: '100%', maxWidth: 1088, mt: '50px' }}>
             <SearchField value={query} onChange={setQuery} placeholder={SEARCH.placeholder} placeholderShort={SEARCH.placeholderShort} />
           </Box>
           {showPanel && (
-            <Box sx={{ width: '100%', mt: fluid(20, 20) }}>
+            <Box sx={{ width: '100%', mt: fluid(70, 70) }}>
               <SearchResults loading={loading} error={error} companies={data ?? []} />
             </Box>
           )}
         </Stack>
       </GridSection>
 
-      <Box sx={{ mt: fluid(200, 936) }}>
+      <Box sx={{ mt: '380px' }}>
         <DistributorCtaFooter />
       </Box>
     </Box>

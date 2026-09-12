@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Button, Link as MuiLink } from '@mui/material'
+import { Box, Link as MuiLink } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 import { NAV_MAIN, NAV_DISTRIBUTORS, REGISTER_URL } from '../../data/content'
 import { scrollToHashOnClick } from '../../utils/scrollToHash'
@@ -79,12 +79,14 @@ export default function Header() {
             )
           })}
 
-          {/* CTA: jen desktop, jen ve výdejnové sekci */}
+          {/* CTA na desktopu (výdejnová sekce) je zatím skryté – dřív se zobrazovalo přes
+              display: { xs: 'none', lg: 'inline-flex' }. Mobilní/tabletový odznak „30 dní ZDARMA"
+              výše i položka v MobileMenu zůstávají.
           {cta && (
             <Button variant="contained" color="secondary" href={cta.href} target="_blank" rel="noopener noreferrer" sx={{ display: { xs: 'none', lg: 'inline-flex' }, color: '#fff', p: fluid(12, 18), fontSize: fluid(16, 20), whiteSpace: 'nowrap' }}>
               {cta.label}
             </Button>
-          )}
+          )} */}
         </Box>
 
         {/* Hamburger: mobil i tablet */}

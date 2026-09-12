@@ -62,7 +62,9 @@ export default function PricingCard({
         position: 'relative',
         bgcolor: '#fff',
         borderRadius: '100px',
-        height: '583px', // jednotná výška všech karet
+        // Výška se řídí obsahem; díky alignItems:'stretch' u rodiče (PricingPage) jsou
+        // všechny karty stejně vysoké jako ta nejvyšší (nejvíc bodů v seznamu vlastností).
+        height: '100%',
         maxWidth: '370px',
         width: '100%',
         overflow: 'hidden', // ořízne obsah do zaoblených rohů
@@ -91,8 +93,11 @@ export default function PricingCard({
       >
         {item.price}
       </Typography>
-      <Typography sx={{ alignSelf: 'stretch', textAlign: 'center', fontSize: 11, color: '#939393', letterSpacing: '0.5px', mt: 1, mb: 4 }}>
+      <Typography sx={{ alignSelf: 'stretch', textAlign: 'center', fontSize: 11, color: '#939393', letterSpacing: '0.5px', mt: 1 }}>
         {item.note}
+      </Typography>
+      <Typography sx={{ alignSelf: 'stretch', textAlign: 'center', fontSize: 16, color: '#000', mt: 1, mb: 4 }}>
+        2 měsíce <b>zdarma</b> při roční platbě
       </Typography>
 
       {/* Seznam vlastností – blok vycentrovaný, řádky zarovnané vlevo */}

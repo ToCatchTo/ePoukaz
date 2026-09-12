@@ -103,7 +103,7 @@ export default function PricingPage() {
       <Box sx={{ position: 'relative', mt: 4 }}>
         <DecorLines sx={{ top: 110 }} />
         <GridSection sx={{ position: 'relative', zIndex: 1 }}>
-          <SectionCard sx={{ bgcolor: '#F5F5F5', px: fluid(20, 100), pt: fluid(48, 85), pb: fluid(80, 150) }}>
+          <SectionCard sx={{ bgcolor: '#F5F5F5', px: '30px', pt: fluid(48, 85), pb: fluid(80, 150) }}>
             {/* Nadpis + podtitul */}
             <Stack sx={{ textAlign: 'center', mb: fluid(56, 95), alignItems: 'center', gap: fluid(20, 35) }}>
               <Typography variant="h3" sx={{ maxWidth: 760 }}>{PRICING_HEAD.title}</Typography>
@@ -118,10 +118,11 @@ export default function PricingPage() {
                 <CircularProgress aria-label="Načítání" />
               </Box>
             )}
-            {/* Tarify ve flexboxu s pevnou šířkou karty (360 px) bez flex-grow: všechny karty jsou stejně
-                široké (grow by osamocenou kartu na posledním řádku roztáhl) a mezi nimi je přesně gap 30 px.
-                Počet karet v řadě se řídí dostupnou šířkou; každý řádek je přes justifyContent center
-                vycentrovaný jako skupina. maxWidth 100 % zúží kartu na úzkých telefonech.
+            {/* Tarify ve flexboxu s flex-grow. Karty mají základ (basis) 330 px a rostou až do 370 px,
+                takže vždy vyplní šířku řádku → s obrazovkou se plynule zužují (mezi 330–370 px). 3 drží
+                vedle sebe, dokud se 3× základ vejde; jinak se řádek zalomí (3→2→1). flex-grow spolu s
+                justifyContent center zajistí, že i zalomené řádky (např. 2+1) jsou vycentrované – osamocená
+                karta ve druhém řádku je uprostřed. alignItems stretch drží karty v řádku stejně vysoké.
                 Blok se renderuje vždy – dokud není „ready", je skrytý mimo obrazovku (přednačtení ikon). */}
             <Box
               aria-hidden={ready ? undefined : true}
@@ -139,7 +140,7 @@ export default function PricingPage() {
                 {cards.map((c) => (
                   <Box
                     key={c.key}
-                    sx={{ width: 360, maxWidth: '100%', flexShrink: 0 }}
+                    sx={{ flex: '1 1 330px', maxWidth: 370, minWidth: 0 }}
                   >
                     <PricingCard item={c.item} tier={c.tier} />
                   </Box>

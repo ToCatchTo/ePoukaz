@@ -32,10 +32,20 @@ function renderStepText(text: string) {
   )
 }
 
-// Sekce „Jak to funguje" – vlevo accordion kroků (vždy právě jeden otevřený),
-// vpravo obrázek přes celou výšku karty, měnící se podle otevřeného kroku.
+// Sekce „Jak to funguje" – vlevo accordion kroků, vpravo obrázek přes celou výšku karty.
+// `open` = index rozbaleného kroku, nebo -1 když je vše zabalené (klik na otevřený krok ho zabalí).
+// `imageStep` drží naposledy otevřený krok samostatně, aby po zabalení zůstal vpravo poslední obrázek
+// (pravý panel se nevyprázdní).
 export default function HowItWorks() {
   const [open, setOpen] = useState(0)
+  const [imageStep, setImageStep] = useState(0)
+
+  // Klik na krok: otevřený zabalí (open = -1), zavřený otevře. Obrázek se aktualizuje jen při otevření,
+  // takže po zabalení zůstane viset poslední otevřený.
+  const toggle = (i: number) => {
+    setOpen((cur) => (cur === i ? -1 : i))
+    if (open !== i) setImageStep(i)
+  }
 
   return (
     <GridSection sx={{ px: '16px' }}>
@@ -62,20 +72,19 @@ export default function HowItWorks() {
               return (
                 <Box
                   key={s.title}
-                  onClick={() => setOpen(i)}
+                  onClick={() => toggle(i)}
                   sx={{ cursor: 'pointer', py: 4, '&:hover .step-title': { textDecoration: 'underline' } }}
                 >
                   <Stack direction="row" spacing={3} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography className="step-title" variant="h5" sx={{ textDecoration: isOpen ? 'underline' : 'none', maxWidth: '374px', fontSize: fluid(18, 26) }}>
                       {s.title}
                     </Typography>
-                    {/* Desktop: šipka jen u zavřených kroků */}
+                    {/* Desktop: šipka jen u zavřených kroků (klik probublá na řádek → toggle) */}
                     {!isOpen && (
-                      <CircleArrowButton onClick={() => setOpen(i)} sx={{ display: { xs: 'none', lg: 'inline-flex' } }} />
+                      <CircleArrowButton sx={{ display: { xs: 'none', lg: 'inline-flex' } }} />
                     )}
-                    {/* Mobil + tablet: šipka dolů u zavřených, nahoru u otevřených */}
+                    {/* Mobil + tablet: šipka dolů u zavřených, nahoru u otevřených (klik probublá na řádek → toggle) */}
                     <CircleArrowButton
-                      onClick={() => setOpen(i)}
                       src="/static-icons/arrow-down.svg"
                       rotate={isOpen ? 180 : 0}
                       size={{ xs: 28, sm: 36 }}
@@ -110,8 +119,8 @@ export default function HowItWorks() {
         <Box sx={{ display: { xs: 'none', lg: 'block' }, flexBasis: { xs: 'auto', lg: '50%' }, maxWidth: { xs: '100%', lg: '50%' }, minWidth: 0, flexGrow: 1, flexShrink: 1, position: 'relative', bgcolor: '#F3EEF9', minHeight: { xs: 360, lg: 'auto' } }}>
           <Box
             component="img"
-            key={open}
-            src={STEP_IMAGES[open]}
+            key={imageStep}
+            src={STEP_IMAGES[imageStep]}
             alt="Ukázka aplikace ePoukaz online v telefonu"
             width={814}
             height={1548}

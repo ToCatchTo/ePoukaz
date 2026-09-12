@@ -3,6 +3,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import { theme } from '../../theme/theme'
 import Header from './Header'
+import { REGISTER_URL } from '../../data/content'
 
 const renderAt = (path: string) =>
   render(
@@ -35,9 +36,11 @@ test('zákaznická sada nemá v pill CTA tlačítko', () => {
   expect(screen.queryByText('Stáhnout aplikaci')).toBeNull()
 })
 
-test('CTA ve výdejny sadě je „30 dní ZDARMA"', () => {
+test('výdejny sada má odznak „30 dní ZDARMA" s odkazem na registraci', () => {
   renderAt('/vydejna')
-  expect(screen.getByText('30 dní ZDARMA')).toBeInTheDocument()
+  // Desktop CTA tlačítko je zatím skryté; zůstává mobilní/tabletový odznak odkazující na registraci.
+  const cta = screen.getAllByRole('link').filter((a) => a.getAttribute('href') === REGISTER_URL)
+  expect(cta.length).toBeGreaterThan(0)
   expect(screen.queryByText('Stáhnout aplikaci')).toBeNull()
 })
 

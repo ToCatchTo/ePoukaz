@@ -8,11 +8,13 @@ export const APP_DOWNLOAD_URL = 'https://epoukazonline.cz/aplikace'
 
 // Navigační sady; Header vybírá podle aktuální cesty
 export const NAV_MAIN = [
+  { label: 'Uplatnit ePoukaz', to: '/' },
   { label: 'Jak to funguje?', to: '/jak-to-funguje' },
   { label: 'Vše o ePoukazu', to: '/vse-o-epoukazu' },
   { label: 'Pro výdejny', to: '/vydejna' },
 ]
 export const NAV_DISTRIBUTORS = [
+  { label: 'Uplatnit ePoukaz', to: '/' },
   // „Jak to funguje?" míří na prodejní stránku /vydejna, ale rovnou na kotvu
   // sekce s 9 kroky a fotkami (id="jak-to-funguje"), ne na začátek stránky.
   { label: 'Jak to funguje?', to: '/vydejna#jak-to-funguje' },
