@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Link as MuiLink } from '@mui/material'
+import { Box, Button, Link as MuiLink } from '@mui/material'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 import { NAV_MAIN, NAV_DISTRIBUTORS, REGISTER_URL } from '../../data/content'
 import { scrollToHashOnClick } from '../../utils/scrollToHash'
@@ -15,6 +15,16 @@ import MobileMenu from './MobileMenu'
 // /stranka/* – např. cookies) patří také do výdejnové sekce, aby menu neskákalo
 // na pacientské.
 const DISTRIBUTOR_PATHS = new Set(['/vydejna', '/cenik', '/kontakt', '/faq', '/obchodni-podminky'])
+
+// Desktopové logo: SVG má 260 × 29 px (plná velikost dle XD). Šířka škáluje plynule
+// LOGO_WIDTH_1200 → LOGO_MAX_WIDTH mezi 1200 a 1920 px, stejně v obou sekcích. Hodnota na
+// 1200 px je odvozená z místa, které logu zbývá ve výdejnové sekci (4 odkazy + CTA) při
+// minimální mezeře 30 px – pacientská sekce má místa víc, ale logo drží stejnou velikost.
+// LOGO_MIN_WIDTH je jen pojistka: kdyby se obsah (např. se širším fallback fontem) přesto
+// nevešel, ustoupí logo, ne odkazy.
+const LOGO_MAX_WIDTH = 260
+const LOGO_WIDTH_1200 = 146
+const LOGO_MIN_WIDTH = 100
 
 export default function Header() {
   const { pathname } = useLocation()
@@ -37,22 +47,29 @@ export default function Header() {
             bgcolor: '#fff', borderRadius: 999,
             display: 'flex', alignItems: 'center', minWidth: 0,
             flexGrow: { xs: 0, lg: 1 },
-            // Mezery/odsazení škálují až od 1200 px (kde se objeví navigace), aby na úzkém
-            // desktopu CTA nepřetékalo pill.
-            gap: { xs: 1.25, lg: fluid(16, 72, 1200, 1920) },
+            // Mezery/odsazení škálují až od 1200 px (kde se objeví navigace). Minimum 30 px drží
+            // odkazy vzdušné i na úzkém desktopu – chybějící místo dorovná zmenšení loga.
+            gap: { xs: 1.25, lg: fluid(30, 72, 1200, 1920) },
             py: { xs: isDistributor ? 0.75 : 3, lg: fluid(32, 40, 1200, 1920) },
             // Pacientská pill obepíná jen logo → na mobilu víc vodorovného prostoru, ať není úzká.
-            pl: { xs: isDistributor ? 2.5 : 4, lg: fluid(50, 100, 1200, 1920) },
-            // Na desktopu je pravý padding stejný v obou sekcích (výdejnové desktop CTA je zatím skryté,
-            // takže užší pr už nedává smysl). Na mobilu/tabletu má výdejnová pill odznak s vlastním
-            // vnitřním paddingem, proto tam zůstává užší pravý padding.
-            pr: { xs: isDistributor ? 1 : 4, lg: fluid(50, 100, 1200, 1920) }, maxHeight: '128px'
+            // Na desktopu boční padding začíná na 40 px (1200 px), aby se na úzkém desktopu vešly
+            // všechny odkazy i CTA bez zmáčknutí; k 1920 px roste na 100 px dle XD.
+            pl: { xs: isDistributor ? 2.5 : 4, lg: fluid(40, 100, 1200, 1920) },
+            // Na desktopu je pravý padding stejný v obou sekcích. Na mobilu/tabletu má výdejnová
+            // pill odznak s vlastním vnitřním paddingem, proto tam zůstává užší pravý padding.
+            pr: { xs: isDistributor ? 1 : 4, lg: fluid(40, 100, 1200, 1920) }, maxHeight: '128px'
           }}
         >
-          {/* Logo: mr:auto na desktopu odtlačí navigaci a CTA doprava */}
-          <MuiLink component={RouterLink} to="/" underline="none" sx={{ display: 'inline-flex', mr: { lg: 'auto' } }}>
-            <Box component="img" src="/images/logo-epoukaz.svg" alt="ePoukaz online" sx={{ height: { xs: 11, lg: 29 }, display: 'block' }} />
-          </MuiLink>
+          {/* Logo: na desktopu je obal loga jediný pružný prvek pill – roste (a tím odtlačí
+              navigaci a CTA doprava) i se zmenšuje. Odkaz uvnitř obepíná jen obrázek, aby klikací
+              plocha nesahala do volného místa vedle loga. Obrázek má plynulou šířku
+              LOGO_WIDTH_1200 → LOGO_MAX_WIDTH. Odkazy a CTA mají flexShrink 0, takže kdyby se
+              přesto nevešly, ustoupí logo (až na LOGO_MIN_WIDTH), ne text. */}
+          <Box sx={{ display: 'flex', flex: { lg: '1 1 auto' }, minWidth: { lg: LOGO_MIN_WIDTH } }}>
+            <MuiLink component={RouterLink} to="/" underline="none" sx={{ display: 'inline-flex', minWidth: 0 }}>
+              <Box component="img" src="/images/logo-epoukaz.svg" alt="ePoukaz online" sx={{ display: 'block', height: { xs: 11, lg: 'auto' }, width: { xs: 'auto', lg: '100%' }, maxWidth: { lg: fluid(LOGO_WIDTH_1200, LOGO_MAX_WIDTH, 1200, 1920) } }} />
+            </MuiLink>
+          </Box>
 
           {/* Odkaz 30 dní ZDARMA (registrace): mobil/tablet vedle loga, jen výdejnová sekce.
               Na pacientských stránkách se nezobrazuje (stejně jako desktop CTA). */}
@@ -73,21 +90,20 @@ export default function Header() {
                 to={l.to}
                 onClick={() => scrollToHashOnClick(l.to, pathname)}
                 underline={active ? 'always' : 'none'}
-                sx={{ display: { xs: 'none', lg: 'block' }, fontWeight: 700, fontSize: fluid(16, 20), whiteSpace: 'nowrap', color: active ? 'primary.main' : '#000', textDecorationColor: 'currentColor', textUnderlineOffset: '2px', '&:hover': { color: 'primary.main', textDecoration: 'underline' } }}
+                sx={{ display: { xs: 'none', lg: 'block' }, flexShrink: 0, fontWeight: 700, fontSize: fluid(16, 20), whiteSpace: 'nowrap', color: active ? 'primary.main' : '#000', textDecorationColor: 'currentColor', textUnderlineOffset: '2px', '&:hover': { color: 'primary.main', textDecoration: 'underline' } }}
               >
                 {l.label}
               </MuiLink>
             )
           })}
 
-          {/* CTA na desktopu (výdejnová sekce) je zatím skryté – dřív se zobrazovalo přes
-              display: { xs: 'none', lg: 'inline-flex' }. Mobilní/tabletový odznak „30 dní ZDARMA"
-              výše i položka v MobileMenu zůstávají.
+          {/* CTA na desktopu (výdejnová sekce). Mobilní/tabletový odznak „30 dní ZDARMA" výše
+              i položka v MobileMenu zůstávají. */}
           {cta && (
-            <Button variant="contained" color="secondary" href={cta.href} target="_blank" rel="noopener noreferrer" sx={{ display: { xs: 'none', lg: 'inline-flex' }, color: '#fff', p: fluid(12, 18), fontSize: fluid(16, 20), whiteSpace: 'nowrap' }}>
+            <Button variant="contained" color="secondary" href={cta.href} target="_blank" rel="noopener noreferrer" sx={{ display: { xs: 'none', lg: 'inline-flex' }, flexShrink: 0, color: '#fff', p: fluid(12, 18), fontSize: fluid(16, 20), whiteSpace: 'nowrap' }}>
               {cta.label}
             </Button>
-          )} */}
+          )}
         </Box>
 
         {/* Hamburger: mobil i tablet */}
